@@ -5,6 +5,6 @@ import dagger.Subcomponent
 
 @PerFragment
 @Subcomponent(modules = [PresentationModule::class])
-interface UiComponent {
+interface PresentationComponent {
     fun inject(target: CharacterFragment)
 }

@@ -1,7 +1,7 @@
 package com.marvel.domain.di
 
-import com.marvel.domain.CharactersRepository
-import com.marvel.domain.GetCharactersUseCase
+import com.marvel.domain.repository.CharactersRepository
+import com.marvel.domain.usecase.GetCharacters
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +9,7 @@ import dagger.Provides
 class DomainModule {
 
     @Provides
-    fun provideGetCharactersUseCase(characterRepository: CharactersRepository): GetCharactersUseCase {
-        return GetCharactersUseCase(characterRepository)
+    fun provideGetCharactersUseCase(characterRepository: CharactersRepository): GetCharacters {
+        return GetCharacters(characterRepository)
     }
 }

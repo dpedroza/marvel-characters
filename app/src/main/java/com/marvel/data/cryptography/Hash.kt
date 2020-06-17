@@ -1,4 +1,4 @@
-package com.marvel.data
+package com.marvel.data.cryptography
 
 import java.security.MessageDigest
 

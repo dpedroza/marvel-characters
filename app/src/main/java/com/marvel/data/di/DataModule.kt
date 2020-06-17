@@ -1,8 +1,8 @@
 package com.marvel.data.di
 
-import com.marvel.data.CharacterRepositoryImpl
-import com.marvel.data.MarvelApiService
-import com.marvel.domain.CharactersRepository
+import com.marvel.data.repository.CharacterRepositoryImpl
+import com.marvel.data.service.MarvelApiService
+import com.marvel.domain.repository.CharactersRepository
 import dagger.Module
 import dagger.Provides
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
@@ -30,6 +30,8 @@ class DataModule {
 
     @Provides
     fun provideCharactersRepository(characterService: MarvelApiService): CharactersRepository {
-        return CharacterRepositoryImpl(characterService)
+        return CharacterRepositoryImpl(
+            characterService
+        )
     }
 }

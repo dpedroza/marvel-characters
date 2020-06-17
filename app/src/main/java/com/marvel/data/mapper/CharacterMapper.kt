@@ -1,10 +1,10 @@
-package com.marvel
+package com.marvel.data.mapper
 
-import com.marvel.data.Mapper
 import com.marvel.data.model.Character
 import com.marvel.presentation.model.CharacterViewObject
 
-class CharacterMapper : Mapper<Character, CharacterViewObject> {
+class CharacterMapper :
+    Mapper<Character, CharacterViewObject> {
 
     override fun transform(input: Character): CharacterViewObject =
             CharacterViewObject(

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_character.view.*
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
-    private val characters = emptyList<CharacterViewObject>().toMutableList()
+    private val characters = mutableListOf<CharacterViewObject>()
 
     fun updateCharacters(characters: List<CharacterViewObject>) {
         this.characters.addAll(characters)
@@ -20,22 +20,25 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     override fun getItemCount() = characters.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterAdapter.CharacterViewHolder {
         val context = parent.context
-        val layout = R.layout.item_character
-        val view = LayoutInflater.from(context).inflate(layout, parent, false)
-        return CharacterViewHolder(
-            view
+        val view = LayoutInflater.from(context).inflate(
+            R.layout.item_character,
+            parent,
+            false
         )
+        return CharacterViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CharacterAdapter.CharacterViewHolder, position: Int) {
         val characterViewObject = characters[position]
         holder.bind(characterViewObject)
     }
 
-    class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         fun bind(viewObject: CharacterViewObject) {
+
             itemView.nameTextView.text = viewObject.name
             Glide.with(itemView.context)
                 .load(viewObject.bannerURL)
@@ -46,3 +49,4 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         }
     }
 }
+

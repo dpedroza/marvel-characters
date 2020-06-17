@@ -1,4 +1,4 @@
-package com.marvel.domain
+package com.marvel.domain.core
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -9,10 +9,14 @@ abstract class UseCase<T> {
 
     private val disposables = CompositeDisposable()
 
-    abstract fun buildCase(): Single<T>
+    abstract fun buildCase(query: String): Single<T>
 
-    fun execute(onSuccess: (value: T) -> Unit, onError: (t: Throwable) -> Unit = {}) {
-        val disposable = buildCase()
+    fun execute(
+        query: String,
+        onSuccess: (value: T) -> Unit,
+        onError: (t: Throwable) -> Unit = {}
+    ) {
+        val disposable = buildCase(query = query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(onSuccess, onError)

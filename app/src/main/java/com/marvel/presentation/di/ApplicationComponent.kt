@@ -1,9 +1,7 @@
-package com.marvel
+package com.marvel.presentation.di
 
 import com.marvel.data.di.DataModule
 import com.marvel.domain.di.DomainModule
-import com.marvel.presentation.di.UiComponent
-import com.marvel.presentation.ui.characters.CharacterFragment
 import dagger.Component
 
 @Component(
@@ -13,5 +11,5 @@ import dagger.Component
     ]
 )
 interface ApplicationComponent {
-    fun uiComponent(): UiComponent
+    fun presentationComponent(): PresentationComponent
 }

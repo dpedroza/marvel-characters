@@ -1,4 +1,4 @@
-package com.marvel.data
+package com.marvel.data.service
 
 import com.marvel.data.model.CharactersResponse
 import io.reactivex.rxjava3.core.Single
