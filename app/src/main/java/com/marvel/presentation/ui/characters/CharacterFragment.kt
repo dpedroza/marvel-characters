@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,36 +27,51 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val application = (activity?.application as MarvelApplication)
-        application.component.presentationComponent().inject(this)
+        setupDependencyInjection()
         setupPresenter()
         return inflater.inflate(R.layout.fragment_characters, container, false)
     }
 
+    private fun setupDependencyInjection() {
+        val application = (activity?.application as MarvelApplication)
+        application.component.presentationComponent().inject(this)
+    }
+
     private fun setupPresenter() {
         presenter.attach(this)
-        presenter.loadCharacters()
+        presenter.loadCharacters("")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupSwipeRefreshLayout()
     }
 
     private fun setupRecyclerView() {
-        val spanCount = 2
-        val adapter = CharacterAdapter()
-        val layoutManager = GridLayoutManager(context, spanCount)
-        charactersRecyclerView.layoutManager = layoutManager
+
+        charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
         charactersRecyclerView.setHasFixedSize(true)
-        charactersRecyclerView.adapter = adapter
+        charactersRecyclerView.adapter = CharacterAdapter()
         charactersRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!charactersRecyclerView.canScrollVertically(1))
-                    presenter.loadCharacters()
+                    presenter.loadCharacters("")
             }
         })
+    }
+
+    private fun setupSwipeRefreshLayout() {
+
+        context?.let {
+            val color = ContextCompat.getColor(it, R.color.colorPrimary)
+            swipeRefreshLayout.setColorSchemeColors(color)
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
+            presenter.loadCharacters("")
+        }
     }
 
     override fun onDestroyView() {
@@ -71,6 +87,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     override fun hideLoading() {
         val activity = activity as MainActivity
         activity.hideLoading()
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showCharacters(characters: List<CharacterViewObject>) {

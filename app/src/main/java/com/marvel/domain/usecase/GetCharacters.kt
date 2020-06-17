@@ -14,7 +14,7 @@ class GetCharacters @Inject constructor(
         private const val LIMIT = 20
     }
 
-    override fun buildCase(query: String): Single<CharactersResponse> {
-        return repository.loadCharacters(limit = LIMIT, offset = 60, nameStartsWith = query)
+    override fun buildCase(query: String, offset: Int): Single<CharactersResponse> {
+        return repository.loadCharacters(limit = LIMIT, offset = offset, nameStartsWith = query)
     }
 }

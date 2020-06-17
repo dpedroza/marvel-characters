@@ -9,14 +9,15 @@ abstract class UseCase<T> {
 
     private val disposables = CompositeDisposable()
 
-    abstract fun buildCase(query: String): Single<T>
+    abstract fun buildCase(query: String, offset: Int): Single<T>
 
     fun execute(
+        offset: Int,
         query: String,
         onSuccess: (value: T) -> Unit,
         onError: (t: Throwable) -> Unit = {}
     ) {
-        val disposable = buildCase(query = query)
+        val disposable = buildCase(query = query, offset = offset)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(onSuccess, onError)

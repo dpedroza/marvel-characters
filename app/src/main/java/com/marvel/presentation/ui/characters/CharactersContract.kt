@@ -12,6 +12,6 @@ interface CharactersContract {
     }
 
     abstract class Presenter : CorePresenter<View>() {
-        abstract fun loadCharacters()
+        abstract fun loadCharacters(query: String)
     }
 }

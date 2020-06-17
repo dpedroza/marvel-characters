@@ -11,6 +11,7 @@ interface MarvelApiService {
     fun getCharacters(
         @Query("apikey") apikey: String,
         @Query("ts") timestamp: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("offset") offset: Int
     ): Single<CharactersResponse>
 }

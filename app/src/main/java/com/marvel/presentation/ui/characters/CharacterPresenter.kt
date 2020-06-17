@@ -5,14 +5,29 @@ import com.marvel.domain.usecase.GetCharacters
 import com.marvel.presentation.model.CharacterViewObject
 import javax.inject.Inject
 
+data class PaginationData(
+    var hasNextPage: Boolean = true,
+    var offset: Int = 0
+)
+
 class CharacterPresenter @Inject constructor(private val useCase: GetCharacters) :
     CharactersContract.Presenter() {
 
-    override fun loadCharacters() {
+    var paginationData = PaginationData()
+
+    override fun loadCharacters(query: String) {
+
+        if (!paginationData.hasNextPage) return
+
         view?.showLoading()
         useCase.execute(
-            query = "",
+            offset = paginationData.offset,
+            query = query,
             onSuccess = {
+
+                paginationData.hasNextPage = it.data.count != it.data.total
+                paginationData.offset = it.data.offset + it.data.count
+
                 val characters = mutableListOf<CharacterViewObject>()
                 for (character in it.data.results) {
                     val url =

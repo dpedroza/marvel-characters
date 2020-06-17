@@ -20,6 +20,6 @@ class CharacterRepositoryImpl @Inject constructor(
         val publicKey = "88f86348ba02122d3d0f54cf829cf0d9"
         val privateKey = "d5b598cf48a7dbc8ae0539debce6408323ec3cd4"
         val hash = Hash.generateMD5(timestamp, publicKey, privateKey)
-        return service.getCharacters(publicKey, timestamp, hash)
+        return service.getCharacters(publicKey, timestamp, hash, offset)
     }
 }
