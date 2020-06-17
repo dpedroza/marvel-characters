@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 abstract class UseCase<T> {
 
-    internal val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
     abstract fun buildCase(): Single<T>
 

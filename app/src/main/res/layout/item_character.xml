@@ -12,16 +12,14 @@
     <com.marvel.presentation.ui.custom.SquareImageView
         android:id="@+id/characterImageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        tools:targetApi="lollipop" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/nameTextView"
+        style="@style/HeroTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Iron Man"
         android:layout_gravity="bottom"
-        style="@style/HeroTitle" />
+        tools:text="Iron Man" />
 
 </FrameLayout>

@@ -7,7 +7,7 @@ import com.marvel.presentation.model.CharacterViewObject
 interface CharactersContract {
 
     interface View: BaseView {
-        fun showCharacters(heroes: List<CharacterViewObject>)
+        fun showCharacters(characters: List<CharacterViewObject>)
     }
 
     abstract class Presenter: CorePresenter<View>() {

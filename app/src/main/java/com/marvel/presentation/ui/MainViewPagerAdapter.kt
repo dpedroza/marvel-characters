@@ -8,7 +8,7 @@ import com.marvel.R
 import com.marvel.presentation.ui.characters.CharacterFragment
 import com.marvel.presentation.ui.favorites.FavoritesFragment
 
-class MainViewPagerAdapter(manager: FragmentManager, val context: Context) :
+class MainViewPagerAdapter(manager: FragmentManager, private val context: Context) :
     FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getCount() = 2

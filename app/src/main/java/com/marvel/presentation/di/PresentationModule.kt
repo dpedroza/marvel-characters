@@ -8,7 +8,7 @@ import dagger.Provides
 @Module
 class PresentationModule {
 
-    @PerActivity
+    @PerFragment
     @Provides
     fun providesCharacterPresenter(getCharactersUseCase: GetCharactersUseCase): CharacterPresenter {
         return CharacterPresenter(getCharactersUseCase)

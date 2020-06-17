@@ -1,15 +1,20 @@
 package com.marvel.data
 
-import com.marvel.data.model.GetCharacthersResponse
+import com.marvel.CharacterMapper
+import com.marvel.data.model.CharactersResponse
 import com.marvel.domain.CharactersRepository
 import io.reactivex.rxjava3.core.Single
-import java.util.*
 import javax.inject.Inject
 
-class CharacterRepositoryImpl @Inject constructor(val service: MarvelApiService) :
-    CharactersRepository {
+class CharacterRepositoryImpl @Inject constructor(
+    private val service: MarvelApiService
+) : CharactersRepository {
 
-    override fun loadCharacters(): Single<GetCharacthersResponse> {
-        return service.getCharacters("", "", Date(), "", 0, 0, 0, "name", 20, 1)
+    override fun loadCharacters(): Single<CharactersResponse> {
+        val timestamp = System.currentTimeMillis().toString()
+        val publicKey = "88f86348ba02122d3d0f54cf829cf0d9"
+        val privateKey = "d5b598cf48a7dbc8ae0539debce6408323ec3cd4"
+        val hash = Hash.generateMD5(timestamp, publicKey, privateKey)
+        return service.getCharacters(publicKey, timestamp, hash)
     }
 }

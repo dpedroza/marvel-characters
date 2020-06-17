@@ -21,7 +21,7 @@ class DataModule {
         // Whenever Dagger needs to provide an instance of type MarvelApiService,
         // this code (the one inside the @Provides method) is run.
         return Retrofit.Builder()
-            .baseUrl("https://developer.marvel.com")
+            .baseUrl("https://gateway.marvel.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
