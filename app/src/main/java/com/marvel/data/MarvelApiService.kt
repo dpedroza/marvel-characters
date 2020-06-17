@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.*
 
-interface APIService {
+interface MarvelApiService {
 
     @GET("v1/public/characters")
     fun getCharacters(
@@ -18,7 +18,7 @@ interface APIService {
         @Query("events") events: Int,
         @Query("stories") stories: Int,
         @Query("orderBy") orderBy: String,
-        @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("limit") limit: Int = 20,
+        @Query("offset") offset: Int = 5
     ): Single<GetCharacthersResponse>
 }
