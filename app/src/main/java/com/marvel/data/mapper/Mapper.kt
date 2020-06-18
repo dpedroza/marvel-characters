@@ -1,6 +1,6 @@
 package com.marvel.data.mapper
 
-interface Mapper<in R, out T> {
+interface Mapper<in R, L, out T> {
 
-    fun transform(input: R): T
+    fun transform(remoteInput: R, localInput: L): T
 }

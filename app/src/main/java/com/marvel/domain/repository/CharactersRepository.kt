@@ -5,5 +5,5 @@ import io.reactivex.rxjava3.core.Single
 
 interface CharactersRepository {
 
-    fun loadCharacters(offset: Int, nameStartsWith: String): Single<GetCharactersResultEntity>
+    fun getCharacters(offset: Int, nameStartsWith: String): Single<GetCharactersResultEntity>
 }

@@ -9,6 +9,10 @@ import com.marvel.R
 
 class FavoritesFragment: Fragment() {
 
+    companion object {
+        const val TITLE_ID = R.string.favorites
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -15,7 +15,8 @@ class ViewObjectMapper : Mapper<GetCharactersResultEntity, List<CharacterViewObj
 
         return CharacterViewObject(
             name = character.name,
-            bannerURL = character.imageUrl
+            bannerURL = character.imageUrl,
+            isFavorite = false
         )
     }
 }

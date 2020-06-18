@@ -22,12 +22,20 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     @Inject
     lateinit var presenter: CharacterPresenter
 
+    companion object {
+        const val TITLE_ID = R.string.heroes
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupDependencyInjection()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setupDependencyInjection()
         setupPresenter()
         return inflater.inflate(R.layout.fragment_characters, container, false)
     }

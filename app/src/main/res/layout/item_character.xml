@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movie_container"
     android:layout_width="match_parent"
@@ -14,12 +15,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/nameTextView"
-        style="@style/HeroTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        tools:text="Iron Man" />
+        android:alpha="0.8"
+        android:background="#000"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/nameTextView"
+            style="@style/HeroTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.8"
+            android:paddingHorizontal="8dp"
+            tools:text="Iron Man" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/favorite_content_description"
+            android:padding="14dp"
+            app:srcCompat="@drawable/ic_baseline_star_border_24" />
+
+    </LinearLayout>
+
 
 </FrameLayout>

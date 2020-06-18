@@ -1,27 +1,33 @@
 package com.marvel.data.di
 
+import androidx.room.Room
+import com.marvel.data.local.FavoriteDatabase
 import com.marvel.data.mapper.ResponseMapper
+import com.marvel.data.model.FavoriteCharacterDto
 import com.marvel.data.repository.CharacterRepositoryImpl
+import com.marvel.data.repository.FavoriteRepositoryImpl
 import com.marvel.data.service.MarvelApiService
 import com.marvel.domain.repository.CharactersRepository
-import com.marvel.presentation.di.PerFragment
+import com.marvel.domain.repository.FavoriteRepository
+import com.marvel.presentation.MarvelApplication
 import dagger.Module
 import dagger.Provides
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-// @Module informs Dagger that this class is a Dagger Module
 @Module
-class DataModule {
+class DataModule(
+    val application: MarvelApplication
+) {
 
-    // @Provides tell Dagger how to create instances of the type that this function
-    // returns (i.e. MarvelApiService).
-    // Function parameters are the dependencies of this type.
+    @Provides
+    fun provideApplication(): MarvelApplication {
+        return application
+    }
+
     @Provides
     fun provideMarvelApiService(): MarvelApiService {
-        // Whenever Dagger needs to provide an instance of type MarvelApiService,
-        // this code (the one inside the @Provides method) is run.
         return Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -32,10 +38,29 @@ class DataModule {
 
     @Provides
     fun provideCharactersRepository(
+        database: FavoriteDatabase,
         service: MarvelApiService,
         mapper: ResponseMapper
     ): CharactersRepository {
-        return CharacterRepositoryImpl(service, mapper)
+        return CharacterRepositoryImpl(database, service, mapper)
+    }
+
+    @Provides
+    fun providesFavoriteDatabase(
+        application: MarvelApplication
+    ): FavoriteDatabase {
+        return Room.databaseBuilder(
+            application.applicationContext,
+            FavoriteDatabase::class.java,
+            FavoriteCharacterDto.TABLE
+        ).build()
+    }
+
+    @Provides
+    fun providesFavoriteRepository(
+        database: FavoriteDatabase
+    ): FavoriteRepository {
+        return FavoriteRepositoryImpl(database)
     }
 
     @Provides

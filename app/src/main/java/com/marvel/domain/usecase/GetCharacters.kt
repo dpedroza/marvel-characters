@@ -10,11 +10,7 @@ class GetCharacters @Inject constructor(
     private val repository: CharactersRepository
 ) : UseCase<GetCharactersResultEntity>() {
 
-    private companion object {
-        private const val LIMIT = 20
-    }
-
     override fun buildCase(query: String, offset: Int): Single<GetCharactersResultEntity> {
-        return repository.loadCharacters(offset = offset, nameStartsWith = query)
+        return repository.getCharacters(offset = offset, nameStartsWith = query)
     }
 }

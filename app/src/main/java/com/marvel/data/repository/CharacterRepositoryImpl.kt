@@ -1,6 +1,7 @@
 package com.marvel.data.repository
 
 import com.marvel.data.cryptography.Hash
+import com.marvel.data.local.FavoriteDatabase
 import com.marvel.data.mapper.ResponseMapper
 import com.marvel.data.service.MarvelApiService
 import com.marvel.domain.model.GetCharactersResultEntity
@@ -9,11 +10,12 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
+    private val database: FavoriteDatabase,
     private val service: MarvelApiService,
     private val mapper: ResponseMapper
 ) : CharactersRepository {
 
-    override fun loadCharacters(
+    override fun getCharacters(
         offset: Int,
         nameStartsWith: String
     ): Single<GetCharactersResultEntity> {
@@ -22,11 +24,12 @@ class CharacterRepositoryImpl @Inject constructor(
         val publicKey = "88f86348ba02122d3d0f54cf829cf0d9"
         val privateKey = "d5b598cf48a7dbc8ae0539debce6408323ec3cd4"
         val hash = Hash.generateMD5(timestamp, publicKey, privateKey)
+        val ids = database.favoriteDao().getFavoritesIds()
         return service.getCharacters(
             apikey = publicKey,
             timestamp = timestamp,
             hash = hash,
             offset = offset
-        ).map { mapper.transform(it) }
+        ).map { mapper.transform(it, ids) }
     }
 }

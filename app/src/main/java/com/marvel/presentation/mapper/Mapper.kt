@@ -1,6 +1,6 @@
 package com.marvel.presentation.mapper
 
-interface Mapper<in R, out T> {
+interface Mapper<in I, out T> {
 
-    fun transform(input: R): T
+    fun transform(input: I): T
 }
