@@ -1,7 +1,7 @@
 package com.marvel.domain.repository
 
 import com.marvel.domain.model.GetCharactersResultEntity
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 
 interface CharactersRepository {
 

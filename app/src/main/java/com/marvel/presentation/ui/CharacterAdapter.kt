@@ -13,14 +13,18 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     private val characters = mutableListOf<CharacterViewObject>()
 
-    fun updateCharacters(characters: List<CharacterViewObject>) {
+    fun updateCharacters(characters: List<CharacterViewObject>, clearList: Boolean = false) {
+        if (clearList) this.characters.clear()
         this.characters.addAll(characters)
         notifyDataSetChanged()
     }
 
     override fun getItemCount() = characters.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterAdapter.CharacterViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CharacterAdapter.CharacterViewHolder {
         val context = parent.context
         val view = LayoutInflater.from(context).inflate(
             R.layout.item_character,

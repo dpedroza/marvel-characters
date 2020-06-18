@@ -6,14 +6,15 @@ import com.marvel.data.mapper.ResponseMapper
 import com.marvel.data.service.MarvelApiService
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.repository.CharactersRepository
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
     private val database: FavoriteDatabase,
-    private val service: MarvelApiService,
-    private val mapper: ResponseMapper
+    private val service: MarvelApiService
 ) : CharactersRepository {
+
+    private val mapper = ResponseMapper()
 
     override fun getCharacters(
         offset: Int,

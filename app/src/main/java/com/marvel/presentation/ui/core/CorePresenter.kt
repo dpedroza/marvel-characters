@@ -1,7 +1,8 @@
 package com.marvel.presentation.ui.core
 
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+
 
 open class CorePresenter<T : BaseView> :
     BasePresenter<T> {

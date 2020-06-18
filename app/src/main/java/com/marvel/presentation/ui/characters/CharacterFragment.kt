@@ -9,26 +9,24 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.marvel.R
 import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.CharacterAdapter
-import com.marvel.presentation.ui.MainActivity
-import kotlinx.android.synthetic.main.fragment_characters.*
 import javax.inject.Inject
 
 class CharacterFragment : Fragment(), CharactersContract.View {
 
     @Inject
     lateinit var presenter: CharacterPresenter
-
-    companion object {
-        const val TITLE_ID = R.string.heroes
-    }
+    lateinit var charactersRecyclerView: RecyclerView
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupDependencyInjection()
+        setupPresenter()
     }
 
     override fun onCreateView(
@@ -36,8 +34,10 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setupPresenter()
-        return inflater.inflate(R.layout.fragment_characters, container, false)
+        val view = inflater.inflate(R.layout.fragment_characters, container, false)
+        charactersRecyclerView = view.findViewById(R.id.charactersRecyclerView)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
+        return view
     }
 
     private fun setupDependencyInjection() {
@@ -47,17 +47,17 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     private fun setupPresenter() {
         presenter.attach(this)
-        presenter.loadCharacters("")
+        presenter.loadCharacters()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupRecyclerView()
         setupSwipeRefreshLayout()
     }
 
     private fun setupRecyclerView() {
-
         charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = CharacterAdapter()
@@ -65,20 +65,16 @@ class CharacterFragment : Fragment(), CharactersContract.View {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!charactersRecyclerView.canScrollVertically(1))
-                    presenter.loadCharacters("")
+                    presenter.loadCharacters()
             }
         })
     }
 
     private fun setupSwipeRefreshLayout() {
-
-        context?.let {
-            val color = ContextCompat.getColor(it, R.color.colorPrimary)
-            swipeRefreshLayout.setColorSchemeColors(color)
-        }
-
+        val color = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
+        swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
-            presenter.loadCharacters("")
+            presenter.loadCharacters(clear = true)
         }
     }
 
@@ -88,19 +84,16 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     override fun showLoading() {
-        val activity = activity as MainActivity
-        activity.showLoading()
+        swipeRefreshLayout.isRefreshing = true
     }
 
     override fun hideLoading() {
-        val activity = activity as MainActivity
-        activity.hideLoading()
         swipeRefreshLayout.isRefreshing = false
     }
 
-    override fun showCharacters(characters: List<CharacterViewObject>) {
+    override fun showCharacters(characters: List<CharacterViewObject>, clear: Boolean) {
         val adapter = charactersRecyclerView.adapter as CharacterAdapter
-        adapter.updateCharacters(characters)
+        adapter.updateCharacters(characters, clear)
     }
 
     override fun showMessage(messageId: Int) {

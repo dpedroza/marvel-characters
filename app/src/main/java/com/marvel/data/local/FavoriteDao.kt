@@ -2,6 +2,7 @@ package com.marvel.data.local
 
 import androidx.room.*
 import com.marvel.data.model.FavoriteCharacterDto
+import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
@@ -14,8 +15,8 @@ interface FavoriteDao {
     fun getFavoritesIds(): List<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(favorite: FavoriteCharacterDto)
+    fun insert(favorite: FavoriteCharacterDto): Completable
 
     @Delete
-    fun delete(favorite: FavoriteCharacterDto)
+    fun delete(favorite: FavoriteCharacterDto): Completable
 }

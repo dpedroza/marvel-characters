@@ -1,9 +1,10 @@
 package com.marvel.domain.core
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+
 
 abstract class UseCase<T> {
 
@@ -12,8 +13,8 @@ abstract class UseCase<T> {
     abstract fun buildCase(query: String, offset: Int): Single<T>
 
     fun execute(
-        offset: Int,
-        query: String,
+        offset: Int = 0,
+        query: String = "",
         onSuccess: (value: T) -> Unit,
         onError: (t: Throwable) -> Unit = {}
     ) {

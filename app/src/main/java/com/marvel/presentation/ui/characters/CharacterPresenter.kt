@@ -13,9 +13,13 @@ class CharacterPresenter @Inject constructor(
 
     private var pagination = PaginationData()
 
-    override fun loadCharacters(query: String) {
+    override fun loadCharacters(
+        query: String,
+        clear: Boolean
+    ) {
 
         if (pagination.isFinalPage) return
+        if (clear) pagination.clear()
 
         view?.showLoading()
 
@@ -30,11 +34,13 @@ class CharacterPresenter @Inject constructor(
                     offset = it.paginationOffset
                 )
 
-                view?.showCharacters(characters = mapper.transform(it))
+                view?.showCharacters(
+                    characters = mapper.transform(it),
+                    clear = clear
+                )
                 view?.hideLoading()
             },
             onError = {
-
                 view?.showMessage(R.string.heroes)
                 view?.hideLoading()
             }

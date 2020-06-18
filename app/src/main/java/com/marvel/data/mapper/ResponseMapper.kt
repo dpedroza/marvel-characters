@@ -5,9 +5,9 @@ import com.marvel.data.model.MarvelServiceApiResponse
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersResultEntity
 
-class ResponseMapper : Mapper<MarvelServiceApiResponse, List<Int>, GetCharactersResultEntity> {
+class ResponseMapper {
 
-    override fun transform(
+    fun transform(
         remoteInput: MarvelServiceApiResponse,
         localInput: List<Int>
     ): GetCharactersResultEntity {

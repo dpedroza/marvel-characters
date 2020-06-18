@@ -1,7 +1,7 @@
 package com.marvel.data.service
 
 import com.marvel.data.model.MarvelServiceApiResponse
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 

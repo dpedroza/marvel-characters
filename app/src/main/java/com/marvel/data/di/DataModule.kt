@@ -2,6 +2,7 @@ package com.marvel.data.di
 
 import androidx.room.Room
 import com.marvel.data.local.FavoriteDatabase
+import com.marvel.data.mapper.DatabaseMapper
 import com.marvel.data.mapper.ResponseMapper
 import com.marvel.data.model.FavoriteCharacterDto
 import com.marvel.data.repository.CharacterRepositoryImpl
@@ -12,8 +13,8 @@ import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.MarvelApplication
 import dagger.Module
 import dagger.Provides
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
@@ -31,7 +32,7 @@ class DataModule(
         return Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com/")
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(MarvelApiService::class.java)
     }
@@ -39,10 +40,9 @@ class DataModule(
     @Provides
     fun provideCharactersRepository(
         database: FavoriteDatabase,
-        service: MarvelApiService,
-        mapper: ResponseMapper
+        service: MarvelApiService
     ): CharactersRepository {
-        return CharacterRepositoryImpl(database, service, mapper)
+        return CharacterRepositoryImpl(database, service)
     }
 
     @Provides
@@ -61,10 +61,5 @@ class DataModule(
         database: FavoriteDatabase
     ): FavoriteRepository {
         return FavoriteRepositoryImpl(database)
-    }
-
-    @Provides
-    fun providesResponseMapper(): ResponseMapper {
-        return ResponseMapper()
     }
 }
