@@ -53,7 +53,7 @@ class DataModule(
             application.applicationContext,
             FavoriteDatabase::class.java,
             FavoriteCharacterDto.TABLE
-        ).build()
+        ).allowMainThreadQueries().build()
     }
 
     @Provides
