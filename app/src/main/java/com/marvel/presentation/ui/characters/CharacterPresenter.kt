@@ -2,50 +2,49 @@ package com.marvel.presentation.ui.characters
 
 import com.marvel.R
 import com.marvel.domain.usecase.GetCharacters
-import com.marvel.presentation.model.CharacterViewObject
+import com.marvel.presentation.mapper.ViewObjectMapper
+import com.marvel.presentation.model.PaginationData
 import javax.inject.Inject
 
-data class PaginationData(
-    var hasNextPage: Boolean = true,
-    var offset: Int = 0
-)
+class CharacterPresenter @Inject constructor(
+    private val getCharacters: GetCharacters,
+    private val mapper: ViewObjectMapper
+) : CharactersContract.Presenter() {
 
-class CharacterPresenter @Inject constructor(private val useCase: GetCharacters) :
-    CharactersContract.Presenter() {
-
-    var paginationData = PaginationData()
+    private var pagination = PaginationData()
 
     override fun loadCharacters(query: String) {
 
-        if (!paginationData.hasNextPage) return
+        if (pagination.isFinalPage) return
 
         view?.showLoading()
-        useCase.execute(
-            offset = paginationData.offset,
+
+        getCharacters.execute(
+            offset = pagination.offset,
             query = query,
             onSuccess = {
 
-                paginationData.hasNextPage = it.data.count != it.data.total
-                paginationData.offset = it.data.offset + it.data.count
+                updatePagination(
+                    currentCount = it.currentCount,
+                    totalCount = it.totalCount,
+                    offset = it.paginationOffset
+                )
 
-                val characters = mutableListOf<CharacterViewObject>()
-                for (character in it.data.results) {
-                    val url =
-                        "${character.thumbnail.path}.${character.thumbnail.extension}".replaceFirst(
-                            "http",
-                            "https"
-                        )
-                    val viewObject = CharacterViewObject(character.name, url)
-                    characters.add(viewObject)
-                }
-                view?.showCharacters(characters)
+                view?.showCharacters(characters = mapper.transform(it))
                 view?.hideLoading()
             },
             onError = {
+
                 view?.showMessage(R.string.heroes)
                 view?.hideLoading()
             }
         )
+    }
+
+    private fun updatePagination(currentCount: Int, totalCount: Int, offset: Int) {
+
+        pagination.isFinalPage = currentCount == totalCount
+        pagination.offset = offset + currentCount
     }
 }
 

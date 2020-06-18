@@ -1,6 +1,6 @@
 package com.marvel.data.service
 
-import com.marvel.data.model.CharactersResponse
+import com.marvel.data.model.MarvelServiceApiResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,5 +13,5 @@ interface MarvelApiService {
         @Query("ts") timestamp: String,
         @Query("hash") hash: String,
         @Query("offset") offset: Int
-    ): Single<CharactersResponse>
+    ): Single<MarvelServiceApiResponse>
 }

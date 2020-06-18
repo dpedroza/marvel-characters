@@ -3,7 +3,7 @@ package com.marvel.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CharactersResponse(
+data class MarvelServiceApiResponse(
     @SerializedName("attributionHTML")
     val attributionHTML: String,
     @SerializedName("attributionText")
