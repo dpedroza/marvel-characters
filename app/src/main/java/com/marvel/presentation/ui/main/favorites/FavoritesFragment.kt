@@ -98,7 +98,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         emptyText.visibility = GONE
         errorImageView.visibility = VISIBLE
         activity?.let {
-            val view = it.findViewById<View>(android.R.id.content)
+            val view = it.findViewById<View>(R.id.fragment_favorite)
             val message = getString(messageId)
             val action = getString(R.string.retry_label)
             Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_INDEFINITE)
