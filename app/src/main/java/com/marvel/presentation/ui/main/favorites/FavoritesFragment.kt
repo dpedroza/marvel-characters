@@ -1,15 +1,17 @@
 package com.marvel.presentation.ui.main.favorites
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
 import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
@@ -79,18 +81,31 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
 
     override fun showFavorites(characters: List<CharacterViewObject>) {
         emptyText.visibility = GONE
+        errorImageView.visibility = GONE
         favoritesRecyclerView.visibility = VISIBLE
         val adapter = favoritesRecyclerView.adapter as CharacterAdapter
         adapter.updateCharacters(characters, clearList = true)
     }
 
     override fun showEmptyState() {
+        errorImageView.visibility = GONE
         favoritesRecyclerView.visibility = GONE
         emptyText.visibility = VISIBLE
     }
 
     override fun showMessage(messageId: Int) {
-        Toast.makeText(context, getString(R.string.heroes), Toast.LENGTH_SHORT).show()
+        favoritesRecyclerView.visibility = GONE
+        emptyText.visibility = GONE
+        errorImageView.visibility = VISIBLE
+        activity?.let {
+            val view = it.findViewById<View>(android.R.id.content)
+            val message = getString(messageId)
+            val action = getString(R.string.retry_label)
+            Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_INDEFINITE)
+                .setActionTextColor(Color.WHITE)
+                .setAction(action) { presenter.loadFavorites() }
+                .show()
+        }
     }
 
     companion object {

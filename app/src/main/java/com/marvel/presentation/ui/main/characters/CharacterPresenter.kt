@@ -37,7 +37,12 @@ class CharacterPresenter @Inject constructor(
             .subscribe(
                 { result ->
                     view?.hideLoading()
-                    view?.showCharacters(mapper.toViewObjectList(result.characters), reset)
+                    val characters = mapper.toViewObjectList(result.characters)
+                    if (characters.isNotEmpty()) {
+                        view?.showCharacters(characters, reset)
+                    } else {
+                        view?.showEmptyState()
+                    }
                     updatePagination(
                         result.currentCount,
                         result.totalCount,
@@ -46,7 +51,7 @@ class CharacterPresenter @Inject constructor(
                 },
                 {
                     view?.hideLoading()
-                    view?.showMessage(R.string.heroes)
+                    view?.showMessage(R.string.message_unknown_error)
                 }
             )
             .also { addDisposable(it) }

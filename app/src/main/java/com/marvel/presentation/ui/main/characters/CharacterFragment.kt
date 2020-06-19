@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
@@ -109,10 +111,22 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     override fun showCharacters(characters: List<CharacterViewObject>, clear: Boolean) {
+        errorImageView.visibility = GONE
+        emptyText.visibility = GONE
+        charactersRecyclerView.visibility = VISIBLE
         adapter.updateCharacters(characters, clear)
     }
 
+    override fun showEmptyState() {
+        errorImageView.visibility = GONE
+        charactersRecyclerView.visibility = GONE
+        emptyText.visibility = VISIBLE
+    }
+
     override fun showMessage(messageId: Int) {
+        emptyText.visibility = GONE
+        charactersRecyclerView.visibility = GONE
+        errorImageView.visibility = VISIBLE
         activity?.let {
             val view = it.findViewById<View>(android.R.id.content)
             val message = getString(messageId)

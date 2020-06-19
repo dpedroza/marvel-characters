@@ -7,6 +7,7 @@
     <string name="heroes">Heróis</string>
     <string name="favorite_added">%1$s adicionado aos favoritos</string>
     <string name="favorite_removed">%1$s removido dos favoritos</string>
+    <string name="empty_characters">Nenhum personagem encontrado</string>
 
     // favorite fragment
     <string name="favorites">Favoritos</string>
@@ -15,5 +16,11 @@
     // common
     <string name="favorite_content_description">Favoritar personagem</string>
     <string name="retry_label">Tentar Novamente</string>
+
+    // error messages
+    <string name="message_unknown_error">Ocorreu um erro inesperado</string>
+    <string name="message_slow_internet">Lentidão na rede detectada</string>
+    <string name="message_no_internet">Sem acesso a rede, verifique sua conexão</string>
+    <string name="failure_content_description">Nuvem com risco na tranversal indicando falha de rede</string>
 
 </resources>

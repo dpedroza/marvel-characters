@@ -30,7 +30,7 @@ class FavoritesPresenter @Inject constructor(
                 },
                 {
                     view?.hideLoading()
-                    view?.showMessage(R.string.heroes)
+                    view?.showMessage(R.string.message_unknown_error)
                 }
             )
             .also { addDisposable(it) }

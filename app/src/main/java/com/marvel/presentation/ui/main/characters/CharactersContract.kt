@@ -12,6 +12,8 @@ interface CharactersContract {
             characters: List<CharacterViewObject>,
             clear: Boolean = false
         )
+
+        fun showEmptyState()
     }
 
     abstract class Presenter : CorePresenter<View>() {

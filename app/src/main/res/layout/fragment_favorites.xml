@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -35,10 +36,26 @@
         android:gravity="center"
         android:textSize="28sp"
         android:padding="16dp"
+        android:visibility="gone"
         android:lineSpacingExtra="10dp"
         android:layout_margin="16dp"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/errorImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="64dp"
+        android:contentDescription="@string/failure_content_description"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_error_24"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
