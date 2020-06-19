@@ -1,4 +1,4 @@
-package com.marvel.presentation.di
+package com.marvel.presentation.di.component
 
 import com.marvel.data.di.DataModule
 import com.marvel.domain.di.DomainModule

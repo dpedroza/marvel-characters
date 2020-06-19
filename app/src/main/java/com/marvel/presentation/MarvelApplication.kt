@@ -2,8 +2,8 @@ package com.marvel.presentation
 
 import android.app.Application
 import com.marvel.data.di.DataModule
-import com.marvel.presentation.di.ApplicationComponent
-import com.marvel.presentation.di.DaggerApplicationComponent
+import com.marvel.presentation.di.component.ApplicationComponent
+import com.marvel.presentation.di.component.DaggerApplicationComponent
 
 class MarvelApplication : Application() {
 

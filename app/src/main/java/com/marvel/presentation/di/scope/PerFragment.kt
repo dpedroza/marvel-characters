@@ -1,4 +1,4 @@
-package com.marvel.presentation.di
+package com.marvel.presentation.di.scope
 
 import javax.inject.Scope
 

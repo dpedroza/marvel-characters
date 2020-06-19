@@ -3,4 +3,6 @@
     <string name="heroes">Heróis</string>
     <string name="favorites">Favoritos</string>
     <string name="favorite_content_description">Favoritar personagem</string>
+    <string name="favorite_added">%1$s adicionado aos favoritos</string>
+    <string name="favorite_removed">%1$s removido dos favoritos</string>
 </resources>

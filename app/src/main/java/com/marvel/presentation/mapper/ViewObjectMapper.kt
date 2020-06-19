@@ -10,7 +10,7 @@ class ViewObjectMapper : Mapper<GetCharactersResultEntity, List<CharacterViewObj
         return input.characters.map { entityCharacterToViewObjectCharacter(it) }
     }
 
-    private fun entityCharacterToViewObjectCharacter(character: CharacterEntity): CharacterViewObject {
+    fun entityCharacterToViewObjectCharacter(character: CharacterEntity): CharacterViewObject {
         return CharacterViewObject(
             id = character.id,
             name = character.name,

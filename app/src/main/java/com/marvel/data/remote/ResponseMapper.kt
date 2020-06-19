@@ -1,4 +1,4 @@
-package com.marvel.data.mapper
+package com.marvel.data.remote
 
 import com.marvel.data.model.Character
 import com.marvel.data.model.MarvelServiceApiResponse

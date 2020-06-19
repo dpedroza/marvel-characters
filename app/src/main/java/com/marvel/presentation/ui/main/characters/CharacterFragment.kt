@@ -1,17 +1,18 @@
-package com.marvel.presentation.ui.characters
+package com.marvel.presentation.ui.main.characters
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.marvel.R
 import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
-import com.marvel.presentation.ui.CharacterAdapter
+import com.marvel.presentation.ui.main.adapter.CharacterAdapter
 import kotlinx.android.synthetic.main.fragment_characters.*
 import javax.inject.Inject
 
@@ -19,6 +20,12 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     @Inject
     lateinit var presenter: CharacterPresenter
+    lateinit var adapter: CharacterAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupDependencyInjection()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,20 +35,6 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         return inflater.inflate(R.layout.fragment_characters, container, false)
     }
 
-    private fun setupDependencyInjection() {
-        MarvelApplication.component.presentationComponent().inject(this)
-    }
-
-    private fun setupPresenter() {
-        presenter.attach(this)
-        presenter.loadCharacters()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupDependencyInjection()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPresenter()
@@ -49,22 +42,16 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         setupSwipeRefreshLayout()
     }
 
+    private fun setupPresenter() {
+        presenter.attach(this)
+        presenter.loadCharacters()
+    }
+
     private fun setupRecyclerView() {
+        adapter = CharacterAdapter(onFavorite = { onFavorite(it) })
         charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
         charactersRecyclerView.setHasFixedSize(true)
-        charactersRecyclerView.adapter = CharacterAdapter(
-            onFavorite = {
-                it.isFavorite = !it.isFavorite
-                presenter.updateFavorite(it)
-                val adapter = charactersRecyclerView.adapter as CharacterAdapter
-                adapter.updateCharacters()
-                if (it.isFavorite) {
-                    Toast.makeText(context, "${it.name} adicionado aos favoritos", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "${it.name} removido dos favoritos", Toast.LENGTH_SHORT).show()
-                }
-            }
-        )
+        charactersRecyclerView.adapter = adapter
         charactersRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -78,6 +65,26 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         swipeRefreshLayout.setOnRefreshListener {
             presenter.loadCharacters(reset = true)
         }
+    }
+
+    private fun setupDependencyInjection() {
+        MarvelApplication.component.presentationComponent().inject(this)
+    }
+
+    private fun onFavorite(characterViewObject: CharacterViewObject) {
+        val isFavorite = characterViewObject.isFavorite.not()
+        val name = characterViewObject.name
+        val message = if (isFavorite) {
+            getString(R.string.favorite_added, name)
+        } else {
+            getString(R.string.favorite_removed, name)
+        }
+        characterViewObject.isFavorite = isFavorite
+
+        presenter.updateFavorite(characterViewObject)
+        adapter.updateCharacters()
+
+        Toast.makeText(context, message, LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
@@ -94,7 +101,6 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     override fun showCharacters(characters: List<CharacterViewObject>, clear: Boolean) {
-        val adapter = charactersRecyclerView.adapter as CharacterAdapter
         adapter.updateCharacters(characters, clear)
     }
 

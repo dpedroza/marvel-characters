@@ -1,4 +1,4 @@
-package com.marvel.presentation.ui
+package com.marvel.presentation.ui.main.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

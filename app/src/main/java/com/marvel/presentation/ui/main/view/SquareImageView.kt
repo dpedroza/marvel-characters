@@ -1,4 +1,4 @@
-package com.marvel.presentation.ui.custom
+package com.marvel.presentation.ui.main.view
 
 import android.content.Context
 import android.util.AttributeSet

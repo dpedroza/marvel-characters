@@ -1,4 +1,4 @@
-package com.marvel.data.mapper
+package com.marvel.data.local
 
 import com.marvel.data.model.FavoriteCharacterDto
 import com.marvel.domain.model.CharacterEntity

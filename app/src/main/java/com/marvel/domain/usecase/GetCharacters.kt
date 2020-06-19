@@ -1,6 +1,5 @@
 package com.marvel.domain.usecase
 
-import com.marvel.domain.core.UseCase
 import com.marvel.domain.model.GetCharactersParameters
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.repository.CharactersRepository

@@ -1,9 +1,9 @@
-package com.marvel.presentation.ui.characters
+package com.marvel.presentation.ui.main.characters
 
 import com.marvel.R
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersParameters
-import com.marvel.domain.usecase.AddFavorite
+import com.marvel.domain.usecase.UpdateFavorite
 import com.marvel.domain.usecase.GetCharacters
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CharacterPresenter @Inject constructor(
-    private val addFavorite: AddFavorite,
+    private val updateFavorite: UpdateFavorite,
     private val getCharacters: GetCharacters,
     private val mapper: ViewObjectMapper
 ) : CharactersContract.Presenter() {
@@ -51,18 +51,21 @@ class CharacterPresenter @Inject constructor(
                     )
                     .also { addDisposable(it) }
             }
-
     }
 
     override fun updateFavorite(characterViewObject: CharacterViewObject) {
-        addFavorite.execute(
-            params = CharacterEntity(
-                id = characterViewObject.id,
-                name = characterViewObject.name,
-                imageUrl = characterViewObject.bannerURL,
-                isFavorite = characterViewObject.isFavorite
-            )
-        )
+        CharacterEntity(
+            id = characterViewObject.id,
+            name = characterViewObject.name,
+            imageUrl = characterViewObject.bannerURL,
+            isFavorite = characterViewObject.isFavorite
+        ).also { entity ->
+            updateFavorite.execute(entity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+                .also { addDisposable(it) }
+        }
     }
 
     private fun updatePagination(currentCount: Int, totalCount: Int, offset: Int) {

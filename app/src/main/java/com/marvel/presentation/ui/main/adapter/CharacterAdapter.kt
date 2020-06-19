@@ -1,4 +1,4 @@
-package com.marvel.presentation.ui
+package com.marvel.presentation.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +31,7 @@ class CharacterAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CharacterAdapter.CharacterViewHolder {
+    ): CharacterViewHolder {
         val context = parent.context
         val view = LayoutInflater.from(context).inflate(
             R.layout.item_character,
@@ -41,7 +41,7 @@ class CharacterAdapter(
         return CharacterViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CharacterAdapter.CharacterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val characterViewObject = characters[position]
         holder.bind(characterViewObject)
     }

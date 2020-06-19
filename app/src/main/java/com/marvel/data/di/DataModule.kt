@@ -2,12 +2,11 @@ package com.marvel.data.di
 
 import androidx.room.Room
 import com.marvel.data.local.FavoriteDatabase
-import com.marvel.data.mapper.DatabaseMapper
-import com.marvel.data.mapper.ResponseMapper
+import com.marvel.data.local.DatabaseMapper
 import com.marvel.data.model.FavoriteCharacterDto
-import com.marvel.data.repository.CharacterRepositoryImpl
-import com.marvel.data.repository.FavoriteRepositoryImpl
-import com.marvel.data.service.MarvelApiService
+import com.marvel.data.remote.CharacterRepositoryImpl
+import com.marvel.data.local.FavoriteRepositoryImpl
+import com.marvel.data.remote.MarvelApiService
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.MarvelApplication
@@ -19,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class DataModule(
-    val application: MarvelApplication
+    private val application: MarvelApplication
 ) {
 
     @Provides
@@ -58,8 +57,14 @@ class DataModule(
 
     @Provides
     fun providesFavoriteRepository(
-        database: FavoriteDatabase
+        database: FavoriteDatabase,
+        mapper: DatabaseMapper
     ): FavoriteRepository {
-        return FavoriteRepositoryImpl(database)
+        return FavoriteRepositoryImpl(database, mapper)
+    }
+
+    @Provides
+    fun providesDatabaseMapper(): DatabaseMapper {
+        return DatabaseMapper()
     }
 }

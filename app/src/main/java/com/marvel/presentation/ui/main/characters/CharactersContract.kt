@@ -1,4 +1,4 @@
-package com.marvel.presentation.ui.characters
+package com.marvel.presentation.ui.main.characters
 
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.core.BaseView

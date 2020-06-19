@@ -1,9 +1,7 @@
-package com.marvel.data.repository
+package com.marvel.data.remote
 
 import com.marvel.data.cryptography.Hash
 import com.marvel.data.local.FavoriteDatabase
-import com.marvel.data.mapper.ResponseMapper
-import com.marvel.data.service.MarvelApiService
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.repository.CharactersRepository
 import io.reactivex.Single

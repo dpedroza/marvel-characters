@@ -10,7 +10,7 @@
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
 
-    <com.marvel.presentation.ui.custom.SquareImageView
+    <com.marvel.presentation.ui.main.view.SquareImageView
         android:id="@+id/characterImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
