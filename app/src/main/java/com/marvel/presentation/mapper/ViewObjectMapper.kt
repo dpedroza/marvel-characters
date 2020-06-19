@@ -12,6 +12,7 @@ class ViewObjectMapper : Mapper<GetCharactersResultEntity, List<CharacterViewObj
 
     private fun entityCharacterToViewObjectCharacter(character: CharacterEntity): CharacterViewObject {
         return CharacterViewObject(
+            id = character.id,
             name = character.name,
             bannerURL = character.imageUrl,
             isFavorite = false

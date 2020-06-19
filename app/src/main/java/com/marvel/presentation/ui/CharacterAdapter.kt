@@ -9,13 +9,20 @@ import com.marvel.R
 import com.marvel.presentation.model.CharacterViewObject
 import kotlinx.android.synthetic.main.item_character.view.*
 
-class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
+class CharacterAdapter(
+    val onFavorite: (CharacterViewObject) -> Unit
+) : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     private val characters = mutableListOf<CharacterViewObject>()
 
-    fun updateCharacters(characters: List<CharacterViewObject>, clearList: Boolean = false) {
+    fun updateCharacters(
+        characters: List<CharacterViewObject>? = null,
+        clearList: Boolean = false
+    ) {
         if (clearList) this.characters.clear()
-        this.characters.addAll(characters)
+        characters?.let {
+            this.characters.addAll(it)
+        }
         notifyDataSetChanged()
     }
 
@@ -44,6 +51,23 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         fun bind(viewObject: CharacterViewObject) {
 
             itemView.nameTextView.text = viewObject.name
+
+            if (viewObject.isFavorite) {
+                itemView.favoriteImageButton.setImageDrawable(
+                    itemView.context.resources.getDrawable(
+                        R.drawable.ic_baseline_star_24
+                    )
+                )
+            } else {
+                itemView.favoriteImageButton.setImageDrawable(
+                    itemView.context.resources.getDrawable(
+                        R.drawable.ic_baseline_star_border_24
+                    )
+                )
+            }
+
+            itemView.favoriteImageButton.setOnClickListener { onFavorite(viewObject) }
+
             Glide.with(itemView.context)
                 .load(viewObject.bannerURL)
                 .placeholder(R.drawable.ic_baseline_account_circle_24)

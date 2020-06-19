@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +52,19 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     private fun setupRecyclerView() {
         charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
         charactersRecyclerView.setHasFixedSize(true)
-        charactersRecyclerView.adapter = CharacterAdapter()
+        charactersRecyclerView.adapter = CharacterAdapter(
+            onFavorite = {
+                it.isFavorite = !it.isFavorite
+                presenter.updateFavorite(it)
+                val adapter = charactersRecyclerView.adapter as CharacterAdapter
+                adapter.updateCharacters()
+                if (it.isFavorite) {
+                    Toast.makeText(context, "${it.name} adicionado aos favoritos", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "${it.name} removido dos favoritos", Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
         charactersRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -64,10 +75,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupSwipeRefreshLayout() {
-        val color = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
-        swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
-            presenter.loadCharacters(clear = true)
+            presenter.loadCharacters(reset = true)
         }
     }
 

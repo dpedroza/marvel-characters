@@ -18,7 +18,11 @@ interface CharactersContract {
 
         abstract fun loadCharacters(
             query: String = "",
-            clear: Boolean = false
+            reset: Boolean = false
+        )
+
+        abstract fun updateFavorite(
+            characterViewObject: CharacterViewObject
         )
     }
 }

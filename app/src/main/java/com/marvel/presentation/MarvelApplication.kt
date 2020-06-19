@@ -13,7 +13,10 @@ class MarvelApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // Reference to the application graph that is used across the whole app
+        setupDagger()
+    }
+
+    private fun setupDagger() {
         component = DaggerApplicationComponent.builder()
             .dataModule(DataModule(this))
             .build()

@@ -1,32 +1,30 @@
 package com.marvel.domain.core
 
+import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 
-abstract class UseCase<T> {
+abstract class UseCase<Input, Output> {
 
-    private val disposables = CompositeDisposable()
+    object FromSingle {
 
-    abstract fun buildCase(query: String, offset: Int): Single<T>
+        interface WithInput<in Input, Output> {
+            fun execute(params: Input): Single<Output>
+        }
 
-    fun execute(
-        offset: Int = 0,
-        query: String = "",
-        onSuccess: (value: T) -> Unit,
-        onError: (t: Throwable) -> Unit = {}
-    ) {
-        val disposable = buildCase(query = query, offset = offset)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(onSuccess, onError)
-        disposables.add(disposable)
+        interface WithoutInput<Output> {
+            fun execute(): Single<Output>
+        }
     }
 
-    fun dispose() {
-        disposables.clear()
-        disposables.dispose()
+    object FromCompletable {
+
+        interface WithInput<in Input> {
+            fun execute(params: Input): Completable
+        }
+
+        interface WithoutInput {
+            fun execute(): Completable
+        }
     }
 }
