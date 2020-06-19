@@ -3,8 +3,8 @@ package com.marvel.presentation.ui.main.characters
 import com.marvel.R
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersParameters
-import com.marvel.domain.usecase.UpdateFavorite
 import com.marvel.domain.usecase.GetCharacters
+import com.marvel.domain.usecase.UpdateFavorite
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.model.PaginationData
@@ -25,32 +25,32 @@ class CharacterPresenter @Inject constructor(
         reset: Boolean
     ) {
         if (pagination.isFinalPage) return
-        if (reset) pagination.clear()
+        if (reset) pagination.reset()
 
         view?.showLoading()
 
-        GetCharactersParameters(pagination.offset, query)
-            .apply {
-                getCharacters.execute(this)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        { result ->
-                            view?.hideLoading()
-                            view?.showCharacters(mapper.transform(result), reset)
-                            updatePagination(
-                                result.currentCount,
-                                result.totalCount,
-                                result.paginationOffset
-                            )
-                        },
-                        {
-                            view?.hideLoading()
-                            view?.showMessage(R.string.heroes)
-                        }
+        val parameters = GetCharactersParameters(pagination.offset, query)
+
+        getCharacters.execute(parameters)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    view?.hideLoading()
+                    view?.showCharacters(mapper.toViewObjectList(result.characters), reset)
+                    updatePagination(
+                        result.currentCount,
+                        result.totalCount,
+                        result.paginationOffset
                     )
-                    .also { addDisposable(it) }
-            }
+                },
+                {
+                    view?.hideLoading()
+                    view?.showMessage(R.string.heroes)
+                }
+            )
+            .also { addDisposable(it) }
+
     }
 
     override fun updateFavorite(characterViewObject: CharacterViewObject) {

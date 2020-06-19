@@ -1,14 +1,18 @@
 package com.marvel.presentation.ui.main.characters
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
 import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
@@ -48,7 +52,9 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupRecyclerView() {
-        adapter = CharacterAdapter(onFavorite = { onFavorite(it) })
+        adapter = CharacterAdapter(onFavorite = {
+            onFavorite(it)
+        })
         charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = adapter
@@ -62,6 +68,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupSwipeRefreshLayout() {
+        val color = requireContext().let { ContextCompat.getColor(it, R.color.colorPrimary) }
+        swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
             presenter.loadCharacters(reset = true)
         }
@@ -72,14 +80,14 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun onFavorite(characterViewObject: CharacterViewObject) {
-        val isFavorite = characterViewObject.isFavorite.not()
         val name = characterViewObject.name
-        val message = if (isFavorite) {
-            getString(R.string.favorite_added, name)
-        } else {
+        val message = if (characterViewObject.isFavorite) {
             getString(R.string.favorite_removed, name)
+        } else {
+            getString(R.string.favorite_added, name)
         }
-        characterViewObject.isFavorite = isFavorite
+
+        characterViewObject.isFavorite = characterViewObject.isFavorite.not()
 
         presenter.updateFavorite(characterViewObject)
         adapter.updateCharacters()
@@ -105,7 +113,15 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     override fun showMessage(messageId: Int) {
-        Toast.makeText(context, getString(R.string.heroes), Toast.LENGTH_SHORT).show()
+        activity?.let {
+            val view = it.findViewById<View>(android.R.id.content)
+            val message = getString(messageId)
+            val action = getString(R.string.retry_label)
+            Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_INDEFINITE)
+                .setActionTextColor(Color.WHITE)
+                .setAction(action) { presenter.loadCharacters(reset = true) }
+                .show()
+        }
     }
 
     companion object {

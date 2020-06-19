@@ -2,7 +2,9 @@ package com.marvel.presentation.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.marvel.R
@@ -10,7 +12,8 @@ import com.marvel.presentation.model.CharacterViewObject
 import kotlinx.android.synthetic.main.item_character.view.*
 
 class CharacterAdapter(
-    val onFavorite: (CharacterViewObject) -> Unit
+    val onFavorite: (CharacterViewObject) -> Unit = {},
+    val hideStars: Boolean = false
 ) : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     private val characters = mutableListOf<CharacterViewObject>()
@@ -50,22 +53,16 @@ class CharacterAdapter(
 
         fun bind(viewObject: CharacterViewObject) {
 
-            itemView.nameTextView.text = viewObject.name
-
-            if (viewObject.isFavorite) {
-                itemView.favoriteImageButton.setImageDrawable(
-                    itemView.context.resources.getDrawable(
-                        R.drawable.ic_baseline_star_24
-                    )
-                )
+            val drawableId = if (viewObject.isFavorite) {
+                R.drawable.ic_baseline_star_24
             } else {
-                itemView.favoriteImageButton.setImageDrawable(
-                    itemView.context.resources.getDrawable(
-                        R.drawable.ic_baseline_star_border_24
-                    )
-                )
+                R.drawable.ic_baseline_star_border_24
             }
 
+            val drawable = ContextCompat.getDrawable(itemView.context, drawableId)
+
+            itemView.nameTextView.text = viewObject.name
+            itemView.favoriteImageButton.setImageDrawable(drawable)
             itemView.favoriteImageButton.setOnClickListener { onFavorite(viewObject) }
 
             Glide.with(itemView.context)
@@ -74,6 +71,8 @@ class CharacterAdapter(
                 .error(R.drawable.ic_baseline_error_outline_24)
                 .centerCrop()
                 .into(itemView.characterImageView)
+
+            if (hideStars) itemView.favoriteImageButton.visibility = GONE
         }
     }
 }

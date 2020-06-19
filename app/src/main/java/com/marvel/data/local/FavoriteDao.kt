@@ -8,7 +8,7 @@ import io.reactivex.Single
 @Dao
 interface FavoriteDao {
 
-    @Query("SELECT * FROM ${FavoriteCharacterDto.TABLE}")
+    @Query("SELECT * FROM ${FavoriteCharacterDto.TABLE} ORDER BY name ASC")
     fun getFavorites(): Single<List<FavoriteCharacterDto>>
 
     @Query("SELECT id FROM ${FavoriteCharacterDto.TABLE}")

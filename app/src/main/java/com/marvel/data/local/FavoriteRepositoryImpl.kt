@@ -1,7 +1,5 @@
 package com.marvel.data.local
 
-import com.marvel.data.local.FavoriteDatabase
-import com.marvel.data.local.DatabaseMapper
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.repository.FavoriteRepository
 import io.reactivex.Completable
@@ -14,7 +12,7 @@ class FavoriteRepositoryImpl @Inject constructor(
 ) : FavoriteRepository {
 
     override fun getFavorites(): Single<List<CharacterEntity>> {
-        return database.favoriteDao().getFavorites().map { mapper.transformList(it) }
+        return database.favoriteDao().getFavorites().map { mapper.toEntityList(it) }
     }
 
     override fun insert(favorite: CharacterEntity): Completable {

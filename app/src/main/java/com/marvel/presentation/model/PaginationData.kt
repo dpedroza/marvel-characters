@@ -4,7 +4,7 @@ data class PaginationData(
     var isFinalPage: Boolean = false,
     var offset: Int = 0
 ) {
-    fun clear() {
+    fun reset() {
         isFinalPage = false
         offset = 0
     }

@@ -4,8 +4,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 
-open class CorePresenter<T : BaseView> :
-    BasePresenter<T> {
+open class CorePresenter<T : BaseView> : BasePresenter<T> {
 
     protected var view: T? = null
     private var disposables: CompositeDisposable? = null

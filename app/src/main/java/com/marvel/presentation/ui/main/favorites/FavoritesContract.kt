@@ -8,9 +8,8 @@ interface FavoritesContract {
 
     interface View : BaseView {
 
-        fun showFavorites(
-            characters: List<CharacterViewObject>
-        )
+        fun showFavorites(characters: List<CharacterViewObject>)
+        fun showEmptyState()
     }
 
     abstract class Presenter : CorePresenter<View>() {

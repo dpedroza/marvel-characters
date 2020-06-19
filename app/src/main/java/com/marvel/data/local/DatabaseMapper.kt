@@ -5,17 +5,21 @@ import com.marvel.domain.model.CharacterEntity
 
 class DatabaseMapper {
 
-    fun transformList(list: List<FavoriteCharacterDto>): List<CharacterEntity> {
+    fun toEntityList(list: List<FavoriteCharacterDto>): List<CharacterEntity> {
         return list.map { toEntity(it) }
     }
 
-    fun toEntity(dto: FavoriteCharacterDto): CharacterEntity {
+    private fun toEntity(dto: FavoriteCharacterDto): CharacterEntity {
         return CharacterEntity(
             id = dto.id,
             name = dto.name,
             imageUrl = dto.photoUrl,
             isFavorite = true
         )
+    }
+
+    fun toDtoList(list: List<CharacterEntity>): List<FavoriteCharacterDto> {
+        return list.map { toDto(it) }
     }
 
     fun toDto(entity: CharacterEntity): FavoriteCharacterDto {

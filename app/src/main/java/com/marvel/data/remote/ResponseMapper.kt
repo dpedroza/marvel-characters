@@ -7,40 +7,41 @@ import com.marvel.domain.model.GetCharactersResultEntity
 
 class ResponseMapper {
 
-    fun transform(
-        remoteInput: MarvelServiceApiResponse,
-        localInput: List<Int>
+    fun toEntityList(
+        localFavorites: List<Int>,
+        remoteCharacters: MarvelServiceApiResponse
     ): GetCharactersResultEntity {
 
         return GetCharactersResultEntity(
-            paginationOffset = remoteInput.data.offset,
-            currentCount = remoteInput.data.count,
-            totalCount = remoteInput.data.total,
-            code = remoteInput.code,
-            status = remoteInput.status,
-            characters = remoteInput.data.results.map {
-                val isFavorite = localInput.contains(it.id)
-                responseCharacterToResponseEntity(
-                    it,
-                    isFavorite
-                )
+            paginationOffset = remoteCharacters.data.offset,
+            currentCount = remoteCharacters.data.count,
+            totalCount = remoteCharacters.data.total,
+            code = remoteCharacters.code,
+            status = remoteCharacters.status,
+            characters = remoteCharacters.data.results.map { character ->
+                val isFavorite = localFavorites.contains(character.id)
+                toEntity(character, isFavorite)
             }
         )
     }
 
-    private fun responseCharacterToResponseEntity(
+    private fun toEntity(
         character: Character,
         isFavorite: Boolean
     ): CharacterEntity {
-
-        val path = "${character.thumbnail.path}.${character.thumbnail.extension}"
-        val url = path.replaceFirst("http", "https")
-
         return CharacterEntity(
             id = character.id,
             name = character.name,
-            imageUrl = url,
+            imageUrl = buildImagePath(character),
             isFavorite = isFavorite
         )
+    }
+
+    private fun buildImagePath(character: Character): String {
+        return "${character.thumbnail.path}.${character.thumbnail.extension}"
+            .replaceFirst(
+                "http",
+                "https"
+            )
     }
 }

@@ -13,6 +13,7 @@ class FavoritesPresenter @Inject constructor(
 ) : FavoritesContract.Presenter() {
 
     override fun loadFavorites() {
+
         view?.showLoading()
 
         getFavorites.execute().subscribeOn(Schedulers.io())
@@ -20,7 +21,12 @@ class FavoritesPresenter @Inject constructor(
             .subscribe(
                 { result ->
                     view?.hideLoading()
-                    view?.showFavorites(result.map { mapper.entityCharacterToViewObjectCharacter(it) })
+                    val characters = mapper.toViewObjectList(result)
+                    if (characters.isNotEmpty()) {
+                        view?.showFavorites(characters)
+                    } else {
+                        view?.showEmptyState()
+                    }
                 },
                 {
                     view?.hideLoading()

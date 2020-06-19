@@ -3,8 +3,11 @@ package com.marvel.presentation.ui.main.favorites
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.marvel.R
@@ -51,10 +54,12 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
     private fun setupRecyclerView() {
         favoritesRecyclerView.layoutManager = GridLayoutManager(context, 2)
         favoritesRecyclerView.setHasFixedSize(true)
-        favoritesRecyclerView.adapter = CharacterAdapter({})
+        favoritesRecyclerView.adapter = CharacterAdapter(hideStars = true)
     }
 
     private fun setupSwipeRefreshLayout() {
+        val color = requireContext().let { ContextCompat.getColor(it, R.color.colorPrimary) }
+        swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
             presenter.loadFavorites()
         }
@@ -73,8 +78,15 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
     }
 
     override fun showFavorites(characters: List<CharacterViewObject>) {
+        emptyText.visibility = GONE
+        favoritesRecyclerView.visibility = VISIBLE
         val adapter = favoritesRecyclerView.adapter as CharacterAdapter
-        adapter.updateCharacters(characters)
+        adapter.updateCharacters(characters, clearList = true)
+    }
+
+    override fun showEmptyState() {
+        favoritesRecyclerView.visibility = GONE
+        emptyText.visibility = VISIBLE
     }
 
     override fun showMessage(messageId: Int) {

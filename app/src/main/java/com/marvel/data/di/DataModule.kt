@@ -7,6 +7,7 @@ import com.marvel.data.model.FavoriteCharacterDto
 import com.marvel.data.remote.CharacterRepositoryImpl
 import com.marvel.data.local.FavoriteRepositoryImpl
 import com.marvel.data.remote.MarvelApiService
+import com.marvel.data.remote.ResponseMapper
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.MarvelApplication
@@ -39,7 +40,8 @@ class DataModule(
     @Provides
     fun provideCharactersRepository(
         database: FavoriteDatabase,
-        service: MarvelApiService
+        service: MarvelApiService,
+        responseMapper: ResponseMapper
     ): CharactersRepository {
         return CharacterRepositoryImpl(database, service)
     }
@@ -66,5 +68,10 @@ class DataModule(
     @Provides
     fun providesDatabaseMapper(): DatabaseMapper {
         return DatabaseMapper()
+    }
+
+    @Provides
+    fun providesResponseMapper(): ResponseMapper {
+        return ResponseMapper()
     }
 }

@@ -28,4 +28,17 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/emptyText"
+        android:text="@string/empty_favorites"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:padding="16dp"
+        android:lineSpacingExtra="10dp"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
