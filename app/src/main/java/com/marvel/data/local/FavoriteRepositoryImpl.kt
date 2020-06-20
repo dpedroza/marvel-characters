@@ -18,10 +18,10 @@ class FavoriteRepositoryImpl @Inject constructor(
     }
 
     override fun insert(favorite: CharacterEntity): Completable {
-        return database.favoriteDao().insert(mapper.toDto(favorite))
+        return database.favoriteDao().insert(mapper.toDataObject(favorite))
     }
 
     override fun delete(favorite: CharacterEntity): Completable {
-        return database.favoriteDao().delete(mapper.toDto(favorite))
+        return database.favoriteDao().delete(mapper.toDataObject(favorite))
     }
 }

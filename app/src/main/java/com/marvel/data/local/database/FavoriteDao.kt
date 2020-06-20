@@ -1,22 +1,22 @@
 package com.marvel.data.local.database
 
 import androidx.room.*
-import com.marvel.data.model.FavoriteCharacterDto
+import com.marvel.data.model.FavoriteCharacterDataObject
 import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
 interface FavoriteDao {
 
-    @Query("SELECT * FROM ${FavoriteCharacterDto.TABLE} ORDER BY name ASC")
-    fun getFavorites(): Single<List<FavoriteCharacterDto>>
+    @Query("SELECT * FROM ${FavoriteCharacterDataObject.TABLE} ORDER BY name ASC")
+    fun getFavorites(): Single<List<FavoriteCharacterDataObject>>
 
-    @Query("SELECT id FROM ${FavoriteCharacterDto.TABLE}")
+    @Query("SELECT id FROM ${FavoriteCharacterDataObject.TABLE}")
     fun getFavoritesIds(): List<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(favorite: FavoriteCharacterDto): Completable
+    fun insert(favorite: FavoriteCharacterDataObject): Completable
 
     @Delete
-    fun delete(favorite: FavoriteCharacterDto): Completable
+    fun delete(favorite: FavoriteCharacterDataObject): Completable
 }

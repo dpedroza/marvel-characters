@@ -4,7 +4,7 @@ import androidx.room.Room
 import com.marvel.BuildConfig
 import com.marvel.data.local.database.FavoriteDatabase
 import com.marvel.data.local.mapper.DatabaseMapper
-import com.marvel.data.model.FavoriteCharacterDto
+import com.marvel.data.model.FavoriteCharacterDataObject
 import com.marvel.data.remote.CharacterRepositoryImpl
 import com.marvel.data.local.FavoriteRepositoryImpl
 import com.marvel.data.remote.service.MarvelApiService
@@ -54,7 +54,7 @@ class DataModule(
         return Room.databaseBuilder(
             application.applicationContext,
             FavoriteDatabase::class.java,
-            FavoriteCharacterDto.TABLE
+            FavoriteCharacterDataObject.TABLE
         ).allowMainThreadQueries().build()
     }
 
