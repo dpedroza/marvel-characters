@@ -1,4 +1,4 @@
-package com.marvel.data.remote
+package com.marvel.data.remote.service
 
 import com.marvel.data.model.MarvelServiceApiResponse
 import io.reactivex.Single
@@ -12,6 +12,7 @@ interface MarvelApiService {
         @Query("apikey") apikey: String,
         @Query("ts") timestamp: String,
         @Query("hash") hash: String,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
+        @Query("nameStartsWith") nameStartsWith: String?
     ): Single<MarvelServiceApiResponse>
 }

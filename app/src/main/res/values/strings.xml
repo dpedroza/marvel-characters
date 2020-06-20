@@ -4,7 +4,8 @@
     <string name="app_name">Marvel</string>
 
     // character fragment
-    <string name="heroes">Heróis</string>
+    <string name="characters">Personagens</string>
+    <string name="search_hint">Busca por nome</string>
     <string name="favorite_added">%1$s adicionado aos favoritos</string>
     <string name="favorite_removed">%1$s removido dos favoritos</string>
     <string name="empty_characters">Nenhum personagem encontrado</string>

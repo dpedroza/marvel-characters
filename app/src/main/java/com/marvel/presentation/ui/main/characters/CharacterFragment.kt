@@ -2,13 +2,16 @@ package com.marvel.presentation.ui.main.characters
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,7 +21,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
 import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
+import com.marvel.presentation.ui.core.hideKeyboard
 import com.marvel.presentation.ui.main.adapter.CharacterAdapter
+import com.marvel.presentation.ui.main.view.DelayedOnQueryTextListener
 import kotlinx.android.synthetic.main.fragment_characters.*
 import javax.inject.Inject
 
@@ -44,6 +49,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPresenter()
+        setupSearchView()
         setupRecyclerView()
         setupSwipeRefreshLayout()
     }
@@ -53,18 +59,38 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         presenter.loadCharacters()
     }
 
-    private fun setupRecyclerView() {
-        adapter = CharacterAdapter(onFavorite = {
-            onFavorite(it)
+    private fun setupSearchView() {
+        searchView.setOnQueryTextListener(object : DelayedOnQueryTextListener() {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrBlank()) {
+                    presenter.loadCharacters(query = query, resetAdapter = true)
+                }
+                return false
+            }
+
+            override fun onDelayerQueryTextChange(query: String?) {
+                presenter.loadCharacters(query = query, resetAdapter = true)
+            }
         })
+    }
+
+    private fun setupRecyclerView() {
+        adapter = CharacterAdapter({ onFavorite(it) })
         charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = adapter
         charactersRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                recyclerView.requestFocus()
+                hideKeyboard()
                 if (!charactersRecyclerView.canScrollVertically(1))
-                    if (!presenter.isLoading) presenter.loadCharacters()
+                    if (!presenter.isLoading) {
+                        val query = searchView.query as? String
+                        presenter.loadCharacters(query)
+                    }
             }
         })
     }
@@ -73,7 +99,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         val color = requireContext().let { ContextCompat.getColor(it, R.color.colorPrimary) }
         swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
-            presenter.loadCharacters(reset = true)
+            presenter.loadCharacters(resetAdapter = true)
         }
     }
 
@@ -82,19 +108,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun onFavorite(characterViewObject: CharacterViewObject) {
-        val name = characterViewObject.name
-        val message = if (characterViewObject.isFavorite) {
-            getString(R.string.favorite_removed, name)
-        } else {
-            getString(R.string.favorite_added, name)
-        }
-
-        characterViewObject.isFavorite = characterViewObject.isFavorite.not()
-
         presenter.updateFavorite(characterViewObject)
         adapter.updateCharacters()
-
-        Toast.makeText(context, message, LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
@@ -108,6 +123,10 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     override fun hideLoading() {
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun showToast(messageId: Int, name: String) {
+        Toast.makeText(context, getString(messageId, name), LENGTH_SHORT).show()
     }
 
     override fun showCharacters(characters: List<CharacterViewObject>, clear: Boolean) {
@@ -127,15 +146,13 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         emptyText.visibility = GONE
         charactersRecyclerView.visibility = GONE
         errorImageView.visibility = VISIBLE
-        activity?.let {
-            val view = it.findViewById<View>(R.id.fragment_character)
-            val message = getString(messageId)
-            val action = getString(R.string.retry_label)
-            Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_INDEFINITE)
-                .setActionTextColor(Color.WHITE)
-                .setAction(action) { presenter.loadCharacters(reset = true) }
-                .show()
-        }
+        Snackbar.make(fragment_character, getString(messageId), BaseTransientBottomBar.LENGTH_INDEFINITE)
+            .setActionTextColor(Color.WHITE)
+            .setAction(getString(R.string.retry_label)) {
+                presenter.loadCharacters(resetAdapter = true)
+            }
+            .show()
+        hideKeyboard()
     }
 
     companion object {

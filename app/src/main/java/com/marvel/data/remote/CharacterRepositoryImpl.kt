@@ -1,7 +1,9 @@
 package com.marvel.data.remote
 
 import com.marvel.data.cryptography.Hash
-import com.marvel.data.local.FavoriteDatabase
+import com.marvel.data.local.database.FavoriteDatabase
+import com.marvel.data.remote.mapper.ResponseMapper
+import com.marvel.data.remote.service.MarvelApiService
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.repository.CharactersRepository
 import io.reactivex.Single
@@ -16,7 +18,7 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override fun getCharacters(
         offset: Int,
-        nameStartsWith: String
+        nameStartsWith: String?
     ): Single<GetCharactersResultEntity> {
 
         val timestamp = System.currentTimeMillis().toString()
@@ -28,9 +30,11 @@ class CharacterRepositoryImpl @Inject constructor(
             apikey = publicKey,
             timestamp = timestamp,
             hash = hash,
-            offset = offset
+            offset = offset,
+            nameStartsWith = nameStartsWith
         ).map { response ->
             mapper.toEntityList(localFavorites, response)
         }
+
     }
 }

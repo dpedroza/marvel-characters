@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val adapter = TabAdapter(supportFragmentManager)
-        adapter.add(CharacterFragment.newInstance(), getString(R.string.heroes))
+        adapter.add(CharacterFragment.newInstance(), getString(R.string.characters))
         adapter.add(FavoritesFragment.newInstance(), getString(R.string.favorites))
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
