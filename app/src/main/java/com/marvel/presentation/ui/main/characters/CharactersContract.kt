@@ -16,7 +16,7 @@ interface CharactersContract {
         fun showEmptyState()
         fun showLoading()
         fun hideLoading()
-        fun showToast(messageId: Int)
+        fun showToast(messageId: Int, name: String)
     }
 
     abstract class Presenter : CorePresenter<View>() {

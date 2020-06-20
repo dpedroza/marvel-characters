@@ -23,6 +23,7 @@ import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.core.hideKeyboard
 import com.marvel.presentation.ui.main.adapter.CharacterAdapter
+import com.marvel.presentation.ui.main.view.DelayedOnQueryTextListener
 import kotlinx.android.synthetic.main.fragment_characters.*
 import javax.inject.Inject
 
@@ -59,7 +60,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupSearchView() {
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : DelayedOnQueryTextListener() {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
@@ -68,9 +69,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                presenter.loadCharacters(query = newText, resetAdapter = true)
-                return false
+            override fun onDelayerQueryTextChange(query: String?) {
+                presenter.loadCharacters(query = query, resetAdapter = true)
             }
         })
     }
@@ -84,6 +84,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                recyclerView.requestFocus()
                 hideKeyboard()
                 if (!charactersRecyclerView.canScrollVertically(1))
                     if (!presenter.isLoading) {
@@ -124,8 +125,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         swipeRefreshLayout.isRefreshing = false
     }
 
-    override fun showToast(messageId: Int) {
-        Toast.makeText(context, getString(messageId), LENGTH_SHORT).show()
+    override fun showToast(messageId: Int, name: String) {
+        Toast.makeText(context, getString(messageId, name), LENGTH_SHORT).show()
     }
 
     override fun showCharacters(characters: List<CharacterViewObject>, clear: Boolean) {
@@ -145,6 +146,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         emptyText.visibility = GONE
         charactersRecyclerView.visibility = GONE
         errorImageView.visibility = VISIBLE
+        errorImageView.requestFocus()
         val view = requireActivity().findViewById<View>(R.id.fragment_character)
         val message = getString(messageId)
         val action = getString(R.string.retry_label)
@@ -152,6 +154,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
             .setActionTextColor(Color.WHITE)
             .setAction(action) { presenter.loadCharacters(resetAdapter = true) }
             .show()
+        hideKeyboard()
     }
 
     companion object {

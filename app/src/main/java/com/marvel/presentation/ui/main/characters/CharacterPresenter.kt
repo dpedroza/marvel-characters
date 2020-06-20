@@ -12,7 +12,6 @@ import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.model.PaginationData
 import com.marvel.presentation.ui.main.rx.applyDefaultSchedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -65,11 +64,18 @@ class CharacterPresenter @Inject constructor(
         val isFavorite = characterViewObject.isFavorite.not()
         characterViewObject.isFavorite = isFavorite
         val entity = mapper.toEntity(characterViewObject)
+        val messageId = if (isFavorite) {
+            R.string.favorite_added
+        } else {
+            R.string.favorite_removed
+        }
+        val name = characterViewObject.name
+        view?.showToast(messageId, name)
 
         updateFavorite.execute(entity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { onUpdateFavorite(isFavorite) }
+            .subscribe()
             .also { addDisposable(it) }
     }
 
@@ -84,15 +90,6 @@ class CharacterPresenter @Inject constructor(
             view?.showEmptyState()
         }
         isLoading = false
-    }
-
-    private fun onUpdateFavorite(isFavorite: Boolean): Action {
-        val messageId = if (isFavorite) {
-            R.string.favorite_added
-        } else {
-            R.string.favorite_removed
-        }
-        return Action { view?.showToast(messageId) }
     }
 
     private fun onUpdatePagination(
