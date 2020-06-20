@@ -1,6 +1,7 @@
 package com.marvel.data.di
 
 import androidx.room.Room
+import com.marvel.BuildConfig
 import com.marvel.data.local.database.FavoriteDatabase
 import com.marvel.data.local.mapper.DatabaseMapper
 import com.marvel.data.model.FavoriteCharacterDto
@@ -30,7 +31,7 @@ class DataModule(
     @Provides
     fun provideMarvelApiService(): MarvelApiService {
         return Retrofit.Builder()
-            .baseUrl("https://gateway.marvel.com/")
+            .baseUrl(BuildConfig.MARVEL_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -43,7 +44,7 @@ class DataModule(
         service: MarvelApiService,
         responseMapper: ResponseMapper
     ): CharactersRepository {
-        return CharacterRepositoryImpl(database, service)
+        return CharacterRepositoryImpl(database, service, responseMapper)
     }
 
     @Provides

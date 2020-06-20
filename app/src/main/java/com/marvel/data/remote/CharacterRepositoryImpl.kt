@@ -1,5 +1,6 @@
 package com.marvel.data.remote
 
+import com.marvel.BuildConfig
 import com.marvel.data.cryptography.Hash
 import com.marvel.data.local.database.FavoriteDatabase
 import com.marvel.data.remote.mapper.ResponseMapper
@@ -11,10 +12,9 @@ import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
     private val database: FavoriteDatabase,
-    private val service: MarvelApiService
+    private val service: MarvelApiService,
+    private val mapper: ResponseMapper
 ) : CharactersRepository {
-
-    private val mapper = ResponseMapper()
 
     override fun getCharacters(
         offset: Int,
@@ -22,19 +22,13 @@ class CharacterRepositoryImpl @Inject constructor(
     ): Single<GetCharactersResultEntity> {
 
         val timestamp = System.currentTimeMillis().toString()
-        val publicKey = "88f86348ba02122d3d0f54cf829cf0d9"
-        val privateKey = "d5b598cf48a7dbc8ae0539debce6408323ec3cd4"
-        val hash = Hash.generateMD5(timestamp, publicKey, privateKey)
+        val apiKey = BuildConfig.MARVEL_PUBLIC_KEY
+        val privateKey = BuildConfig.MARVEL_PRIVATE_KEY
+        val hash = Hash.generateMD5(timestamp, apiKey, privateKey)
         val localFavorites = database.favoriteDao().getFavoritesIds()
-        return service.getCharacters(
-            apikey = publicKey,
-            timestamp = timestamp,
-            hash = hash,
-            offset = offset,
-            nameStartsWith = nameStartsWith
-        ).map { response ->
-            mapper.toEntityList(localFavorites, response)
-        }
-
+        return service.getCharacters(apiKey, timestamp, hash, offset, nameStartsWith)
+            .map { response ->
+                mapper.toEntityList(localFavorites, response)
+            }
     }
 }

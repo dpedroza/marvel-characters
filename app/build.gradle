@@ -19,9 +19,19 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField("String", "MARVEL_BASE_URL", "\"\"")
+            buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"\"")
+            buildConfigField("String", "MARVEL_PRIVATE_KEY", "\"\"")
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "MARVEL_BASE_URL", "\"\"")
+            buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"\"")
+            buildConfigField("String", "MARVEL_PRIVATE_KEY", "\"\"")
         }
     }
 
