@@ -146,13 +146,11 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         emptyText.visibility = GONE
         charactersRecyclerView.visibility = GONE
         errorImageView.visibility = VISIBLE
-        errorImageView.requestFocus()
-        val view = requireActivity().findViewById<View>(R.id.fragment_character)
-        val message = getString(messageId)
-        val action = getString(R.string.retry_label)
-        Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_INDEFINITE)
+        Snackbar.make(fragment_character, getString(messageId), BaseTransientBottomBar.LENGTH_INDEFINITE)
             .setActionTextColor(Color.WHITE)
-            .setAction(action) { presenter.loadCharacters(resetAdapter = true) }
+            .setAction(getString(R.string.retry_label)) {
+                presenter.loadCharacters(resetAdapter = true)
+            }
             .show()
         hideKeyboard()
     }

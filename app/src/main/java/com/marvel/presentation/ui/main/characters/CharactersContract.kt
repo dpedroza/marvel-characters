@@ -3,7 +3,6 @@ package com.marvel.presentation.ui.main.characters
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.core.BaseView
 import com.marvel.presentation.ui.core.CorePresenter
-import io.reactivex.functions.Action
 
 interface CharactersContract {
 
