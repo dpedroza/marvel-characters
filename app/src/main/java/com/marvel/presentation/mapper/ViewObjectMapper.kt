@@ -9,11 +9,20 @@ class ViewObjectMapper {
         return input.map { toViewObject(it) }
     }
 
-    private fun toViewObject(character: CharacterEntity): CharacterViewObject {
+    fun toViewObject(character: CharacterEntity): CharacterViewObject {
         return CharacterViewObject(
             id = character.id,
             name = character.name,
             bannerURL = character.imageUrl,
+            isFavorite = character.isFavorite
+        )
+    }
+
+    fun toEntity(character: CharacterViewObject): CharacterEntity {
+        return CharacterEntity(
+            id = character.id,
+            name = character.name,
+            imageUrl = character.bannerURL,
             isFavorite = character.isFavorite
         )
     }

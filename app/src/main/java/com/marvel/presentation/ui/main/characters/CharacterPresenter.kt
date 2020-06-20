@@ -1,7 +1,8 @@
 package com.marvel.presentation.ui.main.characters
 
 import com.marvel.R
-import com.marvel.domain.model.CharacterEntity
+import com.marvel.data.remote.NetworkError
+import com.marvel.data.remote.composeErrorTransformers
 import com.marvel.domain.model.GetCharactersParameters
 import com.marvel.domain.usecase.GetCharacters
 import com.marvel.domain.usecase.UpdateFavorite
@@ -15,10 +16,9 @@ import javax.inject.Inject
 class CharacterPresenter @Inject constructor(
     private val updateFavorite: UpdateFavorite,
     private val getCharacters: GetCharacters,
-    private val mapper: ViewObjectMapper
+    private val mapper: ViewObjectMapper,
+    private var pagination: PaginationData
 ) : CharactersContract.Presenter() {
-
-    private var pagination = PaginationData()
 
     override fun loadCharacters(
         query: String,
@@ -34,15 +34,19 @@ class CharacterPresenter @Inject constructor(
         getCharacters.execute(parameters)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .composeErrorTransformers()
             .subscribe(
+
                 { result ->
                     view?.hideLoading()
+
                     val characters = mapper.toViewObjectList(result.characters)
                     if (characters.isNotEmpty()) {
                         view?.showCharacters(characters, reset)
                     } else {
                         view?.showEmptyState()
                     }
+
                     updatePagination(
                         result.currentCount,
                         result.totalCount,
@@ -51,26 +55,29 @@ class CharacterPresenter @Inject constructor(
                 },
                 {
                     view?.hideLoading()
-                    view?.showMessage(R.string.message_unknown_error)
+                    view?.showMessage(getErrorMessage(it))
                 }
             )
             .also { addDisposable(it) }
 
     }
 
-    override fun updateFavorite(characterViewObject: CharacterViewObject) {
-        CharacterEntity(
-            id = characterViewObject.id,
-            name = characterViewObject.name,
-            imageUrl = characterViewObject.bannerURL,
-            isFavorite = characterViewObject.isFavorite
-        ).also { entity ->
-            updateFavorite.execute(entity)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-                .also { addDisposable(it) }
+    private fun getErrorMessage(error: Throwable): Int {
+        return when (error) {
+            is NetworkError.NotConnected -> R.string.message_no_internet
+            is NetworkError.SlowConnection -> R.string.message_slow_internet
+            is NetworkError.Canceled -> R.string.message_unknown_error
+            else -> R.string.message_unknown_error
         }
+    }
+
+    override fun updateFavorite(characterViewObject: CharacterViewObject) {
+        val entity = mapper.toEntity(characterViewObject)
+        updateFavorite.execute(entity)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+            .also { addDisposable(it) }
     }
 
     private fun updatePagination(currentCount: Int, totalCount: Int, offset: Int) {
