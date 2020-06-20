@@ -38,6 +38,7 @@ class CharacterPresenter @Inject constructor(
             .doOnSubscribe { loading = true }
             .doAfterTerminate { loading = false }
             .applyDefaultSchedulers()
+            .doAfterTerminate { view?.hideLoading() }
             .composeErrorTransformers()
             .subscribeBy(
                 onSuccess = {
@@ -46,7 +47,7 @@ class CharacterPresenter @Inject constructor(
                 },
                 onError = {
                     view?.showMessage(getErrorMessage(it))
-                    view?.hideLoading()
+
                 }
             )
             .also { addDisposable(it) }

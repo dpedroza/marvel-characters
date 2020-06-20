@@ -9,6 +9,7 @@ import com.marvel.data.local.mapper.DatabaseMapper
 import com.marvel.data.model.FavoriteCharacterDataTransformationObject
 import com.marvel.data.remote.CharacterRepositoryImpl
 import com.marvel.data.remote.mapper.ResponseMapper
+import com.marvel.data.remote.mapper.ResponseMapperImpl
 import com.marvel.data.remote.service.MarvelApiService
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
@@ -20,9 +21,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class DataModule(
-    private val application: MarvelApplication
-) {
+class DataModule(private val application: MarvelApplication) {
 
     @Provides
     fun provideApplication(): MarvelApplication {
@@ -43,9 +42,9 @@ class DataModule(
     fun provideCharactersRepository(
         dao: FavoriteDataAccessObject,
         service: MarvelApiService,
-        responseMapper: ResponseMapper
+        mapper: ResponseMapper
     ): CharactersRepository {
-        return CharacterRepositoryImpl(dao, service, responseMapper)
+        return CharacterRepositoryImpl(dao, service, mapper)
     }
 
     @Provides
@@ -81,6 +80,6 @@ class DataModule(
 
     @Provides
     fun providesResponseMapper(): ResponseMapper {
-        return ResponseMapper()
+        return ResponseMapperImpl()
     }
 }

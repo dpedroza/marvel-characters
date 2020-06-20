@@ -19,9 +19,9 @@ android {
     buildTypes {
 
         debug {
-            buildConfigField("String", "MARVEL_BASE_URL", "\"\"")
-            buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"\"")
-            buildConfigField("String", "MARVEL_PRIVATE_KEY", "\"\"")
+            buildConfigField("String", "MARVEL_BASE_URL", "\"https://gateway.marvel.com/\"")
+            buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"88f86348ba02122d3d0f54cf829cf0d9\"")
+            buildConfigField("String", "MARVEL_PRIVATE_KEY", "\"d5b598cf48a7dbc8ae0539debce6408323ec3cd4\"")
         }
 
         release {
@@ -36,6 +36,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
     }
 
     defaultConfig.vectorDrawables.useSupportLibrary = true
@@ -85,10 +89,13 @@ dependencies {
 
     // unit testing
     testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-android:3.3.3'
+    testImplementation 'androidx.test:core:1.2.0'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    // Optional -- Mockito framework
 
     // instrumented tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'org.mockito:mockito-android:3.3.3'
 
 }

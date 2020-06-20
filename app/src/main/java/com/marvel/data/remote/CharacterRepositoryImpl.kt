@@ -4,6 +4,7 @@ import com.marvel.BuildConfig
 import com.marvel.data.cryptography.Hash
 import com.marvel.data.local.database.FavoriteDataAccessObject
 import com.marvel.data.remote.mapper.ResponseMapper
+import com.marvel.data.remote.mapper.ResponseMapperImpl
 import com.marvel.data.remote.service.MarvelApiService
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.repository.CharactersRepository

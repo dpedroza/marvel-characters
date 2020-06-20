@@ -2,6 +2,7 @@ package com.marvel.data.remote
 
 import com.marvel.data.local.database.FavoriteDataAccessObject
 import com.marvel.data.remote.mapper.ResponseMapper
+import com.marvel.data.remote.mapper.ResponseMapperImpl
 import com.marvel.data.remote.service.MarvelApiService
 import com.marvel.domain.repository.CharactersRepository
 import org.junit.Assert.assertEquals
@@ -12,8 +13,9 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
+
 @RunWith(MockitoJUnitRunner::class)
-class CharacterRepositoryTest {
+class CharacterRepositoryImplTest {
 
     @Mock
     lateinit var dao: FavoriteDataAccessObject
