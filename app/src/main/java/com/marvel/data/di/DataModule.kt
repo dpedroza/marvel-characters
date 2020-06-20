@@ -11,6 +11,7 @@ import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.characters.mapper.ResponseMapperImpl
 import com.marvel.data.characters.service.MarvelApiService
+import com.marvel.data.favorites.mapper.DatabaseMapperImpl
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.application.MarvelApplication
@@ -82,7 +83,7 @@ class DataModule(private val application: MarvelApplication) {
 
     @Provides
     fun providesDatabaseMapper(): DatabaseMapper {
-        return DatabaseMapper()
+        return DatabaseMapperImpl()
     }
 
     @Provides
