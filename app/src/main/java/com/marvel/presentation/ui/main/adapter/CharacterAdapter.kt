@@ -41,12 +41,10 @@ class CharacterAdapter(
         parent: ViewGroup,
         viewType: Int
     ): CharacterViewHolder {
+
         val context = parent.context
-        val view = LayoutInflater.from(context).inflate(
-            R.layout.item_character,
-            parent,
-            false
-        )
+        val inflater = LayoutInflater.from(context)
+        val view = inflater.inflate(R.layout.item_character, parent, false)
         return CharacterViewHolder(view)
     }
 
@@ -59,16 +57,19 @@ class CharacterAdapter(
 
         fun bind(viewObject: CharacterViewObject) {
 
-            val drawableId = if (viewObject.isFavorite) {
-                R.drawable.ic_baseline_star_24
-            } else {
-                R.drawable.ic_baseline_star_border_24
-            }
-            val drawable = ContextCompat.getDrawable(itemView.context, drawableId)
-            val name = viewObject.name
-            val url = viewObject.bannerURL
-
             with(itemView) {
+
+                val isFavorite = viewObject.isFavorite
+                val favorite = R.drawable.ic_baseline_star_24
+                val unpopular = R.drawable.ic_baseline_star_border_24
+                val drawableId = if (isFavorite) {
+                    favorite
+                } else {
+                    unpopular
+                }
+                val drawable = ContextCompat.getDrawable(context, drawableId)
+                val name = viewObject.name
+                val url = viewObject.bannerURL
 
                 nameTextView.text = name
 

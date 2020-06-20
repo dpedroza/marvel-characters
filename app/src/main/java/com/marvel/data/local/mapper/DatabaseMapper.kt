@@ -1,29 +1,29 @@
 package com.marvel.data.local.mapper
 
-import com.marvel.data.model.FavoriteCharacterDataObject
+import com.marvel.data.model.FavoriteCharacterDataTransformationObject
 import com.marvel.domain.model.CharacterEntity
 
 class DatabaseMapper {
 
-    fun toEntityList(list: List<FavoriteCharacterDataObject>): List<CharacterEntity> {
+    fun toEntityList(list: List<FavoriteCharacterDataTransformationObject>): List<CharacterEntity> {
         return list.map { toEntity(it) }
     }
 
-    private fun toEntity(dataObject: FavoriteCharacterDataObject): CharacterEntity {
+    private fun toEntity(dataTransformationObject: FavoriteCharacterDataTransformationObject): CharacterEntity {
         return CharacterEntity(
-            id = dataObject.id,
-            name = dataObject.name,
-            imageUrl = dataObject.photoUrl,
+            id = dataTransformationObject.id,
+            name = dataTransformationObject.name,
+            imageUrl = dataTransformationObject.photoUrl,
             isFavorite = true
         )
     }
 
-    fun toDataObjectList(list: List<CharacterEntity>): List<FavoriteCharacterDataObject> {
+    fun toDataObjectList(list: List<CharacterEntity>): List<FavoriteCharacterDataTransformationObject> {
         return list.map { toDataObject(it) }
     }
 
-    fun toDataObject(entity: CharacterEntity): FavoriteCharacterDataObject {
-        return FavoriteCharacterDataObject(
+    fun toDataObject(entity: CharacterEntity): FavoriteCharacterDataTransformationObject {
+        return FavoriteCharacterDataTransformationObject(
             id = entity.id,
             name = entity.name,
             photoUrl = entity.imageUrl

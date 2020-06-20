@@ -2,13 +2,14 @@ package com.marvel.data.di
 
 import androidx.room.Room
 import com.marvel.BuildConfig
+import com.marvel.data.local.FavoriteRepositoryImpl
+import com.marvel.data.local.database.FavoriteDataAccessObject
 import com.marvel.data.local.database.FavoriteDatabase
 import com.marvel.data.local.mapper.DatabaseMapper
-import com.marvel.data.model.FavoriteCharacterDataObject
+import com.marvel.data.model.FavoriteCharacterDataTransformationObject
 import com.marvel.data.remote.CharacterRepositoryImpl
-import com.marvel.data.local.FavoriteRepositoryImpl
-import com.marvel.data.remote.service.MarvelApiService
 import com.marvel.data.remote.mapper.ResponseMapper
+import com.marvel.data.remote.service.MarvelApiService
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.application.MarvelApplication
@@ -40,11 +41,18 @@ class DataModule(
 
     @Provides
     fun provideCharactersRepository(
-        database: FavoriteDatabase,
+        dao: FavoriteDataAccessObject,
         service: MarvelApiService,
         responseMapper: ResponseMapper
     ): CharactersRepository {
-        return CharacterRepositoryImpl(database, service, responseMapper)
+        return CharacterRepositoryImpl(dao, service, responseMapper)
+    }
+
+    @Provides
+    fun provideFavoriteDataAccessObject(
+        database: FavoriteDatabase
+    ): FavoriteDataAccessObject {
+        return database.favoriteDao()
     }
 
     @Provides
@@ -54,7 +62,7 @@ class DataModule(
         return Room.databaseBuilder(
             application.applicationContext,
             FavoriteDatabase::class.java,
-            FavoriteCharacterDataObject.TABLE
+            FavoriteCharacterDataTransformationObject.TABLE
         ).allowMainThreadQueries().build()
     }
 

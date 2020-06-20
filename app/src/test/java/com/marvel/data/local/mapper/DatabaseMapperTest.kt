@@ -1,6 +1,6 @@
 package com.marvel.data.local.mapper
 
-import com.marvel.data.model.FavoriteCharacterDataObject
+import com.marvel.data.model.FavoriteCharacterDataTransformationObject
 import com.marvel.domain.model.CharacterEntity
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -16,7 +16,7 @@ class DatabaseMapperTest {
             CharacterEntity(1, "Batman", "PHOTO_URL", isFavorite = false)
         )
         val dataObjectList = listOf(
-            FavoriteCharacterDataObject(1, "Batman", "PHOTO_URL")
+            FavoriteCharacterDataTransformationObject(1, "Batman", "PHOTO_URL")
         )
 
         val temp = databaseMapper.toEntityList(dataObjectList)

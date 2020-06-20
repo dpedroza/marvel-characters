@@ -65,8 +65,9 @@ dependencies {
     kapt "androidx.room:room-compiler:2.3.0-alpha01"
 
     // reactive streams
-    implementation "io.reactivex.rxjava2:rxjava:2.2.12"
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
 
     // image handler
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -84,6 +85,7 @@ dependencies {
 
     // unit testing
     testImplementation 'junit:junit:4.13'
+    testImplementation 'org.mockito:mockito-android:3.3.3'
 
     // instrumented tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

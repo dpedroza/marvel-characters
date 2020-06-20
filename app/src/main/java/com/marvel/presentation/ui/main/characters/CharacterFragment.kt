@@ -57,21 +57,26 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupSearchView() {
+
         searchView.setOnQueryTextListener(object : DelayedOnQueryTextListener() {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query.isNullOrBlank()) {
-                    adapter.clear()
-                    presenter.loadCharacters(query = query, resetAdapter = true)
+                if (!query.isNullOrEmpty()) {
+                    search(query)
                 }
                 return false
             }
 
             override fun onDelayerQueryTextChange(query: String?) {
-                adapter.clear()
-                presenter.loadCharacters(query = query, resetAdapter = true)
+                search(query)
             }
         })
+    }
+
+    private fun search(query: String?) {
+        adapter.clear()
+        presenter.resetPagination()
+        presenter.loadCharacters(query)
     }
 
     private fun setupRecyclerView() {
@@ -86,7 +91,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
                 recyclerView.requestFocus()
                 hideKeyboard()
                 if (!charactersRecyclerView.canScrollVertically(1))
-                    if (!presenter.isLoading) {
+                    if (!presenter.isLoading()) {
                         val query = searchView.query as? String
                         presenter.loadCharacters(query)
                     }
@@ -99,7 +104,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
             adapter.clear()
-            presenter.loadCharacters(resetAdapter = true)
+            presenter.resetPagination()
+            presenter.loadCharacters()
         }
     }
 
@@ -119,6 +125,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     override fun showLoading() {
         swipeRefreshLayout.isRefreshing = true
+        errorImageView.visibility = GONE
     }
 
     override fun hideLoading() {
@@ -129,7 +136,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         Toast.makeText(context, getString(messageId, name), LENGTH_SHORT).show()
     }
 
-    override fun showCharacters(characters: List<CharacterViewObject>, clear: Boolean) {
+    override fun showCharacters(characters: List<CharacterViewObject>) {
         errorImageView.visibility = GONE
         emptyText.visibility = GONE
         charactersRecyclerView.visibility = VISIBLE
@@ -146,10 +153,14 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         emptyText.visibility = GONE
         charactersRecyclerView.visibility = GONE
         errorImageView.visibility = VISIBLE
-        Snackbar.make(fragment_character, getString(messageId), BaseTransientBottomBar.LENGTH_INDEFINITE)
+        Snackbar.make(
+            fragment_character,
+            getString(messageId),
+            BaseTransientBottomBar.LENGTH_INDEFINITE
+        )
             .setActionTextColor(Color.WHITE)
             .setAction(getString(R.string.retry_label)) {
-                presenter.loadCharacters(resetAdapter = true)
+                presenter.loadCharacters()
             }
             .show()
         hideKeyboard()

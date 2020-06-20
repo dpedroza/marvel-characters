@@ -5,8 +5,7 @@ import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.usecase.GetFavorites
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.ui.main.rx.applyDefaultSchedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class FavoritesPresenter @Inject constructor(
@@ -18,11 +17,11 @@ class FavoritesPresenter @Inject constructor(
 
         getFavorites.execute()
             .applyDefaultSchedulers()
-            .subscribe(
-                { result ->
-                    onFavoriteUpdate(result)
+            .subscribeBy(
+                onSuccess = { characters ->
+                    onFavoriteUpdate(characters)
                 },
-                {
+                onError = {
                     view?.showMessage(R.string.message_unknown_error)
                 }
             )
@@ -30,12 +29,11 @@ class FavoritesPresenter @Inject constructor(
     }
 
     private fun onFavoriteUpdate(characters: List<CharacterEntity>) {
-        mapper.toViewObjectList(characters).let {
-            if (it.isNotEmpty()) {
-                view?.showFavorites(it)
-            } else {
-                view?.showEmptyState()
-            }
+        val charactersViewObject = mapper.toViewObjectList(characters)
+        if (charactersViewObject.isNotEmpty()) {
+            view?.showFavorites(charactersViewObject)
+        } else {
+            view?.showEmptyState()
         }
     }
 }

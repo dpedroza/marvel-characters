@@ -8,25 +8,17 @@ interface CharactersContract {
 
     interface View : BaseView {
 
-        fun showCharacters(
-            characters: List<CharacterViewObject>,
-            clear: Boolean = false
-        )
+        fun showCharacters(characters: List<CharacterViewObject>)
+        fun showToast(messageId: Int, name: String)
         fun showEmptyState()
         fun showLoading()
         fun hideLoading()
-        fun showToast(messageId: Int, name: String)
     }
 
     abstract class Presenter : CorePresenter<View>() {
-
-        abstract fun loadCharacters(
-            query: String? = null,
-            resetAdapter: Boolean = false
-        )
-
-        abstract fun updateFavorite(
-            characterViewObject: CharacterViewObject
-        )
+        abstract fun isLoading() : Boolean
+        abstract fun resetPagination()
+        abstract fun loadCharacters(query: String? = null)
+        abstract fun updateFavorite(characterViewObject: CharacterViewObject)
     }
 }
