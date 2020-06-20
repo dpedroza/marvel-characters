@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
 import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
+import com.marvel.presentation.ui.core.hideKeyboard
 import com.marvel.presentation.ui.main.adapter.CharacterAdapter
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import javax.inject.Inject
@@ -30,6 +31,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
 
     override fun onResume() {
         super.onResume()
+        hideKeyboard()
         presenter.loadFavorites()
     }
 

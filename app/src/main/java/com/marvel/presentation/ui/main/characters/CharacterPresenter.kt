@@ -29,7 +29,6 @@ class CharacterPresenter @Inject constructor(
         query: String?,
         resetAdapter: Boolean
     ) {
-        if (pagination.isFinalPage) return
         if (resetAdapter) pagination.reset()
         val parameters = GetCharactersParameters(pagination.offset)
         parameters.query = query

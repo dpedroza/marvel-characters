@@ -2,11 +2,13 @@ package com.marvel.presentation.ui.main.characters
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.widget.SearchView
@@ -19,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
 import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
+import com.marvel.presentation.ui.core.hideKeyboard
 import com.marvel.presentation.ui.main.adapter.CharacterAdapter
 import kotlinx.android.synthetic.main.fragment_characters.*
 import javax.inject.Inject
@@ -73,9 +76,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupRecyclerView() {
-        adapter = CharacterAdapter(onFavorite = {
-            onFavorite(it)
-        })
+        adapter = CharacterAdapter({ onFavorite(it) })
         charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = adapter
@@ -83,9 +84,11 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                hideKeyboard()
                 if (!charactersRecyclerView.canScrollVertically(1))
                     if (!presenter.isLoading) {
-                        presenter.loadCharacters(query = searchView.query as String?)
+                        val query = searchView.query as? String
+                        presenter.loadCharacters(query)
                     }
             }
         })

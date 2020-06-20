@@ -1,5 +1,7 @@
 package com.marvel.data.local
 
+import com.marvel.data.local.database.FavoriteDatabase
+import com.marvel.data.local.mapper.DatabaseMapper
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.repository.FavoriteRepository
 import io.reactivex.Completable
