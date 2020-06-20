@@ -3,8 +3,8 @@ package com.marvel.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = FavoriteCharacterDataTransformationObject.TABLE)
-data class FavoriteCharacterDataTransformationObject(
+@Entity(tableName = FavoriteCharacterDto.TABLE)
+data class FavoriteCharacterDto(
     @PrimaryKey val id: Int,
     val name: String,
     val photoUrl: String

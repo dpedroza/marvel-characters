@@ -11,6 +11,7 @@ import com.marvel.domain.repository.CharactersRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import io.reactivex.Single
 import org.junit.Assert.*
 import org.junit.Before
@@ -23,10 +24,9 @@ import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
-import java.lang.RuntimeException
 
 @RunWith(MockitoJUnitRunner::class)
-class CharacterRemoteObjectRepositoryImplTest {
+class CharacterRepositoryTest {
 
     @Mock
     lateinit var dao: FavoriteDao
@@ -66,7 +66,6 @@ class CharacterRemoteObjectRepositoryImplTest {
         assertEquals(20, result.paginationOffset)
         assertEquals(true, result.characters.isEmpty())
     }
-
 
 
     @Test(expected = RuntimeException::class)
