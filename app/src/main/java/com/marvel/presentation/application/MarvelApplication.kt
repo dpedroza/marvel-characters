@@ -1,4 +1,4 @@
-package com.marvel.presentation
+package com.marvel.presentation.application
 
 import android.app.Application
 import com.marvel.data.di.DataModule

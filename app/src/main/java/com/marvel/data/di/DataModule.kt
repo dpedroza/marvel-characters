@@ -10,7 +10,7 @@ import com.marvel.data.remote.service.MarvelApiService
 import com.marvel.data.remote.mapper.ResponseMapper
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
-import com.marvel.presentation.MarvelApplication
+import com.marvel.presentation.application.MarvelApplication
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

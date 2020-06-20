@@ -2,16 +2,13 @@ package com.marvel.presentation.ui.main.characters
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
-import com.marvel.presentation.MarvelApplication
+import com.marvel.presentation.application.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.core.hideKeyboard
 import com.marvel.presentation.ui.main.adapter.CharacterAdapter
-import com.marvel.presentation.ui.main.view.DelayedOnQueryTextListener
+import com.marvel.presentation.ui.main.characters.view.DelayedOnQueryTextListener
 import kotlinx.android.synthetic.main.fragment_characters.*
 import javax.inject.Inject
 

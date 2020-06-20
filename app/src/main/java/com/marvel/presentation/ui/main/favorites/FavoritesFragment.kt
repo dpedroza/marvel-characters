@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
-import com.marvel.presentation.MarvelApplication
+import com.marvel.presentation.application.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.core.hideKeyboard
 import com.marvel.presentation.ui.main.adapter.CharacterAdapter

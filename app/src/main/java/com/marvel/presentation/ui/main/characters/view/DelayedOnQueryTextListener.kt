@@ -1,4 +1,4 @@
-package com.marvel.presentation.ui.main.view
+package com.marvel.presentation.ui.main.characters.view
 
 import android.os.Handler
 import androidx.appcompat.widget.SearchView
