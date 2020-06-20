@@ -51,6 +51,11 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         setupRecyclerView()
     }
 
+    override fun onDestroy() {
+        presenter.detach()
+        super.onDestroy()
+    }
+
     private fun setupPresenter() {
         presenter.attach(this)
     }
