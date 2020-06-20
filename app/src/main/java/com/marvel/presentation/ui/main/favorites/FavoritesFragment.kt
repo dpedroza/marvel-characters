@@ -23,6 +23,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
 
     @Inject
     lateinit var presenter: FavoritesPresenter
+    lateinit var adapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
     override fun onResume() {
         super.onResume()
         hideKeyboard()
+        adapter.clear()
         presenter.loadFavorites()
     }
 
@@ -56,7 +58,8 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
     private fun setupRecyclerView() {
         favoritesRecyclerView.layoutManager = GridLayoutManager(context, 2)
         favoritesRecyclerView.setHasFixedSize(true)
-        favoritesRecyclerView.adapter = CharacterAdapter(hideStars = true)
+        adapter = CharacterAdapter(hideStars = true)
+        favoritesRecyclerView.adapter = adapter
     }
 
     private fun setupDependencyInjection() {
@@ -67,8 +70,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         emptyText.visibility = GONE
         errorImageView.visibility = GONE
         favoritesRecyclerView.visibility = VISIBLE
-        val adapter = favoritesRecyclerView.adapter as CharacterAdapter
-        adapter.updateCharacters(characters, clearList = true)
+        adapter.updateCharacters(characters)
     }
 
     override fun showEmptyState() {

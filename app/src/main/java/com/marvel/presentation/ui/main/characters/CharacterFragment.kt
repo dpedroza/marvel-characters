@@ -61,12 +61,14 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
+                    adapter.clear()
                     presenter.loadCharacters(query = query, resetAdapter = true)
                 }
                 return false
             }
 
             override fun onDelayerQueryTextChange(query: String?) {
+                adapter.clear()
                 presenter.loadCharacters(query = query, resetAdapter = true)
             }
         })
@@ -96,6 +98,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         val color = requireContext().let { ContextCompat.getColor(it, R.color.colorPrimary) }
         swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
+            adapter.clear()
             presenter.loadCharacters(resetAdapter = true)
         }
     }
@@ -106,7 +109,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     private fun onFavorite(characterViewObject: CharacterViewObject) {
         presenter.updateFavorite(characterViewObject)
-        adapter.updateCharacters()
+        adapter.updateFavorite(characterViewObject)
     }
 
     override fun onDestroyView() {
@@ -130,7 +133,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         errorImageView.visibility = GONE
         emptyText.visibility = GONE
         charactersRecyclerView.visibility = VISIBLE
-        adapter.updateCharacters(characters, clear)
+        adapter.updateCharacters(characters)
     }
 
     override fun showEmptyState() {

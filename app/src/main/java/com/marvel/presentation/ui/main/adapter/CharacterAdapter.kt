@@ -18,15 +18,21 @@ class CharacterAdapter(
 
     private val characters = mutableListOf<CharacterViewObject>()
 
-    fun updateCharacters(
-        characters: List<CharacterViewObject>? = null,
-        clearList: Boolean = false
-    ) {
-        if (clearList) this.characters.clear()
-        characters?.let {
-            this.characters.addAll(it)
-        }
+    fun updateCharacters(characters: List<CharacterViewObject>) {
+        val oldSize = this.characters.size
+        this.characters.addAll(characters)
+        val newSize = this.characters.size
+        notifyItemRangeInserted(oldSize, newSize)
+    }
+
+    fun clear() {
+        this.characters.clear()
         notifyDataSetChanged()
+    }
+
+    fun updateFavorite(character: CharacterViewObject) {
+        val index = characters.indexOf(character)
+        notifyItemChanged(index)
     }
 
     override fun getItemCount() = characters.size
@@ -58,21 +64,28 @@ class CharacterAdapter(
             } else {
                 R.drawable.ic_baseline_star_border_24
             }
-
             val drawable = ContextCompat.getDrawable(itemView.context, drawableId)
+            val name = viewObject.name
+            val url = viewObject.bannerURL
 
-            itemView.nameTextView.text = viewObject.name
-            itemView.favoriteImageButton.setImageDrawable(drawable)
-            itemView.favoriteImageButton.setOnClickListener { onFavorite(viewObject) }
+            with(itemView) {
 
-            Glide.with(itemView.context)
-                .load(viewObject.bannerURL)
-                .placeholder(R.drawable.ic_baseline_account_circle_24)
-                .error(R.drawable.ic_baseline_error_outline_24)
-                .centerCrop()
-                .into(itemView.characterImageView)
+                nameTextView.text = name
 
-            if (hideStars) itemView.favoriteImageButton.visibility = GONE
+                if (hideStars) {
+                    favoriteImageButton.visibility = GONE
+                } else {
+                    favoriteImageButton.setImageDrawable(drawable)
+                    favoriteImageButton.setOnClickListener { onFavorite(viewObject) }
+                }
+
+                Glide.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.ic_baseline_account_circle_24)
+                    .error(R.drawable.ic_baseline_error_outline_24)
+                    .centerCrop()
+                    .into(characterImageView)
+            }
         }
     }
 }
