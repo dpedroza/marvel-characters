@@ -1,4 +1,4 @@
-package com.marvel.data.remote.service
+package com.marvel.data.characters.service
 
 import com.marvel.data.model.MarvelServiceApiResponse
 import io.reactivex.Single

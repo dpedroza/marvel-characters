@@ -1,4 +1,4 @@
-package com.marvel.data.local.mapper
+package com.marvel.data.favorites.mapper
 
 import com.marvel.data.model.FavoriteCharacterDataTransformationObject
 import com.marvel.domain.model.CharacterEntity
@@ -24,6 +24,7 @@ class DatabaseMapperTest {
         assertEquals(expectedEntityList[0].id, temp[0].id)
         assertEquals(expectedEntityList[0].name, temp[0].name)
         assertEquals(expectedEntityList[0].imageUrl, temp[0].imageUrl)
+        assertEquals(true, temp[0].isFavorite)
 
         val result = databaseMapper.toDataObjectList(temp)
 

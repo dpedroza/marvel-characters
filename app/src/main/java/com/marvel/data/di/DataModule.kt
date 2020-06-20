@@ -2,15 +2,15 @@ package com.marvel.data.di
 
 import androidx.room.Room
 import com.marvel.BuildConfig
-import com.marvel.data.local.FavoriteRepositoryImpl
-import com.marvel.data.local.database.FavoriteDataAccessObject
-import com.marvel.data.local.database.FavoriteDatabase
-import com.marvel.data.local.mapper.DatabaseMapper
+import com.marvel.data.favorites.repo.FavoriteRepositoryImpl
+import com.marvel.data.database.FavoriteDao
+import com.marvel.data.database.FavoriteDatabase
+import com.marvel.data.favorites.mapper.DatabaseMapper
 import com.marvel.data.model.FavoriteCharacterDataTransformationObject
-import com.marvel.data.remote.CharacterRepositoryImpl
-import com.marvel.data.remote.mapper.ResponseMapper
-import com.marvel.data.remote.mapper.ResponseMapperImpl
-import com.marvel.data.remote.service.MarvelApiService
+import com.marvel.data.characters.repo.CharacterRepositoryImpl
+import com.marvel.data.characters.mapper.ResponseMapper
+import com.marvel.data.characters.mapper.ResponseMapperImpl
+import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.application.MarvelApplication
@@ -40,17 +40,21 @@ class DataModule(private val application: MarvelApplication) {
 
     @Provides
     fun provideCharactersRepository(
-        dao: FavoriteDataAccessObject,
+        dao: FavoriteDao,
         service: MarvelApiService,
         mapper: ResponseMapper
     ): CharactersRepository {
-        return CharacterRepositoryImpl(dao, service, mapper)
+        return CharacterRepositoryImpl(
+            dao,
+            service,
+            mapper
+        )
     }
 
     @Provides
     fun provideFavoriteDataAccessObject(
         database: FavoriteDatabase
-    ): FavoriteDataAccessObject {
+    ): FavoriteDao {
         return database.favoriteDao()
     }
 
@@ -70,7 +74,10 @@ class DataModule(private val application: MarvelApplication) {
         database: FavoriteDatabase,
         mapper: DatabaseMapper
     ): FavoriteRepository {
-        return FavoriteRepositoryImpl(database, mapper)
+        return FavoriteRepositoryImpl(
+            database,
+            mapper
+        )
     }
 
     @Provides

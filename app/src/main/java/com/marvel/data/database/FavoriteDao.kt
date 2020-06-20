@@ -1,4 +1,4 @@
-package com.marvel.data.local.database
+package com.marvel.data.database
 
 import androidx.room.*
 import com.marvel.data.model.FavoriteCharacterDataTransformationObject
@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
-interface FavoriteDataAccessObject {
+interface FavoriteDao {
 
     @Query("SELECT * FROM ${FavoriteCharacterDataTransformationObject.TABLE} ORDER BY name ASC")
     fun getFavorites(): Single<List<FavoriteCharacterDataTransformationObject>>

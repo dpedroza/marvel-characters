@@ -1,8 +1,8 @@
 package com.marvel.presentation.ui.main.characters
 
 import com.marvel.R
-import com.marvel.data.remote.error.NetworkError
-import com.marvel.data.remote.error.composeErrorTransformers
+import com.marvel.data.characters.error.NetworkError
+import com.marvel.data.characters.error.composeErrorTransformers
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersParams
 import com.marvel.domain.usecase.GetCharacters

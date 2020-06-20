@@ -1,4 +1,4 @@
-package com.marvel.data.remote.error
+package com.marvel.data.characters.error
 
 import io.reactivex.Single
 import io.reactivex.SingleSource

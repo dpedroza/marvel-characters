@@ -1,4 +1,4 @@
-package com.marvel.data.remote.error
+package com.marvel.data.characters.error
 
 sealed class NetworkError : Throwable() {
     class NotConnected : NetworkError()
