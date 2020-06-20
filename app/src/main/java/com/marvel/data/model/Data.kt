@@ -11,7 +11,7 @@ data class Data(
     @SerializedName("offset")
     val offset: Int,
     @SerializedName("results")
-    val results: List<Character>,
+    val results: List<CharacterRemoteObject>,
     @SerializedName("total")
     val total: Int
 )

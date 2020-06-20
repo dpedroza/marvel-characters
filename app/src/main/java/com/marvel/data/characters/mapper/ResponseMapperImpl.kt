@@ -1,6 +1,6 @@
 package com.marvel.data.characters.mapper
 
-import com.marvel.data.model.Character
+import com.marvel.data.model.CharacterRemoteObject
 import com.marvel.data.model.MarvelServiceApiResponse
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersResultEntity
@@ -26,19 +26,19 @@ class ResponseMapperImpl : ResponseMapper {
     }
 
     private fun toEntity(
-        character: Character,
+        characterRemoteObject: CharacterRemoteObject,
         isFavorite: Boolean
     ): CharacterEntity {
         return CharacterEntity(
-            id = character.id,
-            name = character.name,
-            imageUrl = buildImagePath(character),
+            id = characterRemoteObject.id,
+            name = characterRemoteObject.name,
+            imageUrl = buildImagePath(characterRemoteObject),
             isFavorite = isFavorite
         )
     }
 
-    private fun buildImagePath(character: Character): String {
-        return "${character.thumbnail.path}.${character.thumbnail.extension}"
+    private fun buildImagePath(characterRemoteObject: CharacterRemoteObject): String {
+        return "${characterRemoteObject.thumbnail.path}.${characterRemoteObject.thumbnail.extension}"
             .replaceFirst(
                 "http",
                 "https"
