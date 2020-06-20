@@ -14,13 +14,10 @@ class FavoritesPresenter @Inject constructor(
 
     override fun loadFavorites() {
 
-        view?.showLoading()
-
         getFavorites.execute().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
-                    view?.hideLoading()
                     val characters = mapper.toViewObjectList(result)
                     if (characters.isNotEmpty()) {
                         view?.showFavorites(characters)
@@ -29,7 +26,6 @@ class FavoritesPresenter @Inject constructor(
                     }
                 },
                 {
-                    view?.hideLoading()
                     view?.showMessage(R.string.message_unknown_error)
                 }
             )

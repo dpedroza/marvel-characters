@@ -64,7 +64,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!charactersRecyclerView.canScrollVertically(1))
-                    presenter.loadCharacters()
+                    if (!presenter.isLoading) presenter.loadCharacters()
             }
         })
     }

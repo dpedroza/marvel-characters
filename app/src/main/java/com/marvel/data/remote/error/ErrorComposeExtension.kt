@@ -1,4 +1,4 @@
-package com.marvel.data.remote
+package com.marvel.data.remote.error
 
 import io.reactivex.Single
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -46,7 +45,6 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         super.onViewCreated(view, savedInstanceState)
         setupPresenter()
         setupRecyclerView()
-        setupSwipeRefreshLayout()
     }
 
     private fun setupPresenter() {
@@ -59,24 +57,8 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         favoritesRecyclerView.adapter = CharacterAdapter(hideStars = true)
     }
 
-    private fun setupSwipeRefreshLayout() {
-        val color = requireContext().let { ContextCompat.getColor(it, R.color.colorPrimary) }
-        swipeRefreshLayout.setColorSchemeColors(color)
-        swipeRefreshLayout.setOnRefreshListener {
-            presenter.loadFavorites()
-        }
-    }
-
     private fun setupDependencyInjection() {
         MarvelApplication.component.presentationComponent().inject(this)
-    }
-
-    override fun showLoading() {
-        swipeRefreshLayout.isRefreshing = true
-    }
-
-    override fun hideLoading() {
-        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showFavorites(characters: List<CharacterViewObject>) {

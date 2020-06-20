@@ -1,8 +1,8 @@
 package com.marvel.presentation.ui.main.characters
 
 import com.marvel.R
-import com.marvel.data.remote.NetworkError
-import com.marvel.data.remote.composeErrorTransformers
+import com.marvel.data.remote.error.NetworkError
+import com.marvel.data.remote.error.composeErrorTransformers
 import com.marvel.domain.model.GetCharactersParameters
 import com.marvel.domain.usecase.GetCharacters
 import com.marvel.domain.usecase.UpdateFavorite
@@ -20,6 +20,8 @@ class CharacterPresenter @Inject constructor(
     private var pagination: PaginationData
 ) : CharactersContract.Presenter() {
 
+    var isLoading = false
+
     override fun loadCharacters(
         query: String,
         reset: Boolean
@@ -28,6 +30,7 @@ class CharacterPresenter @Inject constructor(
         if (reset) pagination.reset()
 
         view?.showLoading()
+        isLoading = true
 
         val parameters = GetCharactersParameters(pagination.offset, query)
 
@@ -52,23 +55,16 @@ class CharacterPresenter @Inject constructor(
                         result.totalCount,
                         result.paginationOffset
                     )
+                    isLoading = false
                 },
                 {
                     view?.hideLoading()
                     view?.showMessage(getErrorMessage(it))
+                    isLoading = false
                 }
             )
             .also { addDisposable(it) }
 
-    }
-
-    private fun getErrorMessage(error: Throwable): Int {
-        return when (error) {
-            is NetworkError.NotConnected -> R.string.message_no_internet
-            is NetworkError.SlowConnection -> R.string.message_slow_internet
-            is NetworkError.Canceled -> R.string.message_unknown_error
-            else -> R.string.message_unknown_error
-        }
     }
 
     override fun updateFavorite(characterViewObject: CharacterViewObject) {
@@ -78,6 +74,15 @@ class CharacterPresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
             .also { addDisposable(it) }
+    }
+
+    private fun getErrorMessage(error: Throwable): Int {
+        return when (error) {
+            is NetworkError.NotConnected -> R.string.message_no_internet
+            is NetworkError.SlowConnection -> R.string.message_slow_internet
+            is NetworkError.Canceled -> R.string.message_unknown_error
+            else -> R.string.message_unknown_error
+        }
     }
 
     private fun updatePagination(currentCount: Int, totalCount: Int, offset: Int) {

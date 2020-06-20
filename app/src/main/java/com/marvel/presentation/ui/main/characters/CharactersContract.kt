@@ -14,6 +14,8 @@ interface CharactersContract {
         )
 
         fun showEmptyState()
+        fun showLoading()
+        fun hideLoading()
     }
 
     abstract class Presenter : CorePresenter<View>() {
