@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -44,6 +45,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPresenter()
+        setupSearchView()
         setupRecyclerView()
         setupSwipeRefreshLayout()
     }
@@ -51,6 +53,23 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     private fun setupPresenter() {
         presenter.attach(this)
         presenter.loadCharacters()
+    }
+
+    private fun setupSearchView() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrBlank()) {
+                    presenter.loadCharacters(query = query, resetAdapter = true)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                presenter.loadCharacters(query = newText, resetAdapter = true)
+                return false
+            }
+        })
     }
 
     private fun setupRecyclerView() {
@@ -61,10 +80,13 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = adapter
         charactersRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!charactersRecyclerView.canScrollVertically(1))
-                    if (!presenter.isLoading) presenter.loadCharacters()
+                    if (!presenter.isLoading) {
+                        presenter.loadCharacters(query = searchView.query as String?)
+                    }
             }
         })
     }
@@ -73,7 +95,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         val color = requireContext().let { ContextCompat.getColor(it, R.color.colorPrimary) }
         swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
-            presenter.loadCharacters(reset = true)
+            presenter.loadCharacters(resetAdapter = true)
         }
     }
 
@@ -82,19 +104,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun onFavorite(characterViewObject: CharacterViewObject) {
-        val name = characterViewObject.name
-        val message = if (characterViewObject.isFavorite) {
-            getString(R.string.favorite_removed, name)
-        } else {
-            getString(R.string.favorite_added, name)
-        }
-
-        characterViewObject.isFavorite = characterViewObject.isFavorite.not()
-
         presenter.updateFavorite(characterViewObject)
         adapter.updateCharacters()
-
-        Toast.makeText(context, message, LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
@@ -108,6 +119,10 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     override fun hideLoading() {
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun showToast(messageId: Int) {
+        Toast.makeText(context, getString(messageId), LENGTH_SHORT).show()
     }
 
     override fun showCharacters(characters: List<CharacterViewObject>, clear: Boolean) {
@@ -127,15 +142,13 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         emptyText.visibility = GONE
         charactersRecyclerView.visibility = GONE
         errorImageView.visibility = VISIBLE
-        activity?.let {
-            val view = it.findViewById<View>(R.id.fragment_character)
-            val message = getString(messageId)
-            val action = getString(R.string.retry_label)
-            Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_INDEFINITE)
-                .setActionTextColor(Color.WHITE)
-                .setAction(action) { presenter.loadCharacters(reset = true) }
-                .show()
-        }
+        val view = requireActivity().findViewById<View>(R.id.fragment_character)
+        val message = getString(messageId)
+        val action = getString(R.string.retry_label)
+        Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_INDEFINITE)
+            .setActionTextColor(Color.WHITE)
+            .setAction(action) { presenter.loadCharacters(resetAdapter = true) }
+            .show()
     }
 
     companion object {

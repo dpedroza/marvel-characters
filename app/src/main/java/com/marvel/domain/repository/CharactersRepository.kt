@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface CharactersRepository {
 
-    fun getCharacters(offset: Int, nameStartsWith: String): Single<GetCharactersResultEntity>
+    fun getCharacters(offset: Int, nameStartsWith: String?): Single<GetCharactersResultEntity>
 }

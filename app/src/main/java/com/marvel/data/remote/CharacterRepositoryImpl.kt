@@ -16,7 +16,7 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override fun getCharacters(
         offset: Int,
-        nameStartsWith: String
+        nameStartsWith: String?
     ): Single<GetCharactersResultEntity> {
 
         val timestamp = System.currentTimeMillis().toString()
@@ -28,9 +28,11 @@ class CharacterRepositoryImpl @Inject constructor(
             apikey = publicKey,
             timestamp = timestamp,
             hash = hash,
-            offset = offset
+            offset = offset,
+            nameStartsWith = nameStartsWith
         ).map { response ->
             mapper.toEntityList(localFavorites, response)
         }
+
     }
 }

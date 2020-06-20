@@ -12,6 +12,7 @@ interface MarvelApiService {
         @Query("apikey") apikey: String,
         @Query("ts") timestamp: String,
         @Query("hash") hash: String,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
+        @Query("nameStartsWith") nameStartsWith: String?
     ): Single<MarvelServiceApiResponse>
 }

@@ -19,14 +19,14 @@ class PresentationModule {
     fun providesCharacterPresenter(
         addFavorite: UpdateFavorite,
         getCharacters: GetCharacters,
-        mapper: ViewObjectMapper,
-        pagination: PaginationData
+        pagination: PaginationData,
+        mapper: ViewObjectMapper
     ): CharacterPresenter {
         return CharacterPresenter(
             addFavorite,
             getCharacters,
-            mapper,
-            pagination
+            pagination,
+            mapper
         )
     }
 
