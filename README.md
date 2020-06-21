@@ -6,6 +6,7 @@ A interface do app é dividida em 3 partes e deve ser desenvolvida conforme os p
 
 ### Home - Characters
 
+![list](https://user-images.githubusercontent.com/9497411/85237315-4e006280-b3fc-11ea-8276-4a5691c24f50.png)
 - [x] Listagem dos personagens ordenados por nome.
 - [x] Botão para favoritar nas células.
 - [x] Barra de busca para filtrar lista de personagens por nome.
