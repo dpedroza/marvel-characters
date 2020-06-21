@@ -24,17 +24,21 @@ class CharacterPresenter @Inject constructor(
     private var loading = false
     private var paginationOffset = 0
 
+    override fun updateFavorite() = updateFavorite
+
+    override fun getCharacters() = getCharacters
+
+    override fun mapper() = mapper
+
     override fun isLoading() = loading
 
-    override fun resetPagination() {
-        paginationOffset = 0
-    }
+    override fun resetPagination() { paginationOffset = 0 }
 
     override fun loadCharacters(query: String?) {
 
         view?.showLoading()
 
-        getCharacters.execute(getParameters(query))
+        getCharacters().execute(getParameters(query))
             .doOnSubscribe { loading = true }
             .doAfterTerminate { loading = false }
             .applyDefaultSchedulers()
@@ -57,7 +61,7 @@ class CharacterPresenter @Inject constructor(
 
         val isFavorite = characterViewObject.isFavorite.not()
         characterViewObject.isFavorite = isFavorite
-        val entity = mapper.toEntity(characterViewObject)
+        val entity = mapper().toEntity(characterViewObject)
         val name = characterViewObject.name
         val favoriteMessage = R.string.favorite_added
         val disfavorMessage = R.string.favorite_removed
@@ -67,7 +71,7 @@ class CharacterPresenter @Inject constructor(
             disfavorMessage
         }
 
-        updateFavorite.execute(entity)
+        updateFavorite().execute(entity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { view?.showToast(messageId, name) }
@@ -80,7 +84,6 @@ class CharacterPresenter @Inject constructor(
         params.query = query
         return params
     }
-
 
     private fun onUpdateCharacters(characters: List<CharacterEntity>) {
         view?.hideLoading()
@@ -103,6 +106,5 @@ class CharacterPresenter @Inject constructor(
             is NetworkError.Canceled -> R.string.message_unknown_error
             else -> R.string.message_unknown_error
         }
-
 }
 
