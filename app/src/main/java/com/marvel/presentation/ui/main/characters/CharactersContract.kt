@@ -30,9 +30,5 @@ interface CharactersContract {
         abstract fun onUpdateCharacters(characters: List<CharacterEntity>)
         abstract fun onUpdateFavorite(characterViewObject: CharacterViewObject)
         abstract fun onError(it: Throwable)
-
-        abstract fun updateFavorite(): UseCase.FromCompletable.WithInput<CharacterEntity>
-        abstract fun getCharacters(): UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity>
-        abstract fun mapper(): ViewObjectMapper
     }
 }

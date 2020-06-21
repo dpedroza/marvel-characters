@@ -66,9 +66,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         searchView.setOnQueryTextListener(object : DelayedOnQueryTextListener() {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query.isNullOrEmpty()) {
-                    search(query)
-                }
+                search(query)
                 return false
             }
 

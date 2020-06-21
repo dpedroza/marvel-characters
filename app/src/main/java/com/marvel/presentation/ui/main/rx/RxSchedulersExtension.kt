@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-fun <T> Single<T>.applyDefaultSchedulers(): Single<T> {
+fun <T> Single<T>.schedulers(): Single<T> {
     return this
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

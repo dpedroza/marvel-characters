@@ -22,9 +22,5 @@ abstract class UseCase<Input, Output> {
         interface WithInput<in Input> {
             fun execute(params: Input): Completable
         }
-
-        interface WithoutInput {
-            fun execute(): Completable
-        }
     }
 }

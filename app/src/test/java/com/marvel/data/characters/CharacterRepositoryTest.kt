@@ -1,17 +1,14 @@
 package com.marvel.data.characters
 
-import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.characters.mapper.ResponseMapperImpl
 import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.database.FavoriteDao
 import com.marvel.data.model.*
-import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.repository.CharactersRepository
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyZeroInteractions
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Assert.*
 import org.junit.Before
@@ -20,9 +17,7 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -34,50 +29,53 @@ class CharacterRepositoryTest {
     @Mock
     lateinit var service: MarvelApiService
 
-    @Spy
-    lateinit var mapper: ResponseMapper
-
     private lateinit var repository: CharactersRepository
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
+        repository = CharacterRepositoryImpl(dao, service,
+            ResponseMapperImpl()
+        )
     }
 
     @Test
     fun assertGetCharactersSuccessBehavior() {
 
-        mockSuccessResponseBehavior()
+        val getCharacters =
+            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
+        whenever(getCharacters).thenReturn(Single.just(stubApiResponse))
 
-        repository = CharacterRepositoryImpl(
-            dao,
-            service,
-            mapper
-        )
+        val getFavoriteIds = dao.getFavoritesIds()
+
+        whenever(getFavoriteIds).thenReturn(stubFavorites)
 
         val result = repository.getCharacters(0, null).blockingGet()
 
         verify(service).getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
         verify(dao).getFavoritesIds()
-        verify(mapper).toEntityList(listOf(1, 2, 3), stubApiResponse)
 
-        assertEquals(200, result.code)
-        assertEquals("ok", result.status)
-        assertEquals(20, result.paginationOffset)
-        assertEquals(true, result.characters.isEmpty())
+        val expectedCode = 200
+        val expectedStatus = "ok"
+        val expectedOffset = 20
+        val expectedSize = 2
+
+        assertEquals(expectedCode, result.code)
+        assertEquals(expectedStatus, result.status)
+        assertEquals(expectedOffset, result.paginationOffset)
+        assertEquals(expectedSize, result.characters.size)
     }
 
 
     @Test(expected = RuntimeException::class)
     fun assertGetCharactersErrorBehavior() {
 
-        mockErrorBehavior()
+        val getCharacters =
+            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
+        whenever(getCharacters).thenReturn(Single.error(Throwable("algo terrível aconteceu")))
 
-        repository = CharacterRepositoryImpl(
-            dao,
-            service,
-            mapper
-        )
+        val getFavoriteIds = dao.getFavoritesIds()
+        whenever(getFavoriteIds).thenReturn(emptyList())
 
         repository.getCharacters(0, null).blockingGet()
     }
@@ -85,13 +83,13 @@ class CharacterRepositoryTest {
     @Test
     fun assertLocalFavoriteInfoAndRemoteCharactersFavoriteAttributionBehavior() {
 
-        mockSuccessResponseBehavior()
+        val getCharacters =
+            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
+        whenever(getCharacters).thenReturn(Single.just(stubApiResponse))
 
-        repository = CharacterRepositoryImpl(
-            dao,
-            service,
-            ResponseMapperImpl()
-        )
+        val getFavoriteIds = dao.getFavoritesIds()
+
+        whenever(getFavoriteIds).thenReturn(stubFavorites)
 
         val result = repository.getCharacters(0, null).blockingGet()
 
@@ -99,131 +97,85 @@ class CharacterRepositoryTest {
         assertFalse(result.characters[1].isFavorite)
     }
 
-    private fun mockSuccessResponseBehavior() {
-
-        val getCharacters =
-            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
-        `when`(getCharacters).thenReturn(Single.just(stubApiResponse))
-
-        val getFavoriteIds = dao.getFavoritesIds()
-        val favorites = listOf(1, 2, 3)
-        `when`(getFavoriteIds).thenReturn(favorites)
-
-        val dataTransformation = mapper.toEntityList(any(), any())
-        `when`(dataTransformation).thenReturn(stubResultEntity)
-    }
-
-    private fun mockErrorBehavior() {
-
-        val getCharacters =
-            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
-        `when`(getCharacters).thenReturn(Single.error(Throwable("algo terrível aconteceu")))
-
-        val getFavoriteIds = dao.getFavoritesIds()
-        `when`(getFavoriteIds).thenReturn(emptyList())
-    }
-
     private companion object {
 
+        val stubFavorites = listOf(1, 2, 3)
+
+        const val stubFavoriteId = 2
+        const val stubNotFavoriteId = 5
+
+        const val favoriteName = "o favorito"
+        const val notFavoriteName = "não gosto muito"
+        const val stubAvailable = 6
+        const val stubUri = "stubUri"
+        const val stubReturned = 23089
+        const val stubExtension = "jpg"
+        const val stubPath = "path"
+        const val stubDescription = "um personagem muito importante na trama"
+        const val stubModified = "modified"
+        const val stubResourceUri = "resource_uri"
+        const val stubCount = 6000
+        const val stubAttributionHTML = "attributionHTML"
+        const val stubAttributionText = "attribution text"
+        const val stubCopyright = "copyleft"
+        const val stubOffset = 20
+        const val stubOkCode = 200
+        const val stubOkStatus = "ok"
+        const val stubEtag = "etag"
+
+        val stubComics = Comics(stubAvailable, stubUri, emptyList(), stubReturned)
+        val stubEvents = Events(stubAvailable, stubUri, emptyList(), stubReturned)
+        val stubSeries = Series(stubAvailable, stubUri, emptyList(), stubReturned)
+        val stubStories = Stories(stubAvailable, stubUri, emptyList(), stubReturned)
+        val stubThumbnail = Thumbnail(stubExtension, stubPath)
+
         val stubCharacterLocalFavorite = CharacterRemoteObject(
-            Comics(
-                0,
-                "",
-                emptyList(),
-                3
-            ),
-            "description",
-            Events(
-                0,
-                "",
-                emptyList(),
-                5
-            ),
-            3,
-            "modified",
-            "name",
-            "resourceURI",
-            Series(
-                789,
-                "uri",
-                emptyList(),
-                6
-            ),
-            Stories(
-                89,
-                "uri",
-                emptyList(),
-                456
-            ),
-            Thumbnail(
-                "jpg",
-                "path"
-            ),
+            stubComics,
+            stubDescription,
+            stubEvents,
+            stubFavoriteId,
+            stubModified,
+            favoriteName,
+            stubResourceUri,
+            stubSeries,
+            stubStories,
+            stubThumbnail,
             emptyList()
         )
 
         val stubCharacterLocalNotFavorite = CharacterRemoteObject(
-            Comics(
-                0,
-                "",
-                emptyList(),
-                3
-            ),
-            "description",
-            Events(
-                0,
-                "",
-                emptyList(),
-                5
-            ),
-            5,
-            "modified",
-            "name",
-            "resourceURI",
-            Series(
-                789,
-                "uri",
-                emptyList(),
-                6
-            ),
-            Stories(
-                89,
-                "uri",
-                emptyList(),
-                456
-            ),
-            Thumbnail(
-                "jpg",
-                "path"
-            ),
+            stubComics,
+            stubDescription,
+            stubEvents,
+            stubNotFavoriteId,
+            stubModified,
+            notFavoriteName,
+            stubResourceUri,
+            stubSeries,
+            stubStories,
+            stubThumbnail,
             emptyList()
+        )
+
+        val stubData = Data(
+            stubCount,
+            stubCount,
+            stubOffset,
+            listOf(
+                stubCharacterLocalFavorite,
+                stubCharacterLocalNotFavorite
+            ),
+            stubCount
         )
 
         val stubApiResponse = MarvelServiceApiResponse(
-            "attributionHTML",
-            "attribution",
-            123,
-            "copyleft",
-            Data(
-                123,
-                456,
-                789,
-                listOf(
-                    stubCharacterLocalFavorite,
-                    stubCharacterLocalNotFavorite
-                ),
-                20
-            )
-            , "etag", "ok"
-        )
-
-        val stubResultEntity = GetCharactersResultEntity(
-            200,
-            "ok",
-            200,
-            40,
-            20,
-            emptyList()
+            stubAttributionHTML,
+            stubAttributionText,
+            stubOkCode,
+            stubCopyright,
+            stubData,
+            stubEtag,
+            stubOkStatus
         )
     }
 }

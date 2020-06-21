@@ -2,14 +2,14 @@ package com.marvel.presentation.ui.main.characters
 
 import com.marvel.R
 import com.marvel.data.characters.error.NetworkError
-import com.marvel.data.characters.error.composeErrorTransformers
+import com.marvel.data.characters.error.networkErrorTransformers
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersParams
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.usecase.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
-import com.marvel.presentation.ui.main.rx.applyDefaultSchedulers
+import com.marvel.presentation.ui.main.rx.schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -24,26 +24,19 @@ class CharacterPresenter @Inject constructor(
     private var loading = false
     private var paginationOffset = 0
 
-    override fun updateFavorite() = updateFavorite
-
-    override fun getCharacters() = getCharacters
-
-    override fun mapper() = mapper
-
     override fun isLoading() = loading
-
     override fun resetPagination() { paginationOffset = 0 }
 
     override fun loadCharacters(query: String?) {
 
         view?.showLoading()
 
-        getCharacters().execute(getParameters(query))
+        getCharacters.execute(getParameters(query))
             .doOnSubscribe { loading = true }
             .doAfterTerminate { loading = false }
-            .applyDefaultSchedulers()
             .doAfterTerminate { view?.hideLoading() }
-            .composeErrorTransformers()
+            .networkErrorTransformers()
+            .schedulers()
             .subscribeBy(
                 onSuccess = {
                     onUpdateCharacters(it.characters)
@@ -60,7 +53,7 @@ class CharacterPresenter @Inject constructor(
 
         val isFavorite = characterViewObject.isFavorite.not()
         characterViewObject.isFavorite = isFavorite
-        val entity = mapper().toEntity(characterViewObject)
+        val entity = mapper.toEntity(characterViewObject)
         val name = characterViewObject.name
         val favoriteMessage = R.string.favorite_added
         val disfavorMessage = R.string.favorite_removed
@@ -70,8 +63,8 @@ class CharacterPresenter @Inject constructor(
             disfavorMessage
         }
 
-        updateFavorite().execute(entity)
-            .subscribeOn(Schedulers.io())
+        updateFavorite.execute(entity)
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { view?.showToast(messageId, name) }
             .also { addDisposable(it) }
@@ -85,7 +78,6 @@ class CharacterPresenter @Inject constructor(
     }
 
     override fun onUpdateCharacters(characters: List<CharacterEntity>) {
-        view?.hideLoading()
         if (characters.isNotEmpty()) {
             val viewObjectList = mapper.toViewObjectList(characters)
             view?.showCharacters(viewObjectList)

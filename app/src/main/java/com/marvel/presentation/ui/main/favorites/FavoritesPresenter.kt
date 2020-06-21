@@ -4,8 +4,7 @@ import com.marvel.R
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.usecase.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
-import com.marvel.presentation.mapper.ViewObjectMapperImpl
-import com.marvel.presentation.ui.main.rx.applyDefaultSchedulers
+import com.marvel.presentation.ui.main.rx.schedulers
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
@@ -17,7 +16,7 @@ class FavoritesPresenter @Inject constructor(
     override fun loadFavorites() {
 
         getFavorites.execute()
-            .applyDefaultSchedulers()
+            .schedulers()
             .subscribeBy(
                 onSuccess = { characters ->
                     onFavoriteUpdate(characters)
