@@ -5,7 +5,10 @@ import com.marvel.domain.usecase.GetFavorites
 import com.marvel.domain.usecase.UpdateFavorite
 import com.marvel.presentation.di.scope.PerFragment
 import com.marvel.presentation.mapper.ViewObjectMapper
+import com.marvel.presentation.mapper.ViewObjectMapperImpl
 import com.marvel.presentation.ui.main.characters.CharacterPresenter
+import com.marvel.presentation.ui.main.characters.CharactersContract
+import com.marvel.presentation.ui.main.favorites.FavoritesContract
 import com.marvel.presentation.ui.main.favorites.FavoritesPresenter
 import dagger.Module
 import dagger.Provides
@@ -19,7 +22,7 @@ class PresentationModule {
         addFavorite: UpdateFavorite,
         getCharacters: GetCharacters,
         mapper: ViewObjectMapper
-    ): CharacterPresenter {
+    ): CharactersContract.Presenter {
         return CharacterPresenter(
             addFavorite,
             getCharacters,
@@ -32,13 +35,13 @@ class PresentationModule {
     fun providesFavoritesPresenter(
         getFavorites: GetFavorites,
         mapper: ViewObjectMapper
-    ): FavoritesPresenter {
+    ): FavoritesContract.Presenter {
         return FavoritesPresenter(getFavorites, mapper)
     }
 
     @PerFragment
     @Provides
     fun providesViewObjectMapper(): ViewObjectMapper {
-        return ViewObjectMapper()
+        return ViewObjectMapperImpl()
     }
 }

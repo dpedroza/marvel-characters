@@ -27,7 +27,7 @@ import javax.inject.Inject
 class CharacterFragment : Fragment(), CharactersContract.View {
 
     @Inject
-    lateinit var presenter: CharacterPresenter
+    lateinit var presenter: CharactersContract.Presenter
     private lateinit var adapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +49,11 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         setupSearchView()
         setupRecyclerView()
         setupSwipeRefreshLayout()
+    }
+
+    override fun onDestroyView() {
+        presenter.detach()
+        super.onDestroyView()
     }
 
     private fun setupPresenter() {
@@ -117,11 +122,6 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     private fun onFavorite(characterViewObject: CharacterViewObject) {
         presenter.updateFavorite(characterViewObject)
         adapter.updateFavorite(characterViewObject)
-    }
-
-    override fun onDestroyView() {
-        presenter.detach()
-        super.onDestroyView()
     }
 
     override fun showLoading() {

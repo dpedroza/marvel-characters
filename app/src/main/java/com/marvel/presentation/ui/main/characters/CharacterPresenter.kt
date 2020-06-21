@@ -5,8 +5,8 @@ import com.marvel.data.characters.error.NetworkError
 import com.marvel.data.characters.error.composeErrorTransformers
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersParams
-import com.marvel.domain.usecase.GetCharacters
-import com.marvel.domain.usecase.UpdateFavorite
+import com.marvel.domain.model.GetCharactersResultEntity
+import com.marvel.domain.usecase.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.main.rx.applyDefaultSchedulers
@@ -16,8 +16,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CharacterPresenter @Inject constructor(
-    private val updateFavorite: UpdateFavorite,
-    private val getCharacters: GetCharacters,
+    private val updateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>,
+    private val getCharacters: UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity>,
     private val mapper: ViewObjectMapper
 ) : CharactersContract.Presenter() {
 

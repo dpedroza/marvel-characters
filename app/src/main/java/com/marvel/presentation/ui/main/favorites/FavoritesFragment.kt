@@ -22,7 +22,7 @@ import javax.inject.Inject
 class FavoritesFragment : Fragment(), FavoritesContract.View {
 
     @Inject
-    lateinit var presenter: FavoritesPresenter
+    lateinit var presenter: FavoritesContract.Presenter
     lateinit var adapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

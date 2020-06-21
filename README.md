@@ -6,7 +6,7 @@ A interface do app é dividida em 3 partes e deve ser desenvolvida conforme os p
 
  Listagem dos personagens ordenados por nome.
 - [x] Botão para favoritar nas células.
-- [x] Barra de busca para filtrar lista de jogos por nome.
+- [x] Barra de busca para filtrar lista de personagens por nome.
 - [x] Pull-to-refresh para atualizar a lista.
 - [x] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
 - [x] Interface de lista vazia, erro ou sem internet.
