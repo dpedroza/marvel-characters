@@ -50,14 +50,13 @@ class CharacterPresenter @Inject constructor(
                     onUpdatePagination(it.currentCount, it.paginationOffset)
                 },
                 onError = {
-                    view?.showMessage(getErrorMessage(it))
-
+                    onError(it)
                 }
             )
             .also { addDisposable(it) }
     }
 
-    override fun updateFavorite(characterViewObject: CharacterViewObject) {
+    override fun onUpdateFavorite(characterViewObject: CharacterViewObject) {
 
         val isFavorite = characterViewObject.isFavorite.not()
         characterViewObject.isFavorite = isFavorite
@@ -78,14 +77,14 @@ class CharacterPresenter @Inject constructor(
             .also { addDisposable(it) }
     }
 
-    private fun getParameters(query: String?): GetCharactersParams {
+    override fun getParameters(query: String?): GetCharactersParams {
         val params = GetCharactersParams()
         params.offset = paginationOffset
         params.query = query
         return params
     }
 
-    private fun onUpdateCharacters(characters: List<CharacterEntity>) {
+    override fun onUpdateCharacters(characters: List<CharacterEntity>) {
         view?.hideLoading()
         if (characters.isNotEmpty()) {
             val viewObjectList = mapper.toViewObjectList(characters)
@@ -95,8 +94,12 @@ class CharacterPresenter @Inject constructor(
         }
     }
 
-    private fun onUpdatePagination(currentCount: Int, offset: Int) {
+    override fun onUpdatePagination(currentCount: Int, offset: Int) {
         paginationOffset = offset + currentCount
+    }
+
+    override fun onError(it: Throwable) {
+        view?.showMessage(getErrorMessage(it))
     }
 
     private fun getErrorMessage(error: Throwable) =

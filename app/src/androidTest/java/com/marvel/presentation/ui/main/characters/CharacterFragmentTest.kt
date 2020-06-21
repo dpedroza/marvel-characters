@@ -3,34 +3,20 @@ package com.marvel.presentation.ui.main.characters
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.marvel.R
+import com.marvel.data.characters.error.NetworkError
 import com.marvel.domain.model.CharacterEntity
-import com.marvel.domain.model.GetCharactersParams
-import com.marvel.domain.model.GetCharactersResultEntity
-import com.marvel.domain.usecase.UseCase
-import com.nhaarman.mockito_kotlin.anyOrNull
-import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 @RunWith(AndroidJUnit4::class)
 class CharacterFragmentTest {
 
-    @Mock
-    lateinit var mockGetCharacters: UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity>
-
-    @Mock
-    lateinit var mockUpdateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>
-
-    @Mock
-    lateinit var mockPresenter: CharactersContract.Presenter
+    private val theme = R.style.Theme_Design_Light
 
     @Before
     fun setup() {
@@ -38,27 +24,80 @@ class CharacterFragmentTest {
     }
 
     @Test
-    fun testEventFragment() {
+    fun testSuccessCharactersBehavior() {
 
-        with(launchFragmentInContainer<CharacterFragment>(themeResId = R.style.Theme_Design)) {
+        with(launchFragmentInContainer<CharacterFragment>(themeResId = theme)) {
 
-            whenever(mockGetCharacters.execute(anyOrNull())).thenReturn(Single.just(stub))
-            whenever(mockPresenter.getCharacters()).thenReturn(mockGetCharacters)
-            whenever(mockPresenter.updateFavorite()).thenReturn(mockUpdateFavorite)
+            onFragment {
+                it.presenter.onUpdateCharacters(
+                    listOf(
+                        CharacterEntity(56, "Doutor Estranho", "banner_url", false),
+                        CharacterEntity(465, "Homem Aranha", "banner_url", false),
+                        CharacterEntity(132, "Wonderboy", "banner_url", false),
+                        CharacterEntity(9789, "Jaspion", "banner_url", false)
+                    )
+                )
+            }
 
-            onFragment { it.presenter = mockPresenter }
+            onView(withText("Doutor Estranho")).check(matches(isDisplayed()))
+            onView(withText("Homem Aranha")).check(matches(isDisplayed()))
+            onView(withText("Wonderboy")).check(matches(isDisplayed()))
+            onView(withText("Jaspion")).check(matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    fun testEmptyCharactersBehavior() {
+
+        with(launchFragmentInContainer<CharacterFragment>(themeResId = theme)) {
+
+            onFragment {
+                it.presenter.onUpdateCharacters(emptyList())
+            }
+
             onView(withId(R.id.emptyText)).check(matches(isDisplayed()))
         }
     }
 
-    private companion object {
-        val stub = GetCharactersResultEntity(
-            200,
-            "ok",
-            200,
-            40,
-            20,
-            emptyList()
-        )
+    @Test
+    fun testUnknownErrorBehavior() {
+
+        with(launchFragmentInContainer<CharacterFragment>(themeResId = theme)) {
+
+            onFragment {
+                it.presenter.onError(RuntimeException("deu ruim"))
+            }
+
+            onView(withId(R.id.errorImageView)).check(matches(isDisplayed()))
+            onView(withText("Ocorreu um erro inesperado")).check(matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    fun testNoInternetBehavior() {
+
+        with(launchFragmentInContainer<CharacterFragment>(themeResId = theme)) {
+
+            onFragment {
+                it.presenter.onError(NetworkError.NotConnected())
+            }
+
+            onView(withId(R.id.errorImageView)).check(matches(isDisplayed()))
+            onView(withText("Sem acesso a rede, verifique sua conexão")).check(matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    fun testSlowConnectionBehavior() {
+
+        with(launchFragmentInContainer<CharacterFragment>(themeResId = theme)) {
+
+            onFragment {
+                it.presenter.onError(NetworkError.SlowConnection())
+            }
+
+            onView(withId(R.id.errorImageView)).check(matches(isDisplayed()))
+            onView(withText("Lentidão na rede detectada")).check(matches(isDisplayed()))
+        }
     }
 }

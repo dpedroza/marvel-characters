@@ -30,7 +30,7 @@ class CharacterAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateFavorite(character: CharacterViewObject) {
+    fun onUpdateFavorite(character: CharacterViewObject) {
         val index = characters.indexOf(character)
         notifyItemChanged(index)
     }

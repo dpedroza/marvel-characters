@@ -21,12 +21,18 @@ interface CharactersContract {
     }
 
     abstract class Presenter : CorePresenter<View>() {
-        abstract fun mapper(): ViewObjectMapper
         abstract fun isLoading(): Boolean
-        abstract fun getCharacters(): UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity>
-        abstract fun updateFavorite(): UseCase.FromCompletable.WithInput<CharacterEntity>
-        abstract fun resetPagination()
         abstract fun loadCharacters(query: String? = null)
-        abstract fun updateFavorite(characterViewObject: CharacterViewObject)
+        abstract fun getParameters(query: String?): GetCharactersParams
+
+        abstract fun resetPagination()
+        abstract fun onUpdatePagination(currentCount: Int, offset: Int)
+        abstract fun onUpdateCharacters(characters: List<CharacterEntity>)
+        abstract fun onUpdateFavorite(characterViewObject: CharacterViewObject)
+        abstract fun onError(it: Throwable)
+
+        abstract fun updateFavorite(): UseCase.FromCompletable.WithInput<CharacterEntity>
+        abstract fun getCharacters(): UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity>
+        abstract fun mapper(): ViewObjectMapper
     }
 }

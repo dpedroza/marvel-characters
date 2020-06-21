@@ -120,8 +120,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun onFavorite(characterViewObject: CharacterViewObject) {
-        presenter.updateFavorite(characterViewObject)
-        adapter.updateFavorite(characterViewObject)
+        presenter.onUpdateFavorite(characterViewObject)
+        adapter.onUpdateFavorite(characterViewObject)
     }
 
     override fun showLoading() {
