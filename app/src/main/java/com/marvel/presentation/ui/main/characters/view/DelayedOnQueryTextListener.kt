@@ -7,6 +7,7 @@ abstract class DelayedOnQueryTextListener : SearchView.OnQueryTextListener {
     private val handler: Handler = Handler()
     private var runnable: Runnable? = null
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onQueryTextChange(query: String?): Boolean {
         handler.removeCallbacks(runnable)
         runnable = Runnable { onDelayerQueryTextChange(query) }
