@@ -28,7 +28,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     @Inject
     lateinit var presenter: CharacterPresenter
-    lateinit var adapter: CharacterAdapter
+    private lateinit var adapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +81,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     private fun setupRecyclerView() {
         adapter = CharacterAdapter({ onFavorite(it) })
-        charactersRecyclerView.layoutManager = GridLayoutManager(context, 2)
+        val spanCount = requireActivity().resources.getInteger(R.integer.span_count)
+        charactersRecyclerView.layoutManager = GridLayoutManager(context, spanCount)
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = adapter
         charactersRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
