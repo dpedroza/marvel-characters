@@ -1,3 +1,0 @@
-            buildConfigField("String", "MARVEL_BASE_URL", "\"https://gateway.marvel.com/\"")
-            buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"88f86348ba02122d3d0f54cf829cf0d9\"")
-            buildConfigField("String", "MARVEL_PRIVATE_KEY", "\"d5b598cf48a7dbc8ae0539debce6408323ec3cd4\"")
