@@ -32,7 +32,6 @@ A interface do app é dividida em 3 partes e deve ser desenvolvida conforme os p
 - [x] App universal, desenvolva uma interface que se adapte a telas maiores.
 - [x] Tratamento para falha de conexão.
 - [x] Desenvolver o App em uma arquitetura robusta.
-- [?] O teste não pode apresenter crash.
 - [ ] Testes unitários e interface.
 
 ## Bônus
@@ -44,3 +43,6 @@ A interface do app é dividida em 3 partes e deve ser desenvolvida conforme os p
 - [x] Usar Dagger2 para injeções de dependência.
 - [x] Usar Mockito para os testes unitários.
 - [ ] Usar Espresso para os testes de interface.
+
+## TBD
+- [ ] O teste não pode apresentar crash.
