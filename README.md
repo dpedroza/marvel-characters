@@ -6,21 +6,12 @@ A interface do app é dividida em 3 partes e deve ser desenvolvida conforme os p
 
 ### Home - Characters
 
- Listagem dos personagens ordenados por nome.
+- [x] Listagem dos personagens ordenados por nome.
 - [x] Botão para favoritar nas células.
 - [x] Barra de busca para filtrar lista de personagens por nome.
 - [x] Pull-to-refresh para atualizar a lista.
 - [x] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
 - [x] Interface de lista vazia, erro ou sem internet.
-
-### Detalhes do personagem
-
-- [ ] Botão de favorito.
-- [ ] Foto em tamanho maior 
-- [ ] Nome do personagem na barra de navegação
-- [ ] Descrição (se houver).
-- [ ] Lista horizontal de Comics (se houver).
-- [ ] Lista horizontal de Series (se houver).
 
 ### Favoritos
 
@@ -45,6 +36,17 @@ A interface do app é dividida em 3 partes e deve ser desenvolvida conforme os p
 - [x] Usar Dagger2 para injeções de dependência.
 - [x] Usar Mockito para os testes unitários.
 - [x] Usar Espresso para os testes de interface.
+
+## TODO
+
+### Detalhes do personagem
+
+- [ ] Botão de favorito.
+- [ ] Foto em tamanho maior 
+- [ ] Nome do personagem na barra de navegação
+- [ ] Descrição (se houver).
+- [ ] Lista horizontal de Comics (se houver).
+- [ ] Lista horizontal de Series (se houver).
 
 ## TBD
 - [ ] O teste não pode apresentar crash.
