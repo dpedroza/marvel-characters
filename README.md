@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/dpedroza/marvel-characters.svg?style=svg)](https://circleci.com/gh/dpedroza/marvel-characters)
+
 ## Interface
 
 A interface do app é dividida em 3 partes e deve ser desenvolvida conforme os pontos abaixo. Para iPad gostariamos de ver o uso do Splitview.
