@@ -19,11 +19,11 @@
 
 ![Webp net-resizeimage (4)](https://user-images.githubusercontent.com/9497411/85237862-4ba00780-b400-11ea-9154-37fca6922a5b.png)
 
-- [x] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
+- [x] Paginação na lista.
 
 ![Webp net-resizeimage (5)](https://user-images.githubusercontent.com/9497411/85237938-d7b22f00-b400-11ea-87db-ec2f0d15e184.png)
 
-- [x] Interface de lista vazia, erro ou sem internet.
+- [x] Interface de lista vazia.
 
 ![Webp net-resizeimage (7)](https://user-images.githubusercontent.com/9497411/85237965-07613700-b401-11ea-97c2-0a76dd27f28a.png)
 ![Webp net-resizeimage (8)](https://user-images.githubusercontent.com/9497411/85238219-ef8ab280-b402-11ea-81bf-175c68010b9b.png)
