@@ -56,6 +56,7 @@ class CharacterFragmentTest {
             }
 
             onView(withId(R.id.emptyText)).check(matches(isDisplayed()))
+            onView(withText("Nenhum personagem encontrado")).check(matches(isDisplayed()))
         }
     }
 
