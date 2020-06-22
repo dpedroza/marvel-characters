@@ -36,7 +36,7 @@
 ![giphy](https://user-images.githubusercontent.com/9497411/85238544-0cc08080-b405-11ea-85e9-aedb80964ccc.gif)
 
 
-### Home - Characters
+### Personagens
 
 
 - [x] Listagem dos personagens ordenados por nome.
