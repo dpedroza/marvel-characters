@@ -2,10 +2,9 @@
 
 ### Home - Characters
 
-- [x] Listagem dos personagens ordenados por nome.
+## Listagem dos personagens ordenados por nome.
 ![Webp net-resizeimage (9)](https://user-images.githubusercontent.com/9497411/85238389-ecdc8d00-b403-11ea-83b6-1bc1f2099d65.png)
 ![list](https://user-images.githubusercontent.com/9497411/85237315-4e006280-b3fc-11ea-8276-4a5691c24f50.png)
-![Screenshot_1592706286](https://user-images.githubusercontent.com/9497411/85238430-36c57300-b404-11ea-9ae1-a7f638a37d12.png)
 
 - [x] Botão para favoritar nas células.
 ![Webp net-resizeimage](https://user-images.githubusercontent.com/9497411/85237677-0d561880-b3ff-11ea-82ae-df9fdb2ed002.png)
