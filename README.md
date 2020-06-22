@@ -2,24 +2,29 @@
 
 ### Home - Characters
 
-## Listagem dos personagens ordenados por nome.
-![Webp net-resizeimage (9)](https://user-images.githubusercontent.com/9497411/85238389-ecdc8d00-b403-11ea-83b6-1bc1f2099d65.png)
+- [x] Listagem dos personagens ordenados por nome.
+
 ![list](https://user-images.githubusercontent.com/9497411/85237315-4e006280-b3fc-11ea-8276-4a5691c24f50.png)
 
 - [x] Botão para favoritar nas células.
+
 ![Webp net-resizeimage](https://user-images.githubusercontent.com/9497411/85237677-0d561880-b3ff-11ea-82ae-df9fdb2ed002.png)
 ![Webp net-resizeimage (1)](https://user-images.githubusercontent.com/9497411/85237693-2fe83180-b3ff-11ea-8be5-1646181d3a13.png)
 
 - [x] Barra de busca para filtrar lista de personagens por nome.
+
 ![Webp net-resizeimage (2)](https://user-images.githubusercontent.com/9497411/85237795-cc123880-b3ff-11ea-93fe-54e1d7dd88f4.png)
 
 - [x] Pull-to-refresh para atualizar a lista.
+
 ![Webp net-resizeimage (4)](https://user-images.githubusercontent.com/9497411/85237862-4ba00780-b400-11ea-9154-37fca6922a5b.png)
 
 - [x] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
+
 ![Webp net-resizeimage (5)](https://user-images.githubusercontent.com/9497411/85237938-d7b22f00-b400-11ea-87db-ec2f0d15e184.png)
 
 - [x] Interface de lista vazia, erro ou sem internet.
+
 ![Webp net-resizeimage (7)](https://user-images.githubusercontent.com/9497411/85237965-07613700-b401-11ea-97c2-0a76dd27f28a.png)
 ![Webp net-resizeimage (8)](https://user-images.githubusercontent.com/9497411/85238219-ef8ab280-b402-11ea-81bf-175c68010b9b.png)
 ![Webp net-resizeimage (6)](https://user-images.githubusercontent.com/9497411/85237947-ec8ec280-b400-11ea-9774-017edac37029.png)
@@ -30,6 +35,7 @@
 - [x] Listagem dos personagens favoritados pelo usuário.
 - [x] Favoritos devem ser persistidos para serem acessados offline.
 - [x] Interface de lista vazia, erro ou sem internet.
+
 ![Webp net-resizeimage (10)](https://user-images.githubusercontent.com/9497411/85238452-64aab780-b404-11ea-8916-183817d34f1e.png)
 ![Webp net-resizeimage (11)](https://user-images.githubusercontent.com/9497411/85238489-a63b6280-b404-11ea-8709-28b28af06a1f.png)
 
@@ -64,4 +70,5 @@
 
 ## TBD
 - [ ] O teste não pode apresentar crash.
+
 ![giphy](https://user-images.githubusercontent.com/9497411/85238544-0cc08080-b405-11ea-85e9-aedb80964ccc.gif)
