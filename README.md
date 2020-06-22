@@ -33,10 +33,15 @@
 ### Favoritos
 
 - [x] Listagem dos personagens favoritados pelo usuário.
-- [x] Favoritos devem ser persistidos para serem acessados offline.
-- [x] Interface de lista vazia, erro ou sem internet.
 
 ![Webp net-resizeimage (10)](https://user-images.githubusercontent.com/9497411/85238452-64aab780-b404-11ea-8916-183817d34f1e.png)
+
+- [x] Favoritos devem ser persistidos para serem acessados offline.
+
+![Webp net-resizeimage (12)](https://user-images.githubusercontent.com/9497411/85238702-329a5500-b406-11ea-8ac2-eca060b7e063.png)
+
+- [x] Interface de lista vazia, erro ou sem internet.
+
 ![Webp net-resizeimage (11)](https://user-images.githubusercontent.com/9497411/85238489-a63b6280-b404-11ea-8709-28b28af06a1f.png)
 
 ## Essencial
