@@ -6,6 +6,8 @@ import com.marvel.domain.usecase.UpdateFavorite
 import com.marvel.presentation.di.scope.PerFragment
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.mapper.ViewObjectMapperImpl
+import com.marvel.presentation.ui.detail.DetailContract
+import com.marvel.presentation.ui.detail.DetailPresenter
 import com.marvel.presentation.ui.main.characters.CharacterPresenter
 import com.marvel.presentation.ui.main.characters.CharactersContract
 import com.marvel.presentation.ui.main.favorites.FavoritesContract
@@ -19,15 +21,24 @@ class PresentationModule {
     @PerFragment
     @Provides
     fun providesCharacterPresenter(
-        addFavorite: UpdateFavorite,
+        updateFavorite: UpdateFavorite,
         getCharacters: GetCharacters,
         mapper: ViewObjectMapper
     ): CharactersContract.Presenter {
         return CharacterPresenter(
-            addFavorite,
+            updateFavorite,
             getCharacters,
             mapper
         )
+    }
+
+    @PerFragment
+    @Provides
+    fun providesDetailPresenter(
+        updateFavorite: UpdateFavorite,
+        mapper: ViewObjectMapper
+    ): DetailContract.Presenter {
+        return DetailPresenter(updateFavorite, mapper)
     }
 
     @PerFragment
