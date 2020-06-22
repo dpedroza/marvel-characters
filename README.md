@@ -18,7 +18,6 @@
 - [x] Usar Mockito para os testes unitários.
 - [x] Usar Espresso para os testes de interface.
 
-## TODO
 ### Detalhes do personagem
 
 - [ ] Botão de favorito.
@@ -31,9 +30,6 @@
 ## TBD
 
 - [ ] O teste não pode apresentar crash.
-
-
-![giphy](https://user-images.githubusercontent.com/9497411/85238544-0cc08080-b405-11ea-85e9-aedb80964ccc.gif)
 
 
 ### Personagens
