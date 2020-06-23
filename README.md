@@ -97,7 +97,7 @@
 - [x] Botão de favorito.
 
 
-![Webp net-resizeimage (17)](https://user-images.githubusercontent.com/9497411/85416375-c1ad8700-b544-11ea-843e-d42bf1bb8982.png)
+![Webp net-resizeimage (20)](https://user-images.githubusercontent.com/9497411/85424268-173a6180-b54e-11ea-8543-fd21fc03bb61.png)
 
 
 - [x] Descrição (se houver).
