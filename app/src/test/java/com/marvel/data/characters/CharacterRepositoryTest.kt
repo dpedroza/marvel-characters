@@ -1,6 +1,6 @@
 package com.marvel.data.characters
 
-import com.marvel.data.characters.mapper.ResponseMapperImpl
+import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.database.FavoriteDao
@@ -35,7 +35,7 @@ class CharacterRepositoryTest {
     fun setup() {
         MockitoAnnotations.initMocks(this)
         repository = CharacterRepositoryImpl(dao, service,
-            ResponseMapperImpl()
+            ResponseMapper()
         )
     }
 

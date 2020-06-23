@@ -5,13 +5,11 @@ import com.marvel.BuildConfig
 import com.marvel.data.favorites.repo.FavoriteRepositoryImpl
 import com.marvel.data.database.FavoriteDao
 import com.marvel.data.database.FavoriteDatabase
-import com.marvel.data.favorites.mapper.DatabaseMapper
 import com.marvel.data.model.FavoriteCharacterDto
 import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.mapper.ResponseMapper
-import com.marvel.data.characters.mapper.ResponseMapperImpl
 import com.marvel.data.characters.service.MarvelApiService
-import com.marvel.data.favorites.mapper.DatabaseMapperImpl
+import com.marvel.data.favorites.mapper.DatabaseMapper
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.application.MarvelApplication
@@ -42,13 +40,11 @@ class DataModule(private val application: MarvelApplication) {
     @Provides
     fun provideCharactersRepository(
         dao: FavoriteDao,
-        service: MarvelApiService,
-        mapper: ResponseMapper
+        service: MarvelApiService
     ): CharactersRepository {
         return CharacterRepositoryImpl(
             dao,
-            service,
-            mapper
+            service
         )
     }
 
@@ -83,11 +79,11 @@ class DataModule(private val application: MarvelApplication) {
 
     @Provides
     fun providesDatabaseMapper(): DatabaseMapper {
-        return DatabaseMapperImpl()
+        return DatabaseMapper()
     }
 
     @Provides
     fun providesResponseMapper(): ResponseMapper {
-        return ResponseMapperImpl()
+        return ResponseMapper()
     }
 }

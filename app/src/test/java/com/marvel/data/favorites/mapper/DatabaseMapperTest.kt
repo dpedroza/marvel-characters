@@ -7,7 +7,7 @@ import org.junit.Test
 
 class DatabaseMapperTest {
 
-    private val databaseMapper = DatabaseMapperImpl()
+    private val databaseMapper = DatabaseMapper()
 
     @Test
     fun assertMapperConversion() {

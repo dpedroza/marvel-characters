@@ -4,7 +4,7 @@ import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersParams
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.usecase.UseCase
-import com.marvel.presentation.mapper.ViewObjectMapperImpl
+import com.marvel.presentation.mapper.ViewObjectMapper
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
@@ -27,7 +27,7 @@ class CharacterPresenterTest {
         presenter = CharacterPresenter(
             mockUpdateFavorite,
             mockGetCharacters,
-            ViewObjectMapperImpl()
+            ViewObjectMapper()
         )
     }
 

@@ -5,11 +5,12 @@ import com.marvel.domain.usecase.GetFavorites
 import com.marvel.domain.usecase.UpdateFavorite
 import com.marvel.presentation.di.scope.PerFragment
 import com.marvel.presentation.mapper.ViewObjectMapper
-import com.marvel.presentation.mapper.ViewObjectMapperImpl
 import com.marvel.presentation.ui.main.characters.CharacterPresenter
 import com.marvel.presentation.ui.main.characters.CharactersContract
+import com.marvel.presentation.ui.main.rx.SchedulerProvider
 import com.marvel.presentation.ui.main.favorites.FavoritesContract
 import com.marvel.presentation.ui.main.favorites.FavoritesPresenter
+import com.marvel.presentation.ui.main.rx.SchedulerProviderImpl
 import dagger.Module
 import dagger.Provides
 
@@ -21,12 +22,12 @@ class PresentationModule {
     fun providesCharacterPresenter(
         addFavorite: UpdateFavorite,
         getCharacters: GetCharacters,
-        mapper: ViewObjectMapper
+        schedulerProvider: SchedulerProvider
     ): CharactersContract.Presenter {
         return CharacterPresenter(
             addFavorite,
             getCharacters,
-            mapper
+            schedulerProvider
         )
     }
 
@@ -34,14 +35,20 @@ class PresentationModule {
     @Provides
     fun providesFavoritesPresenter(
         getFavorites: GetFavorites,
-        mapper: ViewObjectMapper
+        schedulerProvider: SchedulerProvider
     ): FavoritesContract.Presenter {
-        return FavoritesPresenter(getFavorites, mapper)
+        return FavoritesPresenter(getFavorites, schedulerProvider)
     }
 
     @PerFragment
     @Provides
     fun providesViewObjectMapper(): ViewObjectMapper {
-        return ViewObjectMapperImpl()
+        return ViewObjectMapper()
+    }
+
+    @PerFragment
+    @Provides
+    fun providesScheduleProvider(): SchedulerProvider {
+        return SchedulerProviderImpl()
     }
 }

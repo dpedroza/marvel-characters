@@ -1,12 +1,17 @@
 package com.marvel.presentation.ui.main.rx
 
+import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 
-fun <T> Single<T>.schedulers(): Single<T> {
+fun <T> Single<T>.ioUiSchedulers(schedulerProvider: SchedulerProvider): Single<T> {
     return this
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(schedulerProvider.io())
+        .observeOn(schedulerProvider.ui())
+}
+
+fun Completable.ioComputationSchedulers(schedulerProvider: SchedulerProvider): Completable {
+    return this
+        .subscribeOn(schedulerProvider.computation())
+        .observeOn(schedulerProvider.ui())
 }

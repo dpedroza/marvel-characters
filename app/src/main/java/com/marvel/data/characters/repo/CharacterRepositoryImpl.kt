@@ -1,9 +1,9 @@
 package com.marvel.data.characters.repo
 
 import com.marvel.BuildConfig
+import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.cryptography.Hash
 import com.marvel.data.database.FavoriteDao
-import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.repository.CharactersRepository
@@ -12,9 +12,10 @@ import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
     private val dao: FavoriteDao,
-    private val service: MarvelApiService,
-    private val mapper: ResponseMapper
+    private val service: MarvelApiService
 ) : CharactersRepository {
+
+    private val mapper = ResponseMapper()
 
     override fun getCharacters(
         offset: Int,

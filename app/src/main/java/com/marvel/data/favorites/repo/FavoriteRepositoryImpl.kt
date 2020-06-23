@@ -1,7 +1,6 @@
 package com.marvel.data.favorites.repo
 
 import com.marvel.data.database.FavoriteDao
-import com.marvel.data.database.FavoriteDatabase
 import com.marvel.data.favorites.mapper.DatabaseMapper
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.repository.FavoriteRepository

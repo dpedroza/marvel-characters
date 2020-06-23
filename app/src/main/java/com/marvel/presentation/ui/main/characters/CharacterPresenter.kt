@@ -9,23 +9,26 @@ import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.usecase.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
-import com.marvel.presentation.ui.main.rx.schedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.marvel.presentation.ui.main.rx.SchedulerProvider
+import com.marvel.presentation.ui.main.rx.ioComputationSchedulers
+import com.marvel.presentation.ui.main.rx.ioUiSchedulers
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CharacterPresenter @Inject constructor(
     private val updateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>,
     private val getCharacters: UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity>,
-    private val mapper: ViewObjectMapper
+    private val schedulerProvider: SchedulerProvider
 ) : CharactersContract.Presenter() {
 
     private var loading = false
     private var paginationOffset = 0
+    private val mapper = ViewObjectMapper()
 
     override fun isLoading() = loading
-    override fun resetPagination() { paginationOffset = 0 }
+    override fun resetPagination() {
+        paginationOffset = 0
+    }
 
     override fun loadCharacters(query: String?) {
 
@@ -35,8 +38,8 @@ class CharacterPresenter @Inject constructor(
             .doOnSubscribe { loading = true }
             .doAfterTerminate { loading = false }
             .doAfterTerminate { view?.hideLoading() }
+            .ioUiSchedulers(schedulerProvider)
             .networkErrorTransformers()
-            .schedulers()
             .subscribeBy(
                 onSuccess = {
                     onUpdateCharacters(it.characters)
@@ -64,8 +67,7 @@ class CharacterPresenter @Inject constructor(
         }
 
         updateFavorite.execute(entity)
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
+            .ioComputationSchedulers(schedulerProvider)
             .subscribe { view?.showToast(messageId, name) }
             .also { addDisposable(it) }
     }
