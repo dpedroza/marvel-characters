@@ -30,7 +30,6 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         setupToolbar()
         setupImage()
         setupFab()
-        infoTextView.text = getString(R.string.no_info_message)
         setupCharacterInfo()
     }
 
@@ -103,7 +102,7 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
             ) {
                 infoTextView.text = getString(R.string.no_info_message)
             } else {
-                val builder = StringBuilder()
+                 val builder = StringBuilder()
                 if (!description.isNullOrEmpty()) {
                     builder.append(getString(R.string.description))
                     builder.append("\n")
