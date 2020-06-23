@@ -1,9 +1,8 @@
 package com.marvel.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
-data class MarvelServiceApiResponse(
+data class GetCharactersApiResponse(
     @SerializedName("attributionHTML")
     val attributionHTML: String,
     @SerializedName("attributionText")

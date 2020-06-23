@@ -1,16 +1,24 @@
 package com.marvel.data.characters
 
-import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.database.FavoriteDao
-import com.marvel.data.model.*
+import com.marvel.data.model.Events
+import com.marvel.data.model.Comics
+import com.marvel.data.model.CharacterRemoteObject
+import com.marvel.data.model.Series
+import com.marvel.data.model.Stories
+import com.marvel.data.model.Thumbnail
+import com.marvel.data.model.GetCharactersApiResponse
+import com.marvel.data.model.Data
 import com.marvel.domain.repository.CharactersRepository
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -63,7 +71,6 @@ class CharacterRepositoryTest {
         assertEquals(expectedOffset, result.paginationOffset)
         assertEquals(expectedSize, result.characters.size)
     }
-
 
     @Test(expected = RuntimeException::class)
     fun assertGetCharactersErrorBehavior() {
@@ -166,7 +173,7 @@ class CharacterRepositoryTest {
             stubCount
         )
 
-        val stubApiResponse = MarvelServiceApiResponse(
+        val stubApiResponse = GetCharactersApiResponse(
             stubAttributionHTML,
             stubAttributionText,
             stubOkCode,

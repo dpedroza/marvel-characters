@@ -1,8 +1,8 @@
 package com.marvel.data.characters.mapper
 
 import com.marvel.data.model.CharacterRemoteObject
+import com.marvel.data.model.GetCharactersApiResponse
 import com.marvel.data.model.Item
-import com.marvel.data.model.MarvelServiceApiResponse
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.ComicEntity
 import com.marvel.domain.model.GetCharactersResultEntity
@@ -12,7 +12,7 @@ class ResponseMapper {
 
     fun toEntityList(
         localFavorites: List<Int>,
-        remoteCharacters: MarvelServiceApiResponse
+        remoteCharacters: GetCharactersApiResponse
     ): GetCharactersResultEntity {
 
         return GetCharactersResultEntity(
@@ -68,8 +68,7 @@ class ResponseMapper {
         )
     }
 
-    private fun buildImagePath(characterRemoteObject: CharacterRemoteObject): String {
-        return "${characterRemoteObject.thumbnail.path}.${characterRemoteObject.thumbnail.extension}"
+    private fun buildImagePath(characterRemoteObject: CharacterRemoteObject) =
+        characterRemoteObject.thumbnail.path + "." + characterRemoteObject.thumbnail.extension
             .replaceFirst("http", "https")
-    }
 }

@@ -3,8 +3,7 @@ package com.marvel.domain.usecase
 import io.reactivex.Completable
 import io.reactivex.Single
 
-
-abstract class UseCase<Input, Output> {
+abstract class UseCase {
 
     object FromSingle {
 

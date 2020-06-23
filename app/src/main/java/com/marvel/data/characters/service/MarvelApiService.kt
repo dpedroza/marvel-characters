@@ -1,6 +1,6 @@
 package com.marvel.data.characters.service
 
-import com.marvel.data.model.MarvelServiceApiResponse
+import com.marvel.data.model.GetCharactersApiResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +14,5 @@ interface MarvelApiService {
         @Query("hash") hash: String,
         @Query("offset") offset: Int,
         @Query("nameStartsWith") nameStartsWith: String?
-    ): Single<MarvelServiceApiResponse>
+    ): Single<GetCharactersApiResponse>
 }

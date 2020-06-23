@@ -16,17 +16,23 @@ import dagger.Provides
 class DomainModule {
 
     @Provides
-    fun provideGetCharactersUseCase(characterRepository: CharactersRepository): UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity> {
+    fun provideGetCharactersUseCase(
+        characterRepository: CharactersRepository
+    ): UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity> {
         return GetCharacters(characterRepository)
     }
 
     @Provides
-    fun provideGetFavoritesUseCase(favoriteRepository: FavoriteRepository): UseCase.FromSingle.WithoutInput<List<CharacterEntity>> {
+    fun provideGetFavoritesUseCase(
+        favoriteRepository: FavoriteRepository
+    ): UseCase.FromSingle.WithoutInput<List<CharacterEntity>> {
         return GetFavorites(favoriteRepository)
     }
 
     @Provides
-    fun provideUpdateFavoriteUseCase(favoriteRepository: FavoriteRepository): UseCase.FromCompletable.WithInput<CharacterEntity> {
+    fun provideUpdateFavoriteUseCase(
+        favoriteRepository: FavoriteRepository
+    ): UseCase.FromCompletable.WithInput<CharacterEntity> {
         return UpdateFavorite(favoriteRepository)
     }
 }

@@ -3,7 +3,6 @@ package com.marvel.presentation.ui.core
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-
 open class CorePresenter<T : BaseView> : BasePresenter<T> {
 
     protected var view: T? = null
