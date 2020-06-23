@@ -82,16 +82,13 @@
 - [x] Interface de lista vazia, erro ou sem internet.
 
 
-![Webp net-resizeimage (11)](https://user-images.githubusercontent.com/9497411/85238489-a63b6280-b404-11ea-8709-28b28af06a1f.png)
-
-
 ### Detalhes do personagem
 
 - [x] Foto em tamanho maior 
 - [x] Nome do personagem na barra de navegação
 
 
-![Webp net-resizeimage (16)](https://user-images.githubusercontent.com/9497411/85416371-c07c5a00-b544-11ea-9bde-60ac408b5656.png)
+![Webp net-resizeimage (21)](https://user-images.githubusercontent.com/9497411/85424472-5963a300-b54e-11ea-8c10-4b93bda19d7f.png)
 
 
 - [x] Botão de favorito.
