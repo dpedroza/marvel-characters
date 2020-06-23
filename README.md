@@ -18,15 +18,6 @@
 - [x] Usar Mockito para os testes unitários.
 - [x] Usar Espresso para os testes de interface.
 
-### Detalhes do personagem
-
-- [ ] Botão de favorito.
-- [ ] Foto em tamanho maior 
-- [ ] Nome do personagem na barra de navegação
-- [ ] Descrição (se houver).
-- [ ] Lista horizontal de Comics (se houver).
-- [ ] Lista horizontal de Series (se houver).
-
 ## TBD
 
 - [ ] O teste não pode apresentar crash.
@@ -92,3 +83,30 @@
 
 
 ![Webp net-resizeimage (11)](https://user-images.githubusercontent.com/9497411/85238489-a63b6280-b404-11ea-8709-28b28af06a1f.png)
+
+
+### Detalhes do personagem
+
+- [x] Foto em tamanho maior 
+- [x] Nome do personagem na barra de navegação
+
+
+![Webp net-resizeimage (16)](https://user-images.githubusercontent.com/9497411/85416371-c07c5a00-b544-11ea-9bde-60ac408b5656.png)
+
+
+- [x] Botão de favorito.
+
+
+![Webp net-resizeimage (17)](https://user-images.githubusercontent.com/9497411/85416375-c1ad8700-b544-11ea-843e-d42bf1bb8982.png)
+
+
+- [x] Descrição (se houver).
+
+
+![Webp net-resizeimage (19)](https://user-images.githubusercontent.com/9497411/85416542-f8839d00-b544-11ea-94b5-b43f997646d4.png)
+
+
+##TODO
+
+- [ ] Lista horizontal de Comics (se houver).
+- [ ] Lista horizontal de Series (se houver).
