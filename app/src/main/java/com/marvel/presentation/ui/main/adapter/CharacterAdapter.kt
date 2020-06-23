@@ -77,6 +77,7 @@ class CharacterAdapter(
                 nameTextView.text = name
 
                 if (hideStars) {
+                    isEnabled = false
                     favoriteImageButton.visibility = GONE
                 } else {
                     favoriteImageButton.setImageDrawable(drawable)

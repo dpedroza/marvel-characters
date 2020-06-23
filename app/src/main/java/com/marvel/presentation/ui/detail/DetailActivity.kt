@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.marvel.R
 import com.marvel.presentation.application.MarvelApplication
@@ -31,6 +30,8 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         setupToolbar()
         setupImage()
         setupFab()
+        infoTextView.text = getString(R.string.no_info_message)
+        setupCharacterInfo()
     }
 
     override fun onDestroy() {
@@ -63,8 +64,6 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-
-        descriptionTextView.text = character.description
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
@@ -83,15 +82,61 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
     private fun getStarDrawable(): Drawable? {
         val favorite = R.drawable.ic_baseline_star_24
         val unpopular = R.drawable.ic_baseline_star_white_24
-        return if (character.isFavorite) {
-            ContextCompat.getDrawable(this, favorite)
+        val drawableId = if (character.isFavorite) {
+            favorite
         } else {
-            ContextCompat.getDrawable(this, unpopular)
+            unpopular
         }
+        return ContextCompat.getDrawable(this, drawableId)
     }
 
     private fun setupDependencyInjection() {
         MarvelApplication.component.presentationComponent().inject(this)
+    }
+
+    private fun setupCharacterInfo() {
+        with(character) {
+            if (
+                description.isNullOrEmpty() &&
+                comics.isNullOrEmpty() &&
+                series.isNullOrEmpty()
+            ) {
+                infoTextView.text = getString(R.string.no_info_message)
+            } else {
+                val builder = StringBuilder()
+                if (!description.isNullOrEmpty()) {
+                    builder.append(getString(R.string.description))
+                    builder.append("\n")
+                    builder.append("\n")
+                    builder.append(description)
+                    builder.append("\n")
+                    builder.append("\n")
+                    builder.append("\n")
+                }
+                if (!comics.isNullOrEmpty()) {
+                    builder.append(getString(R.string.comics))
+                    builder.append("\n")
+                    builder.append("\n")
+                    comics.map {
+                        builder.append(it.name)
+                        builder.append("\n")
+                    }
+                    builder.append("\n")
+                    builder.append("\n")
+                    builder.append("\n")
+                }
+                if (!series.isNullOrEmpty()) {
+                    builder.append(getString(R.string.series))
+                    builder.append("\n")
+                    builder.append("\n")
+                    series.map {
+                        builder.append(it.name)
+                        builder.append("\n")
+                    }
+                }
+                infoTextView.text = builder.toString()
+            }
+        }
     }
 
     companion object {
