@@ -4,7 +4,7 @@ import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.model.GetCharactersParams
 import com.marvel.domain.model.GetCharactersResultEntity
 import com.marvel.domain.usecase.UseCase
-import com.marvel.presentation.mapper.ViewObjectMapper
+import com.marvel.presentation.ui.main.rx.SchedulerProvider
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
@@ -20,15 +20,13 @@ class CharacterPresenterTest {
     lateinit var mockUpdateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>
 
     lateinit var presenter: CharacterPresenter
+    lateinit var trampolineScheduler: SchedulerProvider
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        presenter = CharacterPresenter(
-            mockUpdateFavorite,
-            mockGetCharacters,
-            ViewObjectMapper()
-        )
+        trampolineScheduler = TrampolineSchedulerProvider()
+        presenter = CharacterPresenter(mockUpdateFavorite, mockGetCharacters, trampolineScheduler)
     }
 
     @Test

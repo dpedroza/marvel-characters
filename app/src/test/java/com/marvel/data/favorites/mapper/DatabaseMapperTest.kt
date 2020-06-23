@@ -25,7 +25,7 @@ class DatabaseMapperTest {
         assertEquals(expectedEntityList[0].name, temp[0].name)
         assertEquals(expectedEntityList[0].imageUrl, temp[0].imageUrl)
 
-        val result = databaseMapper.toDataObjectList(temp)
+        val result = databaseMapper.toDtos(temp)
 
         assertEquals(expectedEntityList[0].id, result[0].id)
         assertEquals(expectedEntityList[0].name, result[0].name)

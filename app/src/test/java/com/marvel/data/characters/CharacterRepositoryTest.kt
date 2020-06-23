@@ -34,9 +34,7 @@ class CharacterRepositoryTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        repository = CharacterRepositoryImpl(dao, service,
-            ResponseMapper()
-        )
+        repository = CharacterRepositoryImpl(dao, service)
     }
 
     @Test
