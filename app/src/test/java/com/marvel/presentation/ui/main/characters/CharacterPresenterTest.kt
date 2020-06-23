@@ -20,12 +20,13 @@ class CharacterPresenterTest {
     lateinit var mockUpdateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>
 
     lateinit var presenter: CharacterPresenter
+
     lateinit var trampolineScheduler: SchedulerProvider
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        trampolineScheduler = TrampolineSchedulerProvider()
+        trampolineScheduler = TestSchedulerProvider()
         presenter = CharacterPresenter(mockUpdateFavorite, mockGetCharacters, trampolineScheduler)
     }
 

@@ -4,7 +4,7 @@ import com.marvel.presentation.ui.main.rx.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 
-class TrampolineSchedulerProvider : SchedulerProvider {
+class TestSchedulerProvider : SchedulerProvider {
 
     override fun io(): Scheduler {
         return Schedulers.trampoline()
