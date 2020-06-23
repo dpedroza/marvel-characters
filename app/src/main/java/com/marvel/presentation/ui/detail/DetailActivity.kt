@@ -1,12 +1,14 @@
 package com.marvel.presentation.ui.detail
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.marvel.R
 import com.marvel.presentation.application.MarvelApplication
@@ -24,19 +26,11 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setupDependencyInjection()
-        character = intent.getParcelableExtra(CHARACTER) ?: throw IllegalArgumentException()
         presenter.attach(this)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
-        setupCollapsingToolbar()
-
-        Glide.with(this)
-            .load(character.bannerURL)
-            .placeholder(R.drawable.ic_baseline_account_circle_24)
-            .error(R.drawable.ic_baseline_error_outline_24)
-            .centerCrop()
-            .into(collapsingImageView)
+        character = intent.getParcelableExtra(CHARACTER) as CharacterViewObject
+        setupToolbar()
+        setupImage()
+        setupFab()
     }
 
     override fun onDestroy() {
@@ -55,36 +49,44 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
     }
 
     override fun showMessage(messageId: Int) {
-        val favorite = R.drawable.ic_baseline_star_24
-        val unpopular = R.drawable.ic_baseline_star_white_24
-        val drawable = if (character.isFavorite) {
-            ContextCompat.getDrawable(this, favorite)
-        } else {
-            ContextCompat.getDrawable(this, unpopular)
-        }
-
-        fab.setImageDrawable(drawable)
+        fab.setImageDrawable(getStarDrawable())
         Toast.makeText(this, getString(messageId, character.name), Toast.LENGTH_SHORT).show()
     }
 
-    private fun setupCollapsingToolbar() {
+    private fun setupImage() {
+        Glide.with(this)
+            .load(character.bannerURL)
+            .placeholder(R.drawable.ic_baseline_account_circle_24)
+            .error(R.drawable.ic_baseline_error_outline_24)
+            .centerCrop()
+            .into(collapsingImageView)
+    }
+
+    private fun setupToolbar() {
+
         descriptionTextView.text = character.description
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         collapsingToolbar.title = character.name
         collapsingToolbar.setExpandedTitleColor(Color.WHITE)
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE)
+    }
 
+    private fun setupFab() {
+        fab.setImageDrawable(getStarDrawable())
+        fab.setOnClickListener {
+            presenter.updateFavorite(character)
+        }
+    }
+
+    private fun getStarDrawable(): Drawable? {
         val favorite = R.drawable.ic_baseline_star_24
         val unpopular = R.drawable.ic_baseline_star_white_24
-        val drawable = if (character.isFavorite) {
+        return if (character.isFavorite) {
             ContextCompat.getDrawable(this, favorite)
         } else {
             ContextCompat.getDrawable(this, unpopular)
-        }
-
-        fab.setImageDrawable(drawable)
-
-        fab.setOnClickListener {
-            presenter.updateFavorite(character)
         }
     }
 
