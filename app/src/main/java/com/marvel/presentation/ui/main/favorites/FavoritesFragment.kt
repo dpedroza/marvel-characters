@@ -61,7 +61,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
     }
 
     private fun setupRecyclerView() {
-        val spanCount = requireActivity().resources.getInteger(R.integer.span_count)
+        val spanCount = requireActivity().resources.getInteger(R.integer.spanCount)
         favoritesRecyclerView.layoutManager = GridLayoutManager(context, spanCount)
         favoritesRecyclerView.setHasFixedSize(true)
         adapter = CharacterAdapter(hideStars = true)

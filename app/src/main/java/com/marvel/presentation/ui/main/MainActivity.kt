@@ -13,6 +13,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setup()
+    }
+
+    private fun setup() {
         val adapter = TabAdapter(supportFragmentManager)
         adapter.add(CharacterFragment.newInstance(), getString(R.string.characters))
         adapter.add(FavoritesFragment.newInstance(), getString(R.string.favorites))
