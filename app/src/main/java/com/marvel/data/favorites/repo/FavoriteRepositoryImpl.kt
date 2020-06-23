@@ -9,19 +9,20 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class FavoriteRepositoryImpl @Inject constructor(
-    private val dao: FavoriteDao,
-    private val mapper: DatabaseMapper
+    private val dao: FavoriteDao
 ) : FavoriteRepository {
+
+    private val mapper = DatabaseMapper()
 
     override fun getFavorites(): Single<List<CharacterEntity>> {
         return dao.getFavorites().map { mapper.toEntityList(it) }
     }
 
     override fun insert(favorite: CharacterEntity): Completable {
-        return dao.insert(mapper.toDataObject(favorite))
+        return dao.insert(mapper.toDto(favorite))
     }
 
     override fun delete(favorite: CharacterEntity): Completable {
-        return dao.delete(mapper.toDataObject(favorite))
+        return dao.delete(mapper.toDto(favorite))
     }
 }

@@ -11,5 +11,5 @@ import dagger.Component
     ]
 )
 interface ApplicationComponent {
-    fun presentationComponent(): PresentationComponent
+    fun presentationComponent(): UiComponent
 }

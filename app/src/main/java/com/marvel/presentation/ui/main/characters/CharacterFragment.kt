@@ -1,5 +1,6 @@
 package com.marvel.presentation.ui.main.characters
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.marvel.R
 import com.marvel.presentation.application.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.core.hideKeyboard
+import com.marvel.presentation.ui.detail.DetailActivity
 import com.marvel.presentation.ui.main.adapter.CharacterAdapter
 import com.marvel.presentation.ui.main.characters.view.DelayedOnQueryTextListener
 import kotlinx.android.synthetic.main.fragment_characters.*
@@ -56,9 +58,15 @@ class CharacterFragment : Fragment(), CharactersContract.View {
         super.onDestroyView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.resetPagination()
+        adapter.clear()
+        presenter.loadCharacters()
+    }
+
     private fun setupPresenter() {
         presenter.attach(this)
-        presenter.loadCharacters()
     }
 
     private fun setupSearchView() {
@@ -83,8 +91,8 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupRecyclerView() {
-        adapter = CharacterAdapter({ onFavorite(it) })
         val spanCount = requireActivity().resources.getInteger(R.integer.spanCount)
+        adapter = CharacterAdapter( {onOpenDetails(it)}, { onFavorite(it) })
         charactersRecyclerView.layoutManager = GridLayoutManager(context, spanCount)
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = adapter
@@ -115,6 +123,12 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     private fun setupDependencyInjection() {
         MarvelApplication.component.presentationComponent().inject(this)
+    }
+
+    private fun onOpenDetails(characterViewObject: CharacterViewObject) {
+        val intent = Intent(activity, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.CHARACTER, characterViewObject)
+        startActivity(intent)
     }
 
     private fun onFavorite(characterViewObject: CharacterViewObject) {

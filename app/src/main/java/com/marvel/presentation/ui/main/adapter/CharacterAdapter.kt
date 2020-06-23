@@ -12,6 +12,7 @@ import com.marvel.presentation.model.CharacterViewObject
 import kotlinx.android.synthetic.main.item_character.view.*
 
 class CharacterAdapter(
+    val onOpenDetails: (CharacterViewObject) -> Unit = {},
     val onFavorite: (CharacterViewObject) -> Unit = {},
     val hideStars: Boolean = false
 ) : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
@@ -59,6 +60,8 @@ class CharacterAdapter(
 
             with(itemView) {
 
+                setOnClickListener { onOpenDetails(viewObject) }
+
                 val isFavorite = viewObject.isFavorite
                 val favorite = R.drawable.ic_baseline_star_24
                 val unpopular = R.drawable.ic_baseline_star_border_24
@@ -74,6 +77,7 @@ class CharacterAdapter(
                 nameTextView.text = name
 
                 if (hideStars) {
+                    isEnabled = false
                     favoriteImageButton.visibility = GONE
                 } else {
                     favoriteImageButton.setImageDrawable(drawable)
