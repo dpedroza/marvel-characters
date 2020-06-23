@@ -4,32 +4,32 @@
     <string name="app_name">Marvel</string>
 
     // detail activity
-    <string name="comics">Quadrinhos</string>
-    <string name="series">Aparições</string>
-    <string name="description">Descrição</string>
+    <string name="comics">Comics</string>
+    <string name="series">Series</string>
+    <string name="description">Description</string>
     <string name="action_settings">Settings</string>
     <string name="character_image">Character Image</string>
-    <string name="no_info_message">Sem informações sobre este personagem</string>
+    <string name="no_info_message">No info was provided about this character</string>
 
     // character fragment
-    <string name="characters">Personagens</string>
-    <string name="search_hint">Busca por nome</string>
-    <string name="favorite_added">%1$s adicionado aos favoritos</string>
-    <string name="favorite_removed">%1$s removido dos favoritos</string>
-    <string name="empty_characters">Nenhum personagem encontrado</string>
+    <string name="characters">Characters</string>
+    <string name="search_hint">Search by name</string>
+    <string name="favorite_added">%1$s added to favorites</string>
+    <string name="favorite_removed">%1$s removed from favorites</string>
+    <string name="empty_characters">No character found</string>
 
     // favorite fragment
-    <string name="favorites">Favoritos</string>
-    <string name="empty_favorites">Sem personagens favoritos</string>
+    <string name="favorites">Favorites</string>
+    <string name="empty_favorites">Empty favorites characters</string>
 
     // common
-    <string name="favorite_content_description">Favoritar personagem</string>
-    <string name="retry_label">Tentar Novamente</string>
+    <string name="favorite_content_description">Favorite Character</string>
+    <string name="retry_label">Retry</string>
 
     // error messages
-    <string name="message_unknown_error">Ocorreu um erro inesperado</string>
-    <string name="message_slow_internet">Lentidão na rede detectada</string>
-    <string name="message_no_internet">Sem acesso a rede, verifique sua conexão</string>
-    <string name="failure_content_description">Nuvem com risco na tranversal indicando falha de rede</string>
-    <string name="title_activity_detail">ScrollingActivity</string>
+    <string name="message_unknown_error">An unexpected error has occurred</string>
+    <string name="message_slow_internet">Slow network detected</string>
+    <string name="message_no_internet">No internet, check your connection</string>
+    <string name="failure_content_description">Cloud with transversal risk identified network failure</string>
+    <string name="title_activity_detail">Detail Activity</string>
 </resources>

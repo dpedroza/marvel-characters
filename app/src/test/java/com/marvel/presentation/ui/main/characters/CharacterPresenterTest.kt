@@ -19,9 +19,9 @@ class CharacterPresenterTest {
     @Mock
     lateinit var mockUpdateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>
 
-    lateinit var presenter: CharacterPresenter
+    private lateinit var presenter: CharacterPresenter
 
-    lateinit var trampolineScheduler: SchedulerProvider
+    private lateinit var trampolineScheduler: SchedulerProvider
 
     @Before
     fun setup() {

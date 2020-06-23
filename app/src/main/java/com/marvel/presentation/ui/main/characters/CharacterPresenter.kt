@@ -38,8 +38,8 @@ class CharacterPresenter @Inject constructor(
             .doOnSubscribe { loading = true }
             .doAfterTerminate { loading = false }
             .doAfterTerminate { view?.hideLoading() }
-            .ioUiSchedulers(schedulerProvider)
             .networkErrorTransformers()
+            .ioUiSchedulers(schedulerProvider)
             .subscribeBy(
                 onSuccess = {
                     onUpdateCharacters(it.characters)

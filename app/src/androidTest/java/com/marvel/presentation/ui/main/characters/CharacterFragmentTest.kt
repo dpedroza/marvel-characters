@@ -55,7 +55,7 @@ class CharacterFragmentTest {
             }
 
             onView(withId(R.id.emptyText)).check(matches(isDisplayed()))
-            onView(withText("Nenhum personagem encontrado")).check(matches(isDisplayed()))
+            onView(withText("No character found")).check(matches(isDisplayed()))
         }
     }
 
@@ -69,7 +69,7 @@ class CharacterFragmentTest {
             }
 
             onView(withId(R.id.errorImageView)).check(matches(isDisplayed()))
-            onView(withText("Ocorreu um erro inesperado")).check(matches(isDisplayed()))
+            onView(withText("An unexpected error has occurred")).check(matches(isDisplayed()))
         }
     }
 
@@ -83,7 +83,7 @@ class CharacterFragmentTest {
             }
 
             onView(withId(R.id.errorImageView)).check(matches(isDisplayed()))
-            onView(withText("Sem acesso a rede, verifique sua conexão")).check(matches(isDisplayed()))
+            onView(withText("No internet, check your connection")).check(matches(isDisplayed()))
         }
     }
 
@@ -97,7 +97,7 @@ class CharacterFragmentTest {
             }
 
             onView(withId(R.id.errorImageView)).check(matches(isDisplayed()))
-            onView(withText("Lentidão na rede detectada")).check(matches(isDisplayed()))
+            onView(withText("Slow network detected")).check(matches(isDisplayed()))
         }
     }
 }

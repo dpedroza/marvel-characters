@@ -21,8 +21,8 @@ class MainActivityTest {
 
     @Test
     fun assertInitialState() {
-        onView(withText("Personagens")).check(matches(isDisplayed()))
-        onView(withText("Favoritos")).check(matches(isDisplayed()))
+        onView(withText("Characters")).check(matches(isDisplayed()))
+        onView(withText("Favorites")).check(matches(isDisplayed()))
 
         onView(withId(R.id.fragment_character)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_favorite)).check(matches(not(isDisplayed())))
@@ -44,12 +44,12 @@ class MainActivityTest {
     @Test
     fun assertTabLayoutBehavior() {
 
-        onView(withText("Personagens")).perform(click())
+        onView(withText("Characters")).perform(click())
 
         onView(withId(R.id.fragment_character)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_favorite)).check(matches(not(isDisplayed())))
 
-        onView(withText("Favoritos")).perform(click())
+        onView(withText("Favorites")).perform(click())
 
         onView(withId(R.id.fragment_character)).check(matches(not(isDisplayed())))
         onView(withId(R.id.fragment_favorite)).check(matches(isDisplayed()))
