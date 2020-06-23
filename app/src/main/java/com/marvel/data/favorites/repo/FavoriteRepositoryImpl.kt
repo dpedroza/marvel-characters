@@ -1,7 +1,6 @@
 package com.marvel.data.favorites.repo
 
 import com.marvel.data.database.FavoriteDao
-import com.marvel.data.database.FavoriteDatabase
 import com.marvel.data.favorites.mapper.DatabaseMapper
 import com.marvel.domain.model.CharacterEntity
 import com.marvel.domain.repository.FavoriteRepository
@@ -19,10 +18,10 @@ class FavoriteRepositoryImpl @Inject constructor(
     }
 
     override fun insert(favorite: CharacterEntity): Completable {
-        return dao.insert(mapper.toDataObject(favorite))
+        return dao.insert(mapper.toDto(favorite))
     }
 
     override fun delete(favorite: CharacterEntity): Completable {
-        return dao.delete(mapper.toDataObject(favorite))
+        return dao.delete(mapper.toDto(favorite))
     }
 }

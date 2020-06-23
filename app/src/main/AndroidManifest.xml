@@ -16,7 +16,8 @@
         <activity
             android:name=".presentation.ui.detail.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".presentation.ui.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".presentation.ui.main.MainActivity"
             android:screenOrientation="portrait">

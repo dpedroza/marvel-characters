@@ -6,7 +6,7 @@ import com.marvel.data.favorites.repo.FavoriteRepositoryImpl
 import com.marvel.data.database.FavoriteDao
 import com.marvel.data.database.FavoriteDatabase
 import com.marvel.data.favorites.mapper.DatabaseMapper
-import com.marvel.data.model.FavoriteCharacterDto
+import com.marvel.data.model.CharacterDto
 import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.characters.mapper.ResponseMapperImpl
@@ -66,7 +66,7 @@ class DataModule(private val application: MarvelApplication) {
         return Room.databaseBuilder(
             application.applicationContext,
             FavoriteDatabase::class.java,
-            FavoriteCharacterDto.TABLE
+            CharacterDto.TABLE
         ).allowMainThreadQueries().build()
     }
 

@@ -1,15 +1,15 @@
 package com.marvel.data.favorites.mapper
 
-import com.marvel.data.model.FavoriteCharacterDto
+import com.marvel.data.model.CharacterDto
 import com.marvel.domain.model.CharacterEntity
 
 class DatabaseMapperImpl: DatabaseMapper {
 
-    override fun toEntityList(list: List<FavoriteCharacterDto>): List<CharacterEntity> {
+    override fun toEntityList(list: List<CharacterDto>): List<CharacterEntity> {
         return list.map { toEntity(it) }
     }
 
-    override fun toEntity(dto: FavoriteCharacterDto): CharacterEntity {
+    override fun toEntity(dto: CharacterDto): CharacterEntity {
         return CharacterEntity(
             id = dto.id,
             name = dto.name,
@@ -18,12 +18,12 @@ class DatabaseMapperImpl: DatabaseMapper {
         )
     }
 
-    override fun toDataObjectList(list: List<CharacterEntity>): List<FavoriteCharacterDto> {
-        return list.map { toDataObject(it) }
+    override fun toDataObjectList(list: List<CharacterEntity>): List<CharacterDto> {
+        return list.map { toDto(it) }
     }
 
-    override fun toDataObject(entity: CharacterEntity): FavoriteCharacterDto {
-        return FavoriteCharacterDto(
+    override fun toDto(entity: CharacterEntity): CharacterDto {
+        return CharacterDto(
             id = entity.id,
             name = entity.name,
             photoUrl = entity.imageUrl

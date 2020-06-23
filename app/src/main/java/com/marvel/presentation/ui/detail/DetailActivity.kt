@@ -1,25 +1,24 @@
 package com.marvel.presentation.ui.detail
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.marvel.R
 import com.marvel.presentation.application.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_character.view.*
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
-class DetailActivity: DetailContract.View, AppCompatActivity() {
+class DetailActivity : DetailContract.View, AppCompatActivity() {
 
     @Inject
     lateinit var presenter: DetailPresenter
-    lateinit var character: CharacterViewObject
+    private lateinit var character: CharacterViewObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +27,8 @@ class DetailActivity: DetailContract.View, AppCompatActivity() {
         character = intent.getParcelableExtra(CHARACTER) ?: throw IllegalArgumentException()
         presenter.attach(this)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         setupCollapsingToolbar()
 
         Glide.with(this)
@@ -41,6 +42,16 @@ class DetailActivity: DetailContract.View, AppCompatActivity() {
     override fun onDestroy() {
         presenter.detach()
         super.onDestroy()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                NavUtils.navigateUpFromSameTask(this)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun showMessage(messageId: Int) {
@@ -57,6 +68,7 @@ class DetailActivity: DetailContract.View, AppCompatActivity() {
     }
 
     private fun setupCollapsingToolbar() {
+        descriptionTextView.text = character.description
         collapsingToolbar.title = character.name
         collapsingToolbar.setExpandedTitleColor(Color.WHITE)
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE)
