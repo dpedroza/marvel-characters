@@ -1,6 +1,10 @@
 package com.marvel.data.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Insert
+import androidx.room.Delete
+import androidx.room.OnConflictStrategy
 import com.marvel.data.model.CharacterDto
 import io.reactivex.Completable
 import io.reactivex.Single

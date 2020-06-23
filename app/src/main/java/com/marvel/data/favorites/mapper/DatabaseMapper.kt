@@ -9,7 +9,7 @@ class DatabaseMapper {
         return list.map { toEntity(it) }
     }
 
-    fun toEntity(dto: CharacterDto): CharacterEntity {
+    private fun toEntity(dto: CharacterDto): CharacterEntity {
         return CharacterEntity(
             id = dto.id,
             name = dto.name,
@@ -18,7 +18,7 @@ class DatabaseMapper {
         )
     }
 
-    fun toDtos(list: List<CharacterEntity>): List<CharacterDto> {
+    fun toDtoList(list: List<CharacterEntity>): List<CharacterDto> {
         return list.map { toDto(it) }
     }
 

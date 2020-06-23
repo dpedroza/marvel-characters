@@ -17,7 +17,8 @@ import javax.inject.Inject
 
 class CharacterPresenter @Inject constructor(
     private val updateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>,
-    private val getCharacters: UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResultEntity>,
+    private val getCharacters: UseCase.FromSingle.WithInput
+    <GetCharactersParams, GetCharactersResultEntity>,
     private val schedulerProvider: SchedulerProvider
 ) : CharactersContract.Presenter() {
 
@@ -104,4 +105,3 @@ class CharacterPresenter @Inject constructor(
             else -> R.string.message_unknown_error
         }
 }
-

@@ -92,7 +92,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
 
     private fun setupRecyclerView() {
         val spanCount = requireActivity().resources.getInteger(R.integer.spanCount)
-        adapter = CharacterAdapter( {onOpenDetails(it)}, { onFavorite(it) })
+        adapter = CharacterAdapter({ onOpenDetails(it) }, { onFavorite(it) })
         charactersRecyclerView.layoutManager = GridLayoutManager(context, spanCount)
         charactersRecyclerView.setHasFixedSize(true)
         charactersRecyclerView.adapter = adapter

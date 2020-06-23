@@ -23,7 +23,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
 
     @Inject
     lateinit var presenter: FavoritesContract.Presenter
-    lateinit var adapter: CharacterAdapter
+    private lateinit var adapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

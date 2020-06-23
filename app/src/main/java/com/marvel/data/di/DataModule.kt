@@ -2,14 +2,12 @@ package com.marvel.data.di
 
 import androidx.room.Room
 import com.marvel.BuildConfig
-import com.marvel.data.favorites.repo.FavoriteRepositoryImpl
+import com.marvel.data.characters.repo.CharacterRepositoryImpl
+import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.database.FavoriteDao
 import com.marvel.data.database.FavoriteDatabase
-import com.marvel.data.favorites.mapper.DatabaseMapper
+import com.marvel.data.favorites.repo.FavoriteRepositoryImpl
 import com.marvel.data.model.CharacterDto
-import com.marvel.data.characters.repo.CharacterRepositoryImpl
-import com.marvel.data.characters.mapper.ResponseMapper
-import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.application.MarvelApplication

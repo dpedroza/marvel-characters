@@ -15,6 +15,5 @@ interface FavoritesContract {
     abstract class Presenter : CorePresenter<View>() {
 
         abstract fun loadFavorites()
-
     }
 }

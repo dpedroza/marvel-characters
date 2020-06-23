@@ -2,7 +2,7 @@ package com.marvel.data.favorites.mapper
 
 import com.marvel.data.model.CharacterDto
 import com.marvel.domain.model.CharacterEntity
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class DatabaseMapperTest {
@@ -13,7 +13,14 @@ class DatabaseMapperTest {
     fun assertMapperConversion() {
 
         val expectedEntityList = listOf(
-            CharacterEntity(1, "Batman", "PHOTO_URL", isFavorite = false, description = "description", series = emptyList(), comics = emptyList())
+            CharacterEntity(
+                id = 1,
+                name = "Batman",
+                imageUrl = "PHOTO_URL",
+                isFavorite = false,
+                description = "description",
+                series = emptyList(),
+                comics = emptyList())
         )
         val dataObjectList = listOf(
             CharacterDto(1, "Batman", "PHOTO_URL")
@@ -25,11 +32,10 @@ class DatabaseMapperTest {
         assertEquals(expectedEntityList[0].name, temp[0].name)
         assertEquals(expectedEntityList[0].imageUrl, temp[0].imageUrl)
 
-        val result = databaseMapper.toDtos(temp)
+        val result = databaseMapper.toDtoList(temp)
 
         assertEquals(expectedEntityList[0].id, result[0].id)
         assertEquals(expectedEntityList[0].name, result[0].name)
         assertEquals(expectedEntityList[0].imageUrl, result[0].photoUrl)
     }
-
 }

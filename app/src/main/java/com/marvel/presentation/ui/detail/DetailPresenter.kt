@@ -11,7 +11,7 @@ import javax.inject.Inject
 class DetailPresenter @Inject constructor(
     private val updateFavorite: UpdateFavorite,
     private val mapper: ViewObjectMapper
-): DetailContract.Presenter() {
+) : DetailContract.Presenter() {
 
     override fun updateFavorite(characterViewObject: CharacterViewObject) {
         val isFavorite = characterViewObject.isFavorite.not()

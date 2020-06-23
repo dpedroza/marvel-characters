@@ -1,6 +1,6 @@
 package com.marvel.data.cryptography
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class HashTest {
@@ -15,5 +15,4 @@ class HashTest {
 
         assertEquals(expected, answer)
     }
-
 }
