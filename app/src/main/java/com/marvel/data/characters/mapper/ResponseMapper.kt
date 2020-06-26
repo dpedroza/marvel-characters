@@ -69,7 +69,8 @@ class ResponseMapper {
     }
 
     private fun buildImagePath(characterRemoteObject: CharacterRemoteObject): String {
-        return characterRemoteObject.thumbnail.path + "." + characterRemoteObject.thumbnail.extension
+        return characterRemoteObject.thumbnail.path +
+                "." + characterRemoteObject.thumbnail.extension
             .replaceFirst("http", "https")
     }
 }
