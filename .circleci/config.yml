@@ -10,4 +10,4 @@ jobs:
     steps:
       - checkout
       - run:
-          command: ./gradlew test ktlintCheck
+          command: ./gradlew ktlintCheck test androidTest
