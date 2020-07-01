@@ -3,7 +3,7 @@ package com.marvel.presentation.di.module
 import com.marvel.domain.usecase.GetCharacters
 import com.marvel.domain.usecase.GetFavorites
 import com.marvel.domain.usecase.UpdateFavorite
-import com.marvel.presentation.di.scope.PerFragment
+import com.marvel.presentation.di.scope.UiScope
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.ui.detail.DetailContract
 import com.marvel.presentation.ui.detail.DetailPresenter
@@ -19,7 +19,7 @@ import dagger.Provides
 @Module
 class PresentationModule {
 
-    @PerFragment
+    @UiScope
     @Provides
     fun providesCharacterPresenter(
         updateFavorite: UpdateFavorite,
@@ -33,7 +33,7 @@ class PresentationModule {
         )
     }
 
-    @PerFragment
+    @UiScope
     @Provides
     fun providesDetailPresenter(
         updateFavorite: UpdateFavorite,
@@ -42,7 +42,7 @@ class PresentationModule {
         return DetailPresenter(updateFavorite, mapper)
     }
 
-    @PerFragment
+    @UiScope
     @Provides
     fun providesFavoritesPresenter(
         getFavorites: GetFavorites,
@@ -51,13 +51,13 @@ class PresentationModule {
         return FavoritesPresenter(getFavorites, schedulerProvider)
     }
 
-    @PerFragment
+    @UiScope
     @Provides
     fun providesViewObjectMapper(): ViewObjectMapper {
         return ViewObjectMapper()
     }
 
-    @PerFragment
+    @UiScope
     @Provides
     fun providesScheduleProvider(): SchedulerProvider {
         return SchedulerProviderImpl()
