@@ -1,7 +1,7 @@
 package com.marvel.data.favorites.mapper
 
-import com.marvel.data.model.dto.CharacterDto
-import com.marvel.domain.model.entity.CharacterEntity
+import com.marvel.data.favorites.model.CharacterDto
+import com.marvel.domain.core.CharacterEntity
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -24,7 +24,11 @@ class DatabaseMapperTest {
             )
         )
         val dataObjectList = listOf(
-            CharacterDto(1, "Batman", "PHOTO_URL")
+            CharacterDto(
+                1,
+                "Batman",
+                "PHOTO_URL"
+            )
         )
 
         val temp = databaseMapper.toEntityList(dataObjectList)

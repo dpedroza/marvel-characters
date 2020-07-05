@@ -1,6 +1,6 @@
 package com.marvel.presentation.mapper
 
-import com.marvel.domain.model.entity.CharacterEntity
+import com.marvel.domain.core.CharacterEntity
 import com.marvel.presentation.model.CharacterViewObject
 
 class ViewObjectMapper {

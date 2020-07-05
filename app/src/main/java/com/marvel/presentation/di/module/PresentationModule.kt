@@ -1,18 +1,19 @@
 package com.marvel.presentation.di.module
 
-import com.marvel.domain.usecase.GetCharacters
-import com.marvel.domain.usecase.GetFavorites
-import com.marvel.domain.usecase.UpdateFavorite
+import com.marvel.domain.characters.usecase.GetCharacters
+import com.marvel.domain.characters.usecase.GetComics
+import com.marvel.domain.characters.usecase.GetSeries
+import com.marvel.domain.favorites.usecase.GetFavorites
+import com.marvel.domain.favorites.usecase.UpdateFavorite
+import com.marvel.presentation.detail.DetailContract
+import com.marvel.presentation.detail.DetailPresenter
 import com.marvel.presentation.di.scope.UiScope
-import com.marvel.presentation.mapper.ViewObjectMapper
-import com.marvel.presentation.ui.detail.DetailContract
-import com.marvel.presentation.ui.detail.DetailPresenter
-import com.marvel.presentation.ui.main.characters.CharacterPresenter
-import com.marvel.presentation.ui.main.characters.CharactersContract
-import com.marvel.presentation.ui.main.favorites.FavoritesContract
-import com.marvel.presentation.ui.main.favorites.FavoritesPresenter
-import com.marvel.presentation.ui.main.rx.SchedulerProvider
-import com.marvel.presentation.ui.main.rx.SchedulerProviderImpl
+import com.marvel.presentation.main.characters.CharacterPresenter
+import com.marvel.presentation.main.characters.CharactersContract
+import com.marvel.presentation.main.favorites.FavoritesContract
+import com.marvel.presentation.main.favorites.FavoritesPresenter
+import com.marvel.presentation.main.schedulers.SchedulerProvider
+import com.marvel.presentation.main.schedulers.SchedulerProviderImpl
 import dagger.Module
 import dagger.Provides
 
@@ -37,9 +38,16 @@ class PresentationModule {
     @Provides
     fun providesDetailPresenter(
         updateFavorite: UpdateFavorite,
-        mapper: ViewObjectMapper
+        getComics: GetComics,
+        getSeries: GetSeries,
+        schedulerProvider: SchedulerProvider
     ): DetailContract.Presenter {
-        return DetailPresenter(updateFavorite, mapper)
+        return DetailPresenter(
+            updateFavorite,
+            getComics,
+            getSeries,
+            schedulerProvider
+        )
     }
 
     @UiScope
@@ -49,12 +57,6 @@ class PresentationModule {
         schedulerProvider: SchedulerProvider
     ): FavoritesContract.Presenter {
         return FavoritesPresenter(getFavorites, schedulerProvider)
-    }
-
-    @UiScope
-    @Provides
-    fun providesViewObjectMapper(): ViewObjectMapper {
-        return ViewObjectMapper()
     }
 
     @UiScope

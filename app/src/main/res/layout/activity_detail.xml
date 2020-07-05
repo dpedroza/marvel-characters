@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".presentation.ui.detail.DetailActivity">
+    tools:context=".presentation.detail.DetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -48,7 +48,7 @@
 
         android:layout_margin="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".presentation.ui.detail.DetailActivity"
+        tools:context=".presentation.detail.DetailActivity"
         tools:showIn="@layout/activity_detail">
 
         <TextView

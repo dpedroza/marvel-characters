@@ -2,8 +2,8 @@ package com.marvel.presentation.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.marvel.domain.model.entity.ComicsEntity
-import com.marvel.domain.model.entity.SeriesEntity
+import com.marvel.domain.characters.entity.ComicsEntity
+import com.marvel.domain.characters.entity.SeriesEntity
 
 data class CharacterViewObject(
     val id: Int,

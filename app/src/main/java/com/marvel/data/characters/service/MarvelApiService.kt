@@ -1,8 +1,8 @@
 package com.marvel.data.characters.service
 
-import com.marvel.data.model.api.characters.GetCharactersApiResponse
-import com.marvel.data.model.api.comics.GetComicsApiResponse
-import com.marvel.data.model.api.series.GetSeriesApiResponse
+import com.marvel.data.characters.model.characters.GetCharactersApiResponse
+import com.marvel.data.characters.model.comics.GetComicsApiResponse
+import com.marvel.data.characters.model.series.GetSeriesApiResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

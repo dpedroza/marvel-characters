@@ -1,8 +1,9 @@
 package com.marvel.domain.usecase
 
-import com.marvel.domain.model.params.GetCharactersParams
-import com.marvel.domain.model.result.GetCharactersResult
-import com.marvel.domain.repository.CharactersRepository
+import com.marvel.domain.characters.params.GetCharactersParams
+import com.marvel.domain.characters.model.GetCharactersResult
+import com.marvel.domain.characters.CharactersRepository
+import com.marvel.domain.characters.usecase.GetCharacters
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
@@ -24,7 +25,8 @@ class GetCharactersTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        getCharacters = GetCharacters(repository)
+        getCharacters =
+            GetCharacters(repository)
     }
 
     @Test

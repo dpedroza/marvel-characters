@@ -2,9 +2,9 @@ package com.marvel.presentation.di.component
 
 import com.marvel.presentation.di.module.PresentationModule
 import com.marvel.presentation.di.scope.UiScope
-import com.marvel.presentation.ui.detail.DetailActivity
-import com.marvel.presentation.ui.main.characters.CharacterFragment
-import com.marvel.presentation.ui.main.favorites.FavoritesFragment
+import com.marvel.presentation.detail.DetailActivity
+import com.marvel.presentation.main.characters.CharacterFragment
+import com.marvel.presentation.main.favorites.FavoritesFragment
 import dagger.Subcomponent
 
 @UiScope
