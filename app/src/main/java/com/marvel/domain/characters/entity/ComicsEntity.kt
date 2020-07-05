@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class ComicsEntity(
-    val url: String,
+    val imageUrl: String,
     val name: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -13,7 +13,7 @@ data class ComicsEntity(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(url)
+        parcel.writeString(imageUrl)
         parcel.writeString(name)
     }
 

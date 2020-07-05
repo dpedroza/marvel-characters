@@ -9,9 +9,9 @@ import com.marvel.domain.characters.model.GetCharactersResult
 import com.marvel.domain.core.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
-import com.marvel.presentation.main.schedulers.SchedulerProvider
-import com.marvel.presentation.main.schedulers.ioComputationSchedulers
-import com.marvel.presentation.main.schedulers.ioUiSchedulers
+import com.marvel.presentation.schedulers.SchedulerProvider
+import com.marvel.presentation.schedulers.ioComputationSchedulers
+import com.marvel.presentation.schedulers.ioUiSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 

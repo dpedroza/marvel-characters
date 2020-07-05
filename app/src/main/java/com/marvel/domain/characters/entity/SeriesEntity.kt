@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class SeriesEntity(
-    val url: String,
+    val imageUrl: String,
     val name: String
 ) : Parcelable {
 
@@ -14,7 +14,7 @@ data class SeriesEntity(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(url)
+        parcel.writeString(imageUrl)
         parcel.writeString(name)
     }
 

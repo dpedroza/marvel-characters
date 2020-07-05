@@ -1,4 +1,4 @@
-package com.marvel.presentation.main.schedulers
+package com.marvel.presentation.schedulers
 
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -1,6 +1,6 @@
 package com.marvel.presentation.main.characters
 
-import com.marvel.presentation.main.schedulers.SchedulerProvider
+import com.marvel.presentation.schedulers.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 

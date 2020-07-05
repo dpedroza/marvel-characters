@@ -59,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="16dp"
+                android:textStyle="bold"
                 android:textSize="22sp"
                 android:text="@string/description" />
 
@@ -73,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="16dp"
+                android:textStyle="bold"
                 android:textSize="22sp"
                 android:text="@string/comics" />
 
@@ -91,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="16dp"
+                android:textStyle="bold"
                 android:textSize="22sp"
                 android:text="@string/series" />
 

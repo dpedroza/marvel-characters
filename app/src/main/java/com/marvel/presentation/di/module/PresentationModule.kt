@@ -12,8 +12,8 @@ import com.marvel.presentation.main.characters.CharacterPresenter
 import com.marvel.presentation.main.characters.CharactersContract
 import com.marvel.presentation.main.favorites.FavoritesContract
 import com.marvel.presentation.main.favorites.FavoritesPresenter
-import com.marvel.presentation.main.schedulers.SchedulerProvider
-import com.marvel.presentation.main.schedulers.SchedulerProviderImpl
+import com.marvel.presentation.schedulers.SchedulerProvider
+import com.marvel.presentation.schedulers.SchedulerProviderImpl
 import dagger.Module
 import dagger.Provides
 

@@ -4,8 +4,8 @@ import com.marvel.R
 import com.marvel.domain.core.CharacterEntity
 import com.marvel.domain.core.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
-import com.marvel.presentation.main.schedulers.SchedulerProvider
-import com.marvel.presentation.main.schedulers.ioUiSchedulers
+import com.marvel.presentation.schedulers.SchedulerProvider
+import com.marvel.presentation.schedulers.ioUiSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 

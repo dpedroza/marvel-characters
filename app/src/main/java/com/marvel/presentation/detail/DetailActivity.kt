@@ -10,11 +10,14 @@ import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.marvel.R
 import com.marvel.domain.characters.entity.ComicsEntity
 import com.marvel.domain.characters.entity.SeriesEntity
 import com.marvel.presentation.MarvelApplication
+import com.marvel.presentation.detail.adapter.ComicsAdapter
+import com.marvel.presentation.detail.adapter.SeriesAdapter
 import com.marvel.presentation.model.CharacterViewObject
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
@@ -24,6 +27,8 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
     @Inject
     lateinit var presenter: DetailPresenter
     private lateinit var character: CharacterViewObject
+    private lateinit var comicsAdapter: ComicsAdapter
+    private lateinit var seriesAdapter: SeriesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +36,14 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         setupDependencyInjection()
         presenter.attach(this)
         character = intent.getParcelableExtra(CHARACTER) as CharacterViewObject
+        presenter.loadComics(character)
+        presenter.loadSeries(character)
         setupToolbar()
         setupImage()
         setupFab()
         setupDescription()
+        setupComicsRecyclerView()
+        setupSeriesRecyclerView()
     }
 
     override fun onDestroy() {
@@ -53,11 +62,11 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
     }
 
     override fun showSeries(series: List<SeriesEntity>) {
-        TODO("Not yet implemented")
+        seriesAdapter.updateSeries(series)
     }
 
-    override fun showComics(series: List<ComicsEntity>) {
-        TODO("Not yet implemented")
+    override fun showComics(comics: List<ComicsEntity>) {
+        comicsAdapter.updateComics(comics)
     }
 
     override fun showMessage(messageId: Int) {
@@ -81,6 +90,22 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         collapsingToolbar.title = character.name
         collapsingToolbar.setExpandedTitleColor(Color.WHITE)
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE)
+    }
+
+    private fun setupComicsRecyclerView() {
+        comicsAdapter = ComicsAdapter()
+        comicsRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        comicsRecyclerView.setHasFixedSize(true)
+        comicsRecyclerView.adapter = comicsAdapter
+    }
+
+    private fun setupSeriesRecyclerView() {
+        seriesAdapter = SeriesAdapter()
+        seriesRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        seriesRecyclerView.setHasFixedSize(true)
+        seriesRecyclerView.adapter = seriesAdapter
     }
 
     private fun setupFab() {
@@ -109,7 +134,7 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
 
         if (character.description.isNotEmpty()) {
             infoTextView.text = HtmlCompat.fromHtml(
-                character.bannerURL,
+                character.description,
                 FROM_HTML_MODE_LEGACY
             )
         } else {

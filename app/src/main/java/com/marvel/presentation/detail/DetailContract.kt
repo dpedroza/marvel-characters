@@ -11,7 +11,7 @@ interface DetailContract {
     interface View : BaseView {
 
         fun showSeries(series: List<SeriesEntity>)
-        fun showComics(series: List<ComicsEntity>)
+        fun showComics(comics: List<ComicsEntity>)
     }
 
     abstract class Presenter : CorePresenter<View>() {

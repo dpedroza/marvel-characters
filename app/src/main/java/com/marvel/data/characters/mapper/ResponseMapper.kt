@@ -87,7 +87,10 @@ class ResponseMapper {
     ): ComicsEntity {
         return ComicsEntity(
             name = comics.title,
-            url = comics.resourceURI
+            imageUrl = buildImagePath(
+                path = comics.thumbnail.path,
+                extension = comics.thumbnail.extension
+            )
         )
     }
 
@@ -96,7 +99,10 @@ class ResponseMapper {
     ): SeriesEntity {
         return SeriesEntity(
             name = series.title,
-            url = series.resourceURI
+            imageUrl = buildImagePath(
+                path = series.thumbnail.path,
+                extension = series.thumbnail.extension
+            )
         )
     }
 

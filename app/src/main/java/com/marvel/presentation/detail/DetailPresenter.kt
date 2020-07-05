@@ -6,9 +6,9 @@ import com.marvel.domain.characters.params.GetSeriesParams
 import com.marvel.domain.characters.usecase.GetComics
 import com.marvel.domain.characters.usecase.GetSeries
 import com.marvel.domain.favorites.usecase.UpdateFavorite
-import com.marvel.presentation.main.schedulers.SchedulerProvider
-import com.marvel.presentation.main.schedulers.ioComputationSchedulers
-import com.marvel.presentation.main.schedulers.ioUiSchedulers
+import com.marvel.presentation.schedulers.SchedulerProvider
+import com.marvel.presentation.schedulers.ioComputationSchedulers
+import com.marvel.presentation.schedulers.ioUiSchedulers
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
 import io.reactivex.rxkotlin.subscribeBy

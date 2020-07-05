@@ -37,7 +37,7 @@ class CharacterRepositoryImpl @Inject constructor(
         val apiKey = getApiKey()
         val timestamp = getTimestamp()
         val hash = apiKey.createHash(timestamp)
-        return service.getSeries(apiKey, timestamp, hash, offset, characterId)
+        return service.getSeries(characterId, apiKey, timestamp, hash, offset)
             .map { response ->
                 mapper.toSeriesEntityList(response)
             }
@@ -47,7 +47,7 @@ class CharacterRepositoryImpl @Inject constructor(
         val timestamp = getTimestamp()
         val apiKey = getApiKey()
         val hash = apiKey.createHash(timestamp)
-        return service.getComics(apiKey, timestamp, hash, offset, characterId)
+        return service.getComics(characterId, apiKey, timestamp, hash, offset)
             .map { response ->
                 mapper.toComicsEntityList(response)
             }

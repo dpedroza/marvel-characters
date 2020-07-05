@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="1dp"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:layout_margin="8dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
 
     <com.marvel.presentation.main.view.SquareImageView
-        android:id="@+id/characterImageView"
+        android:id="@+id/seriesImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -23,26 +22,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/nameTextView"
+            android:id="@+id/seriesTitleTextView"
             style="@style/HeroTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="0.8"
             android:paddingHorizontal="8dp"
-            tools:text="Iron Man" />
-
-        <ImageButton
-            android:id="@+id/favoriteImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/favorite_content_description"
-            android:padding="14dp"
-            app:srcCompat="@drawable/ic_baseline_star_border_24" />
+            tools:text="Black Panther" />
 
     </LinearLayout>
-
 
 </FrameLayout>

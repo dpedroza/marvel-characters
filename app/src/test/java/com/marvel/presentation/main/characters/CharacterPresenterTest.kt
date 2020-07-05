@@ -4,7 +4,7 @@ import com.marvel.domain.core.CharacterEntity
 import com.marvel.domain.characters.params.GetCharactersParams
 import com.marvel.domain.characters.model.GetCharactersResult
 import com.marvel.domain.core.UseCase
-import com.marvel.presentation.main.schedulers.SchedulerProvider
+import com.marvel.presentation.schedulers.SchedulerProvider
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
