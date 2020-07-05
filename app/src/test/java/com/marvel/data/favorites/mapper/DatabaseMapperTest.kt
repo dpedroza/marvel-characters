@@ -18,9 +18,7 @@ class DatabaseMapperTest {
                 name = "Batman",
                 imageUrl = "PHOTO_URL",
                 isFavorite = false,
-                description = "description",
-                series = emptyList(),
-                comics = emptyList()
+                description = "description"
             )
         )
         val dataObjectList = listOf(

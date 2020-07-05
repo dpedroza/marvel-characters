@@ -2,17 +2,13 @@ package com.marvel.presentation.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.marvel.domain.characters.entity.ComicsEntity
-import com.marvel.domain.characters.entity.SeriesEntity
 
 data class CharacterViewObject(
     val id: Int,
     val name: String,
     val bannerURL: String,
     var isFavorite: Boolean,
-    val description: String?,
-    val comics: List<ComicsEntity>?,
-    val series: List<SeriesEntity>?
+    val description: String
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -20,9 +16,7 @@ data class CharacterViewObject(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readByte() != 0.toByte(),
-        parcel.readString(),
-        parcel.createTypedArrayList(ComicsEntity),
-        parcel.createTypedArrayList(SeriesEntity)
+        parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -31,8 +25,6 @@ data class CharacterViewObject(
         parcel.writeString(bannerURL)
         parcel.writeByte(if (isFavorite) 1 else 0)
         parcel.writeString(description)
-        parcel.writeTypedList(comics)
-        parcel.writeTypedList(series)
     }
 
     override fun describeContents(): Int {

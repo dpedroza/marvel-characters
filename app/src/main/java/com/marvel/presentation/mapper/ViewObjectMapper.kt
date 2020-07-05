@@ -15,9 +15,7 @@ class ViewObjectMapper {
             name = character.name,
             bannerURL = character.imageUrl,
             isFavorite = character.isFavorite,
-            description = character.description,
-            comics = character.comics,
-            series = character.series
+            description = character.description
         )
     }
 
@@ -27,9 +25,7 @@ class ViewObjectMapper {
             name = character.name,
             imageUrl = character.bannerURL,
             isFavorite = character.isFavorite,
-            description = character.description,
-            comics = character.comics,
-            series = character.series
+            description = character.description
         )
     }
 }

@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.bumptech.glide.Glide
 import com.marvel.R
 import com.marvel.domain.characters.entity.ComicsEntity
@@ -32,7 +34,7 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         setupToolbar()
         setupImage()
         setupFab()
-        setupCharacterInfo()
+        setupDescription()
     }
 
     override fun onDestroy() {
@@ -103,48 +105,15 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         MarvelApplication.component.presentationComponent().inject(this)
     }
 
-    private fun setupCharacterInfo() {
-        with(character) {
-            if (
-                description.isNullOrEmpty() &&
-                comics.isNullOrEmpty() &&
-                series.isNullOrEmpty()
-            ) {
-                infoTextView.text = getString(R.string.no_info_message)
-            } else {
-                val builder = StringBuilder()
-                if (!description.isNullOrEmpty()) {
-                    builder.append(getString(R.string.description))
-                    builder.append("\n")
-                    builder.append("\n")
-                    builder.append(description)
-                    builder.append("\n")
-                    builder.append("\n")
-                    builder.append("\n")
-                }
-                if (!comics.isNullOrEmpty()) {
-                    builder.append(getString(R.string.comics))
-                    builder.append("\n")
-                    builder.append("\n")
-                    comics.map {
-                        builder.append(it.name)
-                        builder.append("\n")
-                    }
-                    builder.append("\n")
-                    builder.append("\n")
-                    builder.append("\n")
-                }
-                if (!series.isNullOrEmpty()) {
-                    builder.append(getString(R.string.series))
-                    builder.append("\n")
-                    builder.append("\n")
-                    series.map {
-                        builder.append(it.name)
-                        builder.append("\n")
-                    }
-                }
-                infoTextView.text = builder.toString()
-            }
+    private fun setupDescription() {
+
+        if (character.description.isNotEmpty()) {
+            infoTextView.text = HtmlCompat.fromHtml(
+                character.bannerURL,
+                FROM_HTML_MODE_LEGACY
+            )
+        } else {
+            infoTextView.text = getString(R.string.no_info_message)
         }
     }
 

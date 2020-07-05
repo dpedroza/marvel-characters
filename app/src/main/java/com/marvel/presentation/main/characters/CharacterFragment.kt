@@ -101,12 +101,12 @@ class CharacterFragment : Fragment(), CharactersContract.View {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 recyclerView.requestFocus()
-                hideKeyboard()
                 if (!charactersRecyclerView.canScrollVertically(1))
                     if (!presenter.isLoading()) {
                         val query = searchView.query as? String
                         presenter.loadCharacters(query)
                     }
+                hideKeyboard()
             }
         })
     }

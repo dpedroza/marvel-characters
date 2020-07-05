@@ -1,18 +1,17 @@
 package com.marvel.data.characters.mapper
 
-import com.marvel.data.characters.model.common.Item
 import com.marvel.data.characters.model.characters.CharacterRemoteObject
-import com.marvel.data.characters.model.comics.ComicsRemoteObject
-import com.marvel.data.characters.model.series.SeriesRemoteObject
 import com.marvel.data.characters.model.characters.GetCharactersApiResponse
+import com.marvel.data.characters.model.comics.ComicsRemoteObject
 import com.marvel.data.characters.model.comics.GetComicsApiResponse
 import com.marvel.data.characters.model.series.GetSeriesApiResponse
-import com.marvel.domain.core.CharacterEntity
+import com.marvel.data.characters.model.series.SeriesRemoteObject
 import com.marvel.domain.characters.entity.ComicsEntity
 import com.marvel.domain.characters.entity.SeriesEntity
 import com.marvel.domain.characters.model.GetCharactersResult
 import com.marvel.domain.characters.model.GetComicsResult
 import com.marvel.domain.characters.model.GetSeriesResult
+import com.marvel.domain.core.CharacterEntity
 
 class ResponseMapper {
 
@@ -28,11 +27,6 @@ class ResponseMapper {
             code = remoteCharacters.code,
             status = remoteCharacters.status,
             characters = remoteCharacters.data.results.map { character ->
-
-                /**
-                 * Check if a character is persisted as favorite to local database
-                 * Set it isFavorite value accordingly
-                 */
 
                 /**
                  * Check if a character is persisted as favorite to local database
@@ -84,27 +78,7 @@ class ResponseMapper {
                 path = characterRemoteObject.thumbnail.path,
                 extension = characterRemoteObject.thumbnail.extension
             ),
-            isFavorite = isFavorite,
-            comics = characterRemoteObject.comics.items.map { toComicsEntity(it) },
-            series = characterRemoteObject.series.items.map { toSeriesEntity(it) }
-        )
-    }
-
-    private fun toComicsEntity(
-        series: Item
-    ): ComicsEntity {
-        return ComicsEntity(
-            url = series.resourceURI,
-            name = series.name
-        )
-    }
-
-    private fun toSeriesEntity(
-        series: Item
-    ): SeriesEntity {
-        return SeriesEntity(
-            url = series.resourceURI,
-            name = series.name
+            isFavorite = isFavorite
         )
     }
 
