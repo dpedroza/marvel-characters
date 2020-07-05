@@ -2,8 +2,8 @@ package com.marvel.presentation.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.marvel.domain.model.ComicEntity
-import com.marvel.domain.model.SeriesEntity
+import com.marvel.domain.model.entity.ComicsEntity
+import com.marvel.domain.model.entity.SeriesEntity
 
 data class CharacterViewObject(
     val id: Int,
@@ -11,7 +11,7 @@ data class CharacterViewObject(
     val bannerURL: String,
     var isFavorite: Boolean,
     val description: String?,
-    val comics: List<ComicEntity>?,
+    val comics: List<ComicsEntity>?,
     val series: List<SeriesEntity>?
 ) : Parcelable {
 
@@ -21,7 +21,7 @@ data class CharacterViewObject(
         parcel.readString() ?: "",
         parcel.readByte() != 0.toByte(),
         parcel.readString(),
-        parcel.createTypedArrayList(ComicEntity),
+        parcel.createTypedArrayList(ComicsEntity),
         parcel.createTypedArrayList(SeriesEntity)
     )
 

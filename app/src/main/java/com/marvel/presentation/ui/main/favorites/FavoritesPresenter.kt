@@ -1,7 +1,7 @@
 package com.marvel.presentation.ui.main.favorites
 
 import com.marvel.R
-import com.marvel.domain.model.CharacterEntity
+import com.marvel.domain.model.entity.CharacterEntity
 import com.marvel.domain.usecase.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.ui.main.rx.SchedulerProvider

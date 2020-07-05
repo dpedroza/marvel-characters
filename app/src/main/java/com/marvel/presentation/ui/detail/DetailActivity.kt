@@ -10,6 +10,8 @@ import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.marvel.R
+import com.marvel.domain.model.entity.ComicsEntity
+import com.marvel.domain.model.entity.SeriesEntity
 import com.marvel.presentation.application.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -46,6 +48,14 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showSeries(series: List<SeriesEntity>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showComics(series: List<ComicsEntity>) {
+        TODO("Not yet implemented")
     }
 
     override fun showMessage(messageId: Int) {

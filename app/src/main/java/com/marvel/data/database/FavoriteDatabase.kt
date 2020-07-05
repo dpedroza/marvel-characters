@@ -2,7 +2,7 @@ package com.marvel.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.marvel.data.model.CharacterDto
+import com.marvel.data.model.dto.CharacterDto
 
 @Database(entities = [(CharacterDto::class)], version = 1)
 abstract class FavoriteDatabase : RoomDatabase() {

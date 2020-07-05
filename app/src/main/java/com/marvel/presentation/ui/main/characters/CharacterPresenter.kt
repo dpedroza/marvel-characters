@@ -3,9 +3,9 @@ package com.marvel.presentation.ui.main.characters
 import com.marvel.R
 import com.marvel.data.characters.error.NetworkError
 import com.marvel.data.characters.error.networkErrorTransformers
-import com.marvel.domain.model.CharacterEntity
-import com.marvel.domain.model.GetCharactersParams
-import com.marvel.domain.model.GetCharactersResultEntity
+import com.marvel.domain.model.entity.CharacterEntity
+import com.marvel.domain.model.params.GetCharactersParams
+import com.marvel.domain.model.result.GetCharactersResult
 import com.marvel.domain.usecase.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class CharacterPresenter @Inject constructor(
     private val updateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>,
     private val getCharacters: UseCase.FromSingle.WithInput
-    <GetCharactersParams, GetCharactersResultEntity>,
+    <GetCharactersParams, GetCharactersResult>,
     private val schedulerProvider: SchedulerProvider
 ) : CharactersContract.Presenter() {
 

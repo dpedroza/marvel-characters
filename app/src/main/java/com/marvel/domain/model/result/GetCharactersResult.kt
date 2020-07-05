@@ -1,6 +1,8 @@
-package com.marvel.domain.model
+package com.marvel.domain.model.result
 
-data class GetCharactersResultEntity(
+import com.marvel.domain.model.entity.CharacterEntity
+
+data class GetCharactersResult(
     val code: Int,
     val status: String,
     val totalCount: Int,

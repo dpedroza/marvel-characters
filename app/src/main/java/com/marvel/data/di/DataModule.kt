@@ -7,7 +7,7 @@ import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.database.FavoriteDao
 import com.marvel.data.database.FavoriteDatabase
 import com.marvel.data.favorites.repo.FavoriteRepositoryImpl
-import com.marvel.data.model.CharacterDto
+import com.marvel.data.model.dto.CharacterDto
 import com.marvel.domain.repository.CharactersRepository
 import com.marvel.domain.repository.FavoriteRepository
 import com.marvel.presentation.application.MarvelApplication

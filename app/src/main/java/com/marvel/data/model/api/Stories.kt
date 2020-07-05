@@ -1,4 +1,4 @@
-package com.marvel.data.model
+package com.marvel.data.model.api
 
 import com.google.gson.annotations.SerializedName
 

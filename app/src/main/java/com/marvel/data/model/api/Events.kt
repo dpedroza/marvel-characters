@@ -1,8 +1,8 @@
-package com.marvel.data.model
+package com.marvel.data.model.api
 
 import com.google.gson.annotations.SerializedName
 
-data class Series(
+data class Events(
     @SerializedName("available")
     val available: Int,
     @SerializedName("collectionURI")

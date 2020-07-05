@@ -1,4 +1,4 @@
-package com.marvel.domain.model
+package com.marvel.domain.model.params
 
 class GetCharactersParams {
     var offset: Int = 0

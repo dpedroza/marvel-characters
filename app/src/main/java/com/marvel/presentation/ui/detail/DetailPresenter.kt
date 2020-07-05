@@ -31,4 +31,12 @@ class DetailPresenter @Inject constructor(
             .subscribe { view?.showMessage(messageId) }
             .also { addDisposable(it) }
     }
+
+    override fun loadSeries(characterViewObject: CharacterViewObject) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loadComics(characterViewObject: CharacterViewObject) {
+        TODO("Not yet implemented")
+    }
 }

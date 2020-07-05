@@ -2,10 +2,12 @@ package com.marvel.data.characters.repo
 
 import com.marvel.BuildConfig
 import com.marvel.data.characters.mapper.ResponseMapper
+import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.cryptography.Hash
 import com.marvel.data.database.FavoriteDao
-import com.marvel.data.characters.service.MarvelApiService
-import com.marvel.domain.model.GetCharactersResultEntity
+import com.marvel.domain.model.result.GetCharactersResult
+import com.marvel.domain.model.result.GetComicsResult
+import com.marvel.domain.model.result.GetSeriesResult
 import com.marvel.domain.repository.CharactersRepository
 import io.reactivex.Single
 import javax.inject.Inject
@@ -20,16 +22,42 @@ class CharacterRepositoryImpl @Inject constructor(
     override fun getCharacters(
         offset: Int,
         nameStartsWith: String?
-    ): Single<GetCharactersResultEntity> {
-
-        val timestamp = System.currentTimeMillis().toString()
-        val apiKey = BuildConfig.MARVEL_PUBLIC_KEY
-        val privateKey = BuildConfig.MARVEL_PRIVATE_KEY
-        val hash = Hash.generateMD5(timestamp, apiKey, privateKey)
+    ): Single<GetCharactersResult> {
+        val timestamp = getTimestamp()
+        val apiKey = getApiKey()
+        val hash = apiKey.createHash(timestamp)
         val localFavorites = dao.getFavoritesIds()
         return service.getCharacters(apiKey, timestamp, hash, offset, nameStartsWith)
             .map { response ->
-                mapper.toEntityList(localFavorites, response)
+                mapper.toCharacterEntityList(localFavorites, response)
             }
+    }
+
+    override fun getSeries(offset: Int, characterId: Int): Single<GetSeriesResult> {
+        val apiKey = getApiKey()
+        val timestamp = getTimestamp()
+        val hash = apiKey.createHash(timestamp)
+        return service.getSeries(apiKey, timestamp, hash, offset, characterId)
+            .map { response ->
+                mapper.toSeriesEntityList(response)
+            }
+    }
+
+    override fun getComics(offset: Int, characterId: Int): Single<GetComicsResult> {
+        val timestamp = getTimestamp()
+        val apiKey = getApiKey()
+        val hash = apiKey.createHash(timestamp)
+        return service.getComics(apiKey, timestamp, hash, offset, characterId)
+            .map { response ->
+                mapper.toComicsEntityList(response)
+            }
+    }
+
+    private fun getTimestamp() = System.currentTimeMillis().toString()
+    private fun getApiKey() = BuildConfig.MARVEL_PUBLIC_KEY
+
+    private fun String.createHash(timestamp: String): String {
+        val privateKey = BuildConfig.MARVEL_PRIVATE_KEY
+        return Hash.generateMD5(timestamp, this, privateKey)
     }
 }

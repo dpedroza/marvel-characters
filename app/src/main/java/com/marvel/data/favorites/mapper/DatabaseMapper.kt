@@ -1,7 +1,7 @@
 package com.marvel.data.favorites.mapper
 
-import com.marvel.data.model.CharacterDto
-import com.marvel.domain.model.CharacterEntity
+import com.marvel.data.model.dto.CharacterDto
+import com.marvel.domain.model.entity.CharacterEntity
 
 class DatabaseMapper {
 

@@ -1,6 +1,6 @@
 package com.marvel.domain.repository
 
-import com.marvel.domain.model.CharacterEntity
+import com.marvel.domain.model.entity.CharacterEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 

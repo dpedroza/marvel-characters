@@ -5,7 +5,7 @@ import androidx.room.Query
 import androidx.room.Insert
 import androidx.room.Delete
 import androidx.room.OnConflictStrategy
-import com.marvel.data.model.CharacterDto
+import com.marvel.data.model.dto.CharacterDto
 import io.reactivex.Completable
 import io.reactivex.Single
 

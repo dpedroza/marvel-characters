@@ -1,4 +1,4 @@
-package com.marvel.data.model
+package com.marvel.data.model.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

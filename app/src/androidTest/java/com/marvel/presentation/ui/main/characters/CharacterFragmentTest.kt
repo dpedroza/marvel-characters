@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.marvel.R
 import com.marvel.data.characters.error.NetworkError
-import com.marvel.domain.model.CharacterEntity
+import com.marvel.domain.model.entity.CharacterEntity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,10 +32,30 @@ class CharacterFragmentTest {
             onFragment {
                 it.presenter.onUpdateCharacters(
                     listOf(
-                        CharacterEntity(56, "Doutor Estranho", "banner_url", false),
-                        CharacterEntity(465, "Homem Aranha", "banner_url", false),
-                        CharacterEntity(132, "Wonderboy", "banner_url", false),
-                        CharacterEntity(9789, "Jaspion", "banner_url", false)
+                        CharacterEntity(
+                            56,
+                            "Doutor Estranho",
+                            "banner_url",
+                            false
+                        ),
+                        CharacterEntity(
+                            465,
+                            "Homem Aranha",
+                            "banner_url",
+                            false
+                        ),
+                        CharacterEntity(
+                            132,
+                            "Wonderboy",
+                            "banner_url",
+                            false
+                        ),
+                        CharacterEntity(
+                            9789,
+                            "Jaspion",
+                            "banner_url",
+                            false
+                        )
                     )
                 )
             }

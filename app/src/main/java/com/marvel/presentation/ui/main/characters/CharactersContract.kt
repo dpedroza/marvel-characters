@@ -1,7 +1,7 @@
 package com.marvel.presentation.ui.main.characters
 
-import com.marvel.domain.model.CharacterEntity
-import com.marvel.domain.model.GetCharactersParams
+import com.marvel.domain.model.entity.CharacterEntity
+import com.marvel.domain.model.params.GetCharactersParams
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.ui.core.BaseView
 import com.marvel.presentation.ui.core.CorePresenter

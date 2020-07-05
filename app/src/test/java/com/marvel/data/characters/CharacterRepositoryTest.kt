@@ -3,14 +3,7 @@ package com.marvel.data.characters
 import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.database.FavoriteDao
-import com.marvel.data.model.Events
-import com.marvel.data.model.Comics
-import com.marvel.data.model.CharacterRemoteObject
-import com.marvel.data.model.Series
-import com.marvel.data.model.Stories
-import com.marvel.data.model.Thumbnail
-import com.marvel.data.model.GetCharactersApiResponse
-import com.marvel.data.model.Data
+import com.marvel.data.model.api.*
 import com.marvel.domain.repository.CharactersRepository
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.verify
@@ -128,39 +121,62 @@ class CharacterRepositoryTest {
         const val stubOkStatus = "ok"
         const val stubEtag = "etag"
 
-        val stubComics = Comics(stubAvailable, stubUri, emptyList(), stubReturned)
-        val stubEvents = Events(stubAvailable, stubUri, emptyList(), stubReturned)
-        val stubSeries = Series(stubAvailable, stubUri, emptyList(), stubReturned)
-        val stubStories = Stories(stubAvailable, stubUri, emptyList(), stubReturned)
-        val stubThumbnail = Thumbnail(stubExtension, stubPath)
-
-        val stubCharacterLocalFavorite = CharacterRemoteObject(
-            stubComics,
-            stubDescription,
-            stubEvents,
-            stubFavoriteId,
-            stubModified,
-            favoriteName,
-            stubResourceUri,
-            stubSeries,
-            stubStories,
-            stubThumbnail,
-            emptyList()
+        val stubComics = Comics(
+            stubAvailable,
+            stubUri,
+            emptyList(),
+            stubReturned
         )
-
-        val stubCharacterLocalNotFavorite = CharacterRemoteObject(
-            stubComics,
-            stubDescription,
-            stubEvents,
-            stubNotFavoriteId,
-            stubModified,
-            notFavoriteName,
-            stubResourceUri,
-            stubSeries,
-            stubStories,
-            stubThumbnail,
-            emptyList()
+        val stubEvents = Events(
+            stubAvailable,
+            stubUri,
+            emptyList(),
+            stubReturned
         )
+        val stubSeries = Series(
+            stubAvailable,
+            stubUri,
+            emptyList(),
+            stubReturned
+        )
+        val stubStories = Stories(
+            stubAvailable,
+            stubUri,
+            emptyList(),
+            stubReturned
+        )
+        val stubThumbnail =
+            Thumbnail(stubExtension, stubPath)
+
+        val stubCharacterLocalFavorite =
+            CharacterRemoteObject(
+                stubComics,
+                stubDescription,
+                stubEvents,
+                stubFavoriteId,
+                stubModified,
+                favoriteName,
+                stubResourceUri,
+                stubSeries,
+                stubStories,
+                stubThumbnail,
+                emptyList()
+            )
+
+        val stubCharacterLocalNotFavorite =
+            CharacterRemoteObject(
+                stubComics,
+                stubDescription,
+                stubEvents,
+                stubNotFavoriteId,
+                stubModified,
+                notFavoriteName,
+                stubResourceUri,
+                stubSeries,
+                stubStories,
+                stubThumbnail,
+                emptyList()
+            )
 
         val stubData = Data(
             stubCount,

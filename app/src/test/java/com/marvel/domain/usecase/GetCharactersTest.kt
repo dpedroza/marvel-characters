@@ -1,7 +1,7 @@
 package com.marvel.domain.usecase
 
-import com.marvel.domain.model.GetCharactersParams
-import com.marvel.domain.model.GetCharactersResultEntity
+import com.marvel.domain.model.params.GetCharactersParams
+import com.marvel.domain.model.result.GetCharactersResult
 import com.marvel.domain.repository.CharactersRepository
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.whenever
@@ -86,13 +86,14 @@ class GetCharactersTest {
         const val stubOffset = 20
         const val stubOkStatus = "ok"
 
-        val stubResultEntity = GetCharactersResultEntity(
-            stubOkCode,
-            stubOkStatus,
-            stubCount,
-            stubCurrentCount,
-            stubOffset,
-            emptyList()
-        )
+        val stubResultEntity =
+            GetCharactersResult(
+                stubOkCode,
+                stubOkStatus,
+                stubCount,
+                stubCurrentCount,
+                stubOffset,
+                emptyList()
+            )
     }
 }

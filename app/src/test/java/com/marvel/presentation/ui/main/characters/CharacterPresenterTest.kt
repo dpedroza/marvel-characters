@@ -1,8 +1,8 @@
 package com.marvel.presentation.ui.main.characters
 
-import com.marvel.domain.model.CharacterEntity
-import com.marvel.domain.model.GetCharactersParams
-import com.marvel.domain.model.GetCharactersResultEntity
+import com.marvel.domain.model.entity.CharacterEntity
+import com.marvel.domain.model.params.GetCharactersParams
+import com.marvel.domain.model.result.GetCharactersResult
 import com.marvel.domain.usecase.UseCase
 import com.marvel.presentation.ui.main.rx.SchedulerProvider
 import org.junit.Assert.assertNull
@@ -15,7 +15,7 @@ class CharacterPresenterTest {
 
     @Mock
     lateinit var mockGetCharacters: UseCase.FromSingle.WithInput
-    <GetCharactersParams, GetCharactersResultEntity>
+    <GetCharactersParams, GetCharactersResult>
 
     @Mock
     lateinit var mockUpdateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>

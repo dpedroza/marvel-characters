@@ -1,6 +1,6 @@
 package com.marvel.domain.usecase
 
-import com.marvel.domain.model.CharacterEntity
+import com.marvel.domain.model.entity.CharacterEntity
 import com.marvel.domain.repository.FavoriteRepository
 import io.reactivex.Completable
 import javax.inject.Inject

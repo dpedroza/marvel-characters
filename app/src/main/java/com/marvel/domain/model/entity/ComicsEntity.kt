@@ -1,13 +1,12 @@
-package com.marvel.domain.model
+package com.marvel.domain.model.entity
 
 import android.os.Parcel
 import android.os.Parcelable
 
-data class SeriesEntity(
+data class ComicsEntity(
     val url: String,
     val name: String
 ) : Parcelable {
-
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: ""
@@ -22,12 +21,12 @@ data class SeriesEntity(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<SeriesEntity> {
-        override fun createFromParcel(parcel: Parcel): SeriesEntity {
-            return SeriesEntity(parcel)
+    companion object CREATOR : Parcelable.Creator<ComicsEntity> {
+        override fun createFromParcel(parcel: Parcel): ComicsEntity {
+            return ComicsEntity(parcel)
         }
 
-        override fun newArray(size: Int): Array<SeriesEntity?> {
+        override fun newArray(size: Int): Array<ComicsEntity?> {
             return arrayOfNulls(size)
         }
     }

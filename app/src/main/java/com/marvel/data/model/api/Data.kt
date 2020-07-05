@@ -1,8 +1,8 @@
-package com.marvel.data.model
+package com.marvel.data.model.api
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class Data<T>(
     @SerializedName("count")
     val count: Int,
     @SerializedName("limit")
@@ -10,7 +10,7 @@ data class Data(
     @SerializedName("offset")
     val offset: Int,
     @SerializedName("results")
-    val results: List<CharacterRemoteObject>,
+    val results: List<T>,
     @SerializedName("total")
     val total: Int
 )
