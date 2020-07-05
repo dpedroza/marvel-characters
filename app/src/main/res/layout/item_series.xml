@@ -5,8 +5,7 @@
     android:layout_height="200dp"
     android:layout_margin="8dp"
     android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:focusable="true">
 
     <com.marvel.presentation.main.view.SquareImageView
         android:id="@+id/seriesImageView"
