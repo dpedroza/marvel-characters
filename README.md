@@ -1,33 +1,33 @@
+
+
 [![CircleCI](https://circleci.com/gh/dpedroza/marvel-characters.svg?style=svg)](https://circleci.com/gh/dpedroza/marvel-characters)
 
-## Essencial
 
-- [x] Usar Kotlin.
-- [x] App universal, desenvolva uma interface que se adapte a telas maiores.
-- [x] Tratamento para falha de conexão.
-- [x] Desenvolver o App em uma arquitetura robusta.
-- [x] Testes unitários e interface.
+## Sobre
 
-## Bônus
 
+- [x] 100% Kotlin.
+- [x] Extension Functions.
+- [x] RxJava2 para requisições.
 - [x] Gerar coverage com Jacoco.
-- [x] Usar Clean Architecture com MVP.
-- [x] Usar RxJava para requisições.
-- [x] Usar Extension Functions.
-- [x] Usar Dagger2 para injeções de dependência.
-- [x] Usar Mockito para os testes unitários.
-- [x] Usar Espresso para os testes de interface.
+- [x] Clean Architecture com MVP.
+- [x] Testes unitários e interface.
+- [x] Tratamento para falha de conexão.
+- [x] Mockito para os testes unitários.
+- [x] Dagger2 para injeções de dependência.
+- [x] Espresso para os testes de interface.
+- [x] Interface que se adapta a telas maiores.
 
 
 ### Personagens
 
 
-- [x] Listagem dos personagens ordenados por nome.
-- [x] Botão para favoritar nas células.
-- [x] Barra de busca para filtrar lista de personagens por nome.
-- [x] Pull-to-refresh para atualizar a lista.
 - [x] Paginação na lista.
 - [x] Interface de lista vazia.
+- [x] Botão para favoritar nas células.
+- [x] Pull-to-refresh para atualizar a lista.
+- [x] Listagem dos personagens ordenados por nome.
+- [x] Barra de busca para filtrar lista de personagens por nome.
 
 
 ![list](https://user-images.githubusercontent.com/9497411/85237315-4e006280-b3fc-11ea-8276-4a5691c24f50.png)
@@ -54,6 +54,7 @@
 
 ### Detalhes do personagem
 
+
 - [x] Foto em tamanho maior 
 - [x] Nome do personagem na barra de navegação
 - [x] Botão de favorito.
@@ -69,6 +70,7 @@
 
 
 ## TBD
+
 
 - [ ] O teste não pode apresentar crash.
 
