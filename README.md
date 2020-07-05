@@ -1,3 +1,4 @@
+## Continuous Integration
 
 
 [![CircleCI](https://circleci.com/gh/dpedroza/marvel-characters.svg?style=svg)](https://circleci.com/gh/dpedroza/marvel-characters)
@@ -19,7 +20,7 @@
 - [x] Interface que se adapta a telas maiores.
 
 
-### Personagens
+## Personagens
 
 
 - [x] Paginação na lista.
@@ -40,7 +41,7 @@
 ![Webp net-resizeimage (6)](https://user-images.githubusercontent.com/9497411/85237947-ec8ec280-b400-11ea-9774-017edac37029.png)
 
 
-### Favoritos
+## Favoritos
 
 
 - [x] Listagem dos personagens favoritados pelo usuário.
@@ -52,7 +53,7 @@
 ![Webp net-resizeimage (12)](https://user-images.githubusercontent.com/9497411/85238702-329a5500-b406-11ea-8ac2-eca060b7e063.png)
 
 
-### Detalhes do personagem
+## Detalhes do personagem
 
 
 - [x] Foto em tamanho maior 
@@ -69,7 +70,7 @@
 ![Webp net-resizeimage](https://user-images.githubusercontent.com/9497411/86540189-aeea6900-bed9-11ea-9c6b-4700b22bc319.png)
 
 
-## TBD
+### TBD
 
 
 - [ ] O teste não pode apresentar crash.
