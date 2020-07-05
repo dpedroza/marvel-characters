@@ -66,8 +66,8 @@
 - [x] Lista horizontal de Series (se houver).
 
 
-![Webp net-resizeimage (3)](https://user-images.githubusercontent.com/9497411/86540372-09d09000-bedb-11ea-80a2-83a1366c24c7.png)
-![Webp net-resizeimage (2)](https://user-images.githubusercontent.com/9497411/86540346-ea396780-beda-11ea-9aee-280eea6a5789.png)
-![Webp net-resizeimage (1)](https://user-images.githubusercontent.com/9497411/86540323-aba3ad00-beda-11ea-993b-fef9c48f2746.png)
+![Webp net-resizeimage (8)](https://user-images.githubusercontent.com/9497411/86543062-a69e2800-bef1-11ea-9239-bf90ee4d45dc.png)
+![Webp net-resizeimage (9)](https://user-images.githubusercontent.com/9497411/86543064-a7cf5500-bef1-11ea-9ca1-7c19105ac245.png)
+![Webp net-resizeimage (10)](https://user-images.githubusercontent.com/9497411/86543065-a9991880-bef1-11ea-81c6-8e4464f90e27.png)
 ![Webp net-resizeimage](https://user-images.githubusercontent.com/9497411/86540189-aeea6900-bed9-11ea-9c6b-4700b22bc319.png)
 
