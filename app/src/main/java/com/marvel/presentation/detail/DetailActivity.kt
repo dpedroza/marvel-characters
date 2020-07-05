@@ -40,7 +40,8 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         setupToolbar()
         setupImage()
         setupFab()
-        setupDescription()
+        showName()
+        showDescription()
         setupComicsRecyclerView()
         setupSeriesRecyclerView()
     }
@@ -68,6 +69,21 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showName() {
+        collapsingToolbar.title = character.name
+    }
+
+    override fun showDescription() {
+        if (character.description.isNotEmpty()) {
+            infoTextView.text = HtmlCompat.fromHtml(
+                character.description,
+                FROM_HTML_MODE_LEGACY
+            )
+        } else {
+            infoTextView.text = getString(R.string.no_info_message)
+        }
     }
 
     override fun showSeries(series: List<SeriesEntity>) {
@@ -106,7 +122,6 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
-        collapsingToolbar.title = character.name
         collapsingToolbar.setExpandedTitleColor(Color.WHITE)
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE)
     }
@@ -147,18 +162,6 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
 
     private fun setupDependencyInjection() {
         MarvelApplication.component.presentationComponent().inject(this)
-    }
-
-    private fun setupDescription() {
-
-        if (character.description.isNotEmpty()) {
-            infoTextView.text = HtmlCompat.fromHtml(
-                character.description,
-                FROM_HTML_MODE_LEGACY
-            )
-        } else {
-            infoTextView.text = getString(R.string.no_info_message)
-        }
     }
 
     companion object {
