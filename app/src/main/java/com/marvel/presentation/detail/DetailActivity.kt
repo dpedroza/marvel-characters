@@ -35,16 +35,24 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setupDependencyInjection()
-        presenter.attach(this)
-        character = intent.getParcelableExtra(CHARACTER) as CharacterViewObject
-        presenter.loadComics(character)
-        presenter.loadSeries(character)
+        getCharacter()
+        setupPresenter()
         setupToolbar()
         setupImage()
         setupFab()
         setupDescription()
         setupComicsRecyclerView()
         setupSeriesRecyclerView()
+    }
+
+    private fun setupPresenter() {
+        presenter.attach(this)
+        presenter.loadComics(character)
+        presenter.loadSeries(character)
+    }
+
+    private fun getCharacter() {
+        character = intent.getParcelableExtra(CHARACTER) as CharacterViewObject
     }
 
     override fun onDestroy() {
