@@ -49,8 +49,10 @@
 - [x] Interface de lista vazia, erro ou sem internet.
 
 
-![Webp net-resizeimage (10)](https://user-images.githubusercontent.com/9497411/85238452-64aab780-b404-11ea-8916-183817d34f1e.png)
-![Webp net-resizeimage (12)](https://user-images.githubusercontent.com/9497411/85238702-329a5500-b406-11ea-8ac2-eca060b7e063.png)
+![Webp net-resizeimage (4)](https://user-images.githubusercontent.com/9497411/86542980-d00a8400-bef0-11ea-9f6d-068a7310b42d.png)
+![Webp net-resizeimage (5)](https://user-images.githubusercontent.com/9497411/86542981-d13bb100-bef0-11ea-901e-a4539bb33a68.png)
+![Webp net-resizeimage (6)](https://user-images.githubusercontent.com/9497411/86542982-d3057480-bef0-11ea-81b8-a5888fd1f286.png)
+![Webp net-resizeimage (7)](https://user-images.githubusercontent.com/9497411/86542983-d436a180-bef0-11ea-9659-7a1f63465f29.png)
 
 
 ## Detalhes do personagem
