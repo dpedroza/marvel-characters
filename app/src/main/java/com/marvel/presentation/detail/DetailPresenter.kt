@@ -51,7 +51,11 @@ class DetailPresenter @Inject constructor(
             .ioUiSchedulers(schedulerProvider)
             .subscribeBy(
                 onSuccess = {
-                    view?.showSeries(it.series)
+                    if (it.series.isNotEmpty()) {
+                        view?.showSeries(it.series)
+                    } else {
+                        view?.hideSeries()
+                    }
                 },
                 onError = {
                     view?.showMessage(R.string.message_unknown_error)
@@ -70,7 +74,11 @@ class DetailPresenter @Inject constructor(
             .ioUiSchedulers(schedulerProvider)
             .subscribeBy(
                 onSuccess = {
-                    view?.showComics(it.comics)
+                    if (it.comics.isNotEmpty()) {
+                        view?.showComics(it.comics)
+                    } else {
+                        view?.hideComics()
+                    }
                 },
                 onError = {
                     view?.showMessage(R.string.message_unknown_error)

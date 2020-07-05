@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View.GONE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
@@ -67,6 +68,16 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
 
     override fun showComics(comics: List<ComicsEntity>) {
         comicsAdapter.updateComics(comics)
+    }
+
+    override fun hideComics() {
+        comicsTextView.visibility = GONE
+        comicsRecyclerView.visibility = GONE
+    }
+
+    override fun hideSeries() {
+        seriesTextView.visibility = GONE
+        seriesRecyclerView.visibility = GONE
     }
 
     override fun showMessage(messageId: Int) {

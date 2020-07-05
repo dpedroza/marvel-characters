@@ -12,6 +12,8 @@ interface DetailContract {
 
         fun showSeries(series: List<SeriesEntity>)
         fun showComics(comics: List<ComicsEntity>)
+        fun hideComics()
+        fun hideSeries()
     }
 
     abstract class Presenter : CorePresenter<View>() {
