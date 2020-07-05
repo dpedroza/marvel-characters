@@ -1,8 +1,9 @@
-package com.marvel.data.model.api
+package com.marvel.data.model.api.characters
 
 import com.google.gson.annotations.SerializedName
+import com.marvel.data.model.api.common.Data
 
-data class GetSeriesApiResponse(
+data class GetCharactersApiResponse(
     @SerializedName("attributionHTML")
     val attributionHTML: String,
     @SerializedName("attributionText")
@@ -12,7 +13,7 @@ data class GetSeriesApiResponse(
     @SerializedName("copyright")
     val copyright: String,
     @SerializedName("data")
-    val `data`: Data<SeriesRemoteObject>,
+    val `data`: Data<CharacterRemoteObject>,
     @SerializedName("etag")
     val etag: String,
     @SerializedName("status")

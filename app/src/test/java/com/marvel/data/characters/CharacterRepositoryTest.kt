@@ -3,7 +3,14 @@ package com.marvel.data.characters
 import com.marvel.data.characters.repo.CharacterRepositoryImpl
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.database.FavoriteDao
-import com.marvel.data.model.api.*
+import com.marvel.data.model.api.characters.CharacterRemoteObject
+import com.marvel.data.model.api.characters.GetCharactersApiResponse
+import com.marvel.data.model.api.common.Comics
+import com.marvel.data.model.api.common.Events
+import com.marvel.data.model.api.common.Series
+import com.marvel.data.model.api.common.Stories
+import com.marvel.data.model.api.common.Thumbnail
+import com.marvel.data.model.api.common.Data
 import com.marvel.domain.repository.CharactersRepository
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.verify
@@ -189,14 +196,15 @@ class CharacterRepositoryTest {
             stubCount
         )
 
-        val stubApiResponse = GetCharactersApiResponse(
-            stubAttributionHTML,
-            stubAttributionText,
-            stubOkCode,
-            stubCopyright,
-            stubData,
-            stubEtag,
-            stubOkStatus
-        )
+        val stubApiResponse =
+            GetCharactersApiResponse(
+                stubAttributionHTML,
+                stubAttributionText,
+                stubOkCode,
+                stubCopyright,
+                stubData,
+                stubEtag,
+                stubOkStatus
+            )
     }
 }

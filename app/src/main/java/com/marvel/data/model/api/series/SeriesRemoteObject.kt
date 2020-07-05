@@ -1,6 +1,14 @@
-package com.marvel.data.model.api
+package com.marvel.data.model.api.series
 
 import com.google.gson.annotations.SerializedName
+import com.marvel.data.model.api.common.Previous
+import com.marvel.data.model.api.common.Next
+import com.marvel.data.model.api.common.Characters
+import com.marvel.data.model.api.common.Comics
+import com.marvel.data.model.api.common.Creators
+import com.marvel.data.model.api.common.Events
+import com.marvel.data.model.api.common.Stories
+import com.marvel.data.model.api.common.Thumbnail
 
 data class SeriesRemoteObject(
     @SerializedName("characters")

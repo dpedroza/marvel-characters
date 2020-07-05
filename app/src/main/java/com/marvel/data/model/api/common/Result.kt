@@ -1,18 +1,18 @@
-package com.marvel.data.model.api
+package com.marvel.data.model.api.common
 
 import com.google.gson.annotations.SerializedName
 
-data class ComicsRemoteObject(
+data class Result(
     @SerializedName("characters")
     val characters: Characters,
     @SerializedName("collectedIssues")
-    val collectedIssues: List<Any>,
+    val collectedIssues: List<CollectedIssue>,
     @SerializedName("collections")
-    val collections: List<Any>,
+    val collections: List<Collection>,
     @SerializedName("creators")
     val creators: Creators,
     @SerializedName("dates")
-    val dates: List<Any>,
+    val dates: List<Date>,
     @SerializedName("description")
     val description: String,
     @SerializedName("diamondCode")
@@ -28,7 +28,7 @@ data class ComicsRemoteObject(
     @SerializedName("id")
     val id: Int,
     @SerializedName("images")
-    val images: List<Any>,
+    val images: List<Image>,
     @SerializedName("isbn")
     val isbn: String,
     @SerializedName("issn")
@@ -40,7 +40,7 @@ data class ComicsRemoteObject(
     @SerializedName("pageCount")
     val pageCount: Int,
     @SerializedName("prices")
-    val prices: List<Any>,
+    val prices: List<Price>,
     @SerializedName("resourceURI")
     val resourceURI: String,
     @SerializedName("series")
@@ -48,7 +48,7 @@ data class ComicsRemoteObject(
     @SerializedName("stories")
     val stories: Stories,
     @SerializedName("textObjects")
-    val textObjects: List<Any>,
+    val textObjects: List<TextObject>,
     @SerializedName("thumbnail")
     val thumbnail: Thumbnail,
     @SerializedName("title")
@@ -56,9 +56,9 @@ data class ComicsRemoteObject(
     @SerializedName("upc")
     val upc: String,
     @SerializedName("urls")
-    val urls: List<Any>,
+    val urls: List<Url>,
     @SerializedName("variantDescription")
     val variantDescription: String,
     @SerializedName("variants")
-    val variants: List<Any>
+    val variants: List<Variant>
 )

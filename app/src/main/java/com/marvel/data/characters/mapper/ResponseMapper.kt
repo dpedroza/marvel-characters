@@ -1,12 +1,12 @@
 package com.marvel.data.characters.mapper
 
-import com.marvel.data.model.api.Item
-import com.marvel.data.model.api.CharacterRemoteObject
-import com.marvel.data.model.api.ComicsRemoteObject
-import com.marvel.data.model.api.SeriesRemoteObject
-import com.marvel.data.model.api.GetCharactersApiResponse
-import com.marvel.data.model.api.GetComicsApiResponse
-import com.marvel.data.model.api.GetSeriesApiResponse
+import com.marvel.data.model.api.common.Item
+import com.marvel.data.model.api.characters.CharacterRemoteObject
+import com.marvel.data.model.api.comics.ComicsRemoteObject
+import com.marvel.data.model.api.series.SeriesRemoteObject
+import com.marvel.data.model.api.characters.GetCharactersApiResponse
+import com.marvel.data.model.api.comics.GetComicsApiResponse
+import com.marvel.data.model.api.series.GetSeriesApiResponse
 import com.marvel.domain.model.entity.CharacterEntity
 import com.marvel.domain.model.entity.ComicsEntity
 import com.marvel.domain.model.entity.SeriesEntity

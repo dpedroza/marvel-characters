@@ -1,18 +1,24 @@
-package com.marvel.data.model.api
+package com.marvel.data.model.api.comics
 
 import com.google.gson.annotations.SerializedName
+import com.marvel.data.model.api.common.Characters
+import com.marvel.data.model.api.common.Creators
+import com.marvel.data.model.api.common.Events
+import com.marvel.data.model.api.common.Thumbnail
+import com.marvel.data.model.api.common.Series
+import com.marvel.data.model.api.common.Stories
 
-data class Result(
+data class ComicsRemoteObject(
     @SerializedName("characters")
     val characters: Characters,
     @SerializedName("collectedIssues")
-    val collectedIssues: List<CollectedIssue>,
+    val collectedIssues: List<Any>,
     @SerializedName("collections")
-    val collections: List<Collection>,
+    val collections: List<Any>,
     @SerializedName("creators")
     val creators: Creators,
     @SerializedName("dates")
-    val dates: List<Date>,
+    val dates: List<Any>,
     @SerializedName("description")
     val description: String,
     @SerializedName("diamondCode")
@@ -28,7 +34,7 @@ data class Result(
     @SerializedName("id")
     val id: Int,
     @SerializedName("images")
-    val images: List<Image>,
+    val images: List<Any>,
     @SerializedName("isbn")
     val isbn: String,
     @SerializedName("issn")
@@ -40,7 +46,7 @@ data class Result(
     @SerializedName("pageCount")
     val pageCount: Int,
     @SerializedName("prices")
-    val prices: List<Price>,
+    val prices: List<Any>,
     @SerializedName("resourceURI")
     val resourceURI: String,
     @SerializedName("series")
@@ -48,7 +54,7 @@ data class Result(
     @SerializedName("stories")
     val stories: Stories,
     @SerializedName("textObjects")
-    val textObjects: List<TextObject>,
+    val textObjects: List<Any>,
     @SerializedName("thumbnail")
     val thumbnail: Thumbnail,
     @SerializedName("title")
@@ -56,9 +62,9 @@ data class Result(
     @SerializedName("upc")
     val upc: String,
     @SerializedName("urls")
-    val urls: List<Url>,
+    val urls: List<Any>,
     @SerializedName("variantDescription")
     val variantDescription: String,
     @SerializedName("variants")
-    val variants: List<Variant>
+    val variants: List<Any>
 )
