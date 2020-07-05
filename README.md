@@ -1,3 +1,4 @@
+## Continuous Integration
 
 
 [![CircleCI](https://circleci.com/gh/dpedroza/marvel-characters.svg?style=svg)](https://circleci.com/gh/dpedroza/marvel-characters)
@@ -19,7 +20,7 @@
 - [x] Interface que se adapta a telas maiores.
 
 
-### Personagens
+## Personagens
 
 
 - [x] Paginação na lista.
@@ -40,7 +41,7 @@
 ![Webp net-resizeimage (6)](https://user-images.githubusercontent.com/9497411/85237947-ec8ec280-b400-11ea-9774-017edac37029.png)
 
 
-### Favoritos
+## Favoritos
 
 
 - [x] Listagem dos personagens favoritados pelo usuário.
@@ -48,11 +49,13 @@
 - [x] Interface de lista vazia, erro ou sem internet.
 
 
-![Webp net-resizeimage (10)](https://user-images.githubusercontent.com/9497411/85238452-64aab780-b404-11ea-8916-183817d34f1e.png)
-![Webp net-resizeimage (12)](https://user-images.githubusercontent.com/9497411/85238702-329a5500-b406-11ea-8ac2-eca060b7e063.png)
+![Webp net-resizeimage (4)](https://user-images.githubusercontent.com/9497411/86542980-d00a8400-bef0-11ea-9f6d-068a7310b42d.png)
+![Webp net-resizeimage (5)](https://user-images.githubusercontent.com/9497411/86542981-d13bb100-bef0-11ea-901e-a4539bb33a68.png)
+![Webp net-resizeimage (6)](https://user-images.githubusercontent.com/9497411/86542982-d3057480-bef0-11ea-81b8-a5888fd1f286.png)
+![Webp net-resizeimage (7)](https://user-images.githubusercontent.com/9497411/86542983-d436a180-bef0-11ea-9659-7a1f63465f29.png)
 
 
-### Detalhes do personagem
+## Detalhes do personagem
 
 
 - [x] Foto em tamanho maior 
@@ -63,14 +66,8 @@
 - [x] Lista horizontal de Series (se houver).
 
 
-![Webp net-resizeimage (3)](https://user-images.githubusercontent.com/9497411/86540372-09d09000-bedb-11ea-80a2-83a1366c24c7.png)
-![Webp net-resizeimage (2)](https://user-images.githubusercontent.com/9497411/86540346-ea396780-beda-11ea-9aee-280eea6a5789.png)
-![Webp net-resizeimage (1)](https://user-images.githubusercontent.com/9497411/86540323-aba3ad00-beda-11ea-993b-fef9c48f2746.png)
+![Webp net-resizeimage (8)](https://user-images.githubusercontent.com/9497411/86543062-a69e2800-bef1-11ea-9239-bf90ee4d45dc.png)
+![Webp net-resizeimage (9)](https://user-images.githubusercontent.com/9497411/86543064-a7cf5500-bef1-11ea-9ca1-7c19105ac245.png)
+![Webp net-resizeimage (10)](https://user-images.githubusercontent.com/9497411/86543065-a9991880-bef1-11ea-81c6-8e4464f90e27.png)
 ![Webp net-resizeimage](https://user-images.githubusercontent.com/9497411/86540189-aeea6900-bed9-11ea-9c6b-4700b22bc319.png)
-
-
-## TBD
-
-
-- [ ] O teste não pode apresentar crash.
 
