@@ -103,7 +103,8 @@
 ![Webp net-resizeimage (19)](https://user-images.githubusercontent.com/9497411/85416542-f8839d00-b544-11ea-94b5-b43f997646d4.png)
 
 
-##TODO
+- [x] Lista horizontal de Comics (se houver).
+- [x] Lista horizontal de Series (se houver).
 
-- [ ] Lista horizontal de Comics (se houver).
-- [ ] Lista horizontal de Series (se houver).
+
+![Webp net-resizeimage](https://user-images.githubusercontent.com/9497411/86540189-aeea6900-bed9-11ea-9c6b-4700b22bc319.png)
