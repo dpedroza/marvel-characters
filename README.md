@@ -15,7 +15,7 @@
 - [x] Testes unitários e interface.
 - [x] Tratamento para falha de conexão.
 - [x] Mockito para os testes unitários.
-- [x] Dagger2 para injeções de dependência.
+- [x] Hilt para injeções de dependência.
 - [x] Espresso para os testes de interface.
 - [x] Interface que se adapta a telas maiores.
 
