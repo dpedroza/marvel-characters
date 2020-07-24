@@ -6,8 +6,10 @@ import com.marvel.R
 import com.marvel.presentation.main.adapter.TabAdapter
 import com.marvel.presentation.main.characters.CharacterFragment
 import com.marvel.presentation.main.favorites.FavoritesFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

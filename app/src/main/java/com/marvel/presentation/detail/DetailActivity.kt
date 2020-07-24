@@ -16,13 +16,14 @@ import com.bumptech.glide.Glide
 import com.marvel.R
 import com.marvel.domain.characters.entity.ComicsEntity
 import com.marvel.domain.characters.entity.SeriesEntity
-import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.detail.adapter.ComicsAdapter
 import com.marvel.presentation.detail.adapter.SeriesAdapter
 import com.marvel.presentation.model.CharacterViewObject
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailActivity : DetailContract.View, AppCompatActivity() {
 
     @Inject
@@ -34,7 +35,6 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        setupDependencyInjection()
         getCharacter()
         setupPresenter()
         setupToolbar()
@@ -158,10 +158,6 @@ class DetailActivity : DetailContract.View, AppCompatActivity() {
             unpopular
         }
         return ContextCompat.getDrawable(this, drawableId)
-    }
-
-    private fun setupDependencyInjection() {
-        MarvelApplication.component.presentationComponent().inject(this)
     }
 
     companion object {
