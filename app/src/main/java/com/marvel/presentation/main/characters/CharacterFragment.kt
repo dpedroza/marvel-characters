@@ -17,25 +17,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
-import com.marvel.presentation.MarvelApplication
-import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.core.hideKeyboard
 import com.marvel.presentation.detail.DetailActivity
 import com.marvel.presentation.main.adapter.CharacterAdapter
 import com.marvel.presentation.main.characters.view.DelayedOnQueryTextListener
+import com.marvel.presentation.model.CharacterViewObject
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_characters.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CharacterFragment : Fragment(), CharactersContract.View {
 
     @Inject
     lateinit var presenter: CharactersContract.Presenter
     private lateinit var adapter: CharacterAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupDependencyInjection()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -119,10 +115,6 @@ class CharacterFragment : Fragment(), CharactersContract.View {
             presenter.resetPagination()
             presenter.loadCharacters()
         }
-    }
-
-    private fun setupDependencyInjection() {
-        MarvelApplication.component.presentationComponent().inject(this)
     }
 
     private fun onOpenDetails(characterViewObject: CharacterViewObject) {

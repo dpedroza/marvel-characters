@@ -12,23 +12,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.marvel.R
-import com.marvel.presentation.MarvelApplication
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.core.hideKeyboard
 import com.marvel.presentation.main.adapter.CharacterAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class FavoritesFragment : Fragment(), FavoritesContract.View {
 
     @Inject
     lateinit var presenter: FavoritesContract.Presenter
     private lateinit var adapter: CharacterAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupDependencyInjection()
-    }
 
     override fun onResume() {
         super.onResume()
@@ -66,10 +62,6 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         favoritesRecyclerView.setHasFixedSize(true)
         adapter = CharacterAdapter(hideStars = true)
         favoritesRecyclerView.adapter = adapter
-    }
-
-    private fun setupDependencyInjection() {
-        MarvelApplication.component.presentationComponent().inject(this)
     }
 
     override fun showFavorites(characters: List<CharacterViewObject>) {

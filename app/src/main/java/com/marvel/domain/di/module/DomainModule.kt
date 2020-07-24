@@ -17,8 +17,11 @@ import com.marvel.domain.favorites.usecase.GetFavorites
 import com.marvel.domain.favorites.usecase.UpdateFavorite
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class DomainModule {
 
     @Provides

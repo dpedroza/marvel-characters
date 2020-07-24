@@ -7,7 +7,6 @@ import com.marvel.domain.favorites.usecase.GetFavorites
 import com.marvel.domain.favorites.usecase.UpdateFavorite
 import com.marvel.presentation.detail.DetailContract
 import com.marvel.presentation.detail.DetailPresenter
-import com.marvel.presentation.di.scope.UiScope
 import com.marvel.presentation.main.characters.CharacterPresenter
 import com.marvel.presentation.main.characters.CharactersContract
 import com.marvel.presentation.main.favorites.FavoritesContract
@@ -16,11 +15,13 @@ import com.marvel.presentation.schedulers.SchedulerProvider
 import com.marvel.presentation.schedulers.SchedulerProviderImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class PresentationModule {
 
-    @UiScope
     @Provides
     fun providesCharacterPresenter(
         updateFavorite: UpdateFavorite,
@@ -34,7 +35,6 @@ class PresentationModule {
         )
     }
 
-    @UiScope
     @Provides
     fun providesDetailPresenter(
         updateFavorite: UpdateFavorite,
@@ -50,7 +50,6 @@ class PresentationModule {
         )
     }
 
-    @UiScope
     @Provides
     fun providesFavoritesPresenter(
         getFavorites: GetFavorites,
@@ -59,7 +58,6 @@ class PresentationModule {
         return FavoritesPresenter(getFavorites, schedulerProvider)
     }
 
-    @UiScope
     @Provides
     fun providesScheduleProvider(): SchedulerProvider {
         return SchedulerProviderImpl()

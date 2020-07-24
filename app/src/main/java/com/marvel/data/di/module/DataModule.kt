@@ -1,29 +1,28 @@
 package com.marvel.data.di.module
 
+import android.content.Context
 import androidx.room.Room
 import com.marvel.BuildConfig
 import com.marvel.data.characters.repository.CharacterRepositoryImpl
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.data.favorites.database.FavoriteDatabase
-import com.marvel.data.favorites.repository.FavoriteRepositoryImpl
 import com.marvel.data.favorites.model.CharacterDto
+import com.marvel.data.favorites.repository.FavoriteRepositoryImpl
 import com.marvel.domain.characters.CharactersRepository
 import com.marvel.domain.favorites.FavoriteRepository
-import com.marvel.presentation.MarvelApplication
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class DataModule(private val application: MarvelApplication) {
-
-    @Provides
-    fun provideApplication(): MarvelApplication {
-        return application
-    }
+@InstallIn(ApplicationComponent::class)
+class DataModule {
 
     @Provides
     fun provideMarvelApiService(): MarvelApiService {
@@ -55,10 +54,10 @@ class DataModule(private val application: MarvelApplication) {
 
     @Provides
     fun providesFavoriteDatabase(
-        application: MarvelApplication
+        @ApplicationContext context: Context
     ): FavoriteDatabase {
         return Room.databaseBuilder(
-            application.applicationContext,
+            context,
             FavoriteDatabase::class.java,
             CharacterDto.TABLE
         ).allowMainThreadQueries().build()
