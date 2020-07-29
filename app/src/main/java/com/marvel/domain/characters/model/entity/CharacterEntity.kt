@@ -1,4 +1,4 @@
-package com.marvel.domain.core
+package com.marvel.domain.characters.model.entity
 
 class CharacterEntity(
     val id: Int,

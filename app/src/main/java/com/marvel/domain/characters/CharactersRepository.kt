@@ -1,8 +1,8 @@
 package com.marvel.domain.characters
 
-import com.marvel.domain.characters.model.GetCharactersResult
-import com.marvel.domain.characters.model.GetComicsResult
-import com.marvel.domain.characters.model.GetSeriesResult
+import com.marvel.domain.characters.model.result.GetCharactersResult
+import com.marvel.domain.characters.model.result.GetComicsResult
+import com.marvel.domain.characters.model.result.GetSeriesResult
 import io.reactivex.Single
 
 interface CharactersRepository {

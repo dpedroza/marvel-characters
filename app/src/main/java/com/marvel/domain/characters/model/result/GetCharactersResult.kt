@@ -1,6 +1,6 @@
-package com.marvel.domain.characters.model
+package com.marvel.domain.characters.model.result
 
-import com.marvel.domain.core.CharacterEntity
+import com.marvel.domain.characters.model.entity.CharacterEntity
 
 data class GetCharactersResult(
     val code: Int,

@@ -8,9 +8,9 @@ import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.data.favorites.database.FavoriteDatabase
 import com.marvel.data.favorites.model.CharacterDto
-import com.marvel.data.favorites.repository.FavoriteRepositoryImpl
+import com.marvel.data.favorites.repository.FavoritesRepositoryImpl
 import com.marvel.domain.characters.CharactersRepository
-import com.marvel.domain.favorites.FavoriteRepository
+import com.marvel.domain.favorites.FavoritesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -66,8 +66,8 @@ class DataModule {
     @Provides
     fun providesFavoriteRepository(
         dao: FavoriteDao
-    ): FavoriteRepository {
-        return FavoriteRepositoryImpl(
+    ): FavoritesRepository {
+        return FavoritesRepositoryImpl(
             dao
         )
     }

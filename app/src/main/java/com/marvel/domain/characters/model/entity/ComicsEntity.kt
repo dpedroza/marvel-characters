@@ -1,4 +1,4 @@
-package com.marvel.domain.characters.entity
+package com.marvel.domain.characters.model.entity
 
 import android.os.Parcel
 import android.os.Parcelable

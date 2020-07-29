@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.marvel.R
 import com.marvel.data.characters.error.NetworkError
-import com.marvel.domain.core.CharacterEntity
+import com.marvel.domain.characters.model.entity.CharacterEntity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

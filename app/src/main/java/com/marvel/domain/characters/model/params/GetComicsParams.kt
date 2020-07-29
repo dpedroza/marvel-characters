@@ -1,4 +1,4 @@
-package com.marvel.domain.characters.params
+package com.marvel.domain.characters.model.params
 
 data class GetComicsParams(
     val offset: Int,

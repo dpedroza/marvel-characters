@@ -14,8 +14,8 @@ import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.marvel.R
-import com.marvel.domain.characters.entity.ComicsEntity
-import com.marvel.domain.characters.entity.SeriesEntity
+import com.marvel.domain.characters.model.entity.ComicsEntity
+import com.marvel.domain.characters.model.entity.SeriesEntity
 import com.marvel.presentation.detail.adapter.ComicsAdapter
 import com.marvel.presentation.detail.adapter.SeriesAdapter
 import com.marvel.presentation.model.CharacterViewObject

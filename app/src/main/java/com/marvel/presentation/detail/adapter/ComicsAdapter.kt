@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.marvel.R
-import com.marvel.domain.characters.entity.ComicsEntity
+import com.marvel.domain.characters.model.entity.ComicsEntity
 import kotlinx.android.synthetic.main.item_comics.view.*
 
 class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {

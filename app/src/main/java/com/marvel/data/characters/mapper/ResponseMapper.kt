@@ -6,12 +6,12 @@ import com.marvel.data.characters.model.comics.ComicsRemoteObject
 import com.marvel.data.characters.model.comics.GetComicsApiResponse
 import com.marvel.data.characters.model.series.GetSeriesApiResponse
 import com.marvel.data.characters.model.series.SeriesRemoteObject
-import com.marvel.domain.characters.entity.ComicsEntity
-import com.marvel.domain.characters.entity.SeriesEntity
-import com.marvel.domain.characters.model.GetCharactersResult
-import com.marvel.domain.characters.model.GetComicsResult
-import com.marvel.domain.characters.model.GetSeriesResult
-import com.marvel.domain.core.CharacterEntity
+import com.marvel.domain.characters.model.entity.ComicsEntity
+import com.marvel.domain.characters.model.entity.SeriesEntity
+import com.marvel.domain.characters.model.result.GetCharactersResult
+import com.marvel.domain.characters.model.result.GetComicsResult
+import com.marvel.domain.characters.model.result.GetSeriesResult
+import com.marvel.domain.characters.model.entity.CharacterEntity
 
 class ResponseMapper {
 
@@ -27,6 +27,11 @@ class ResponseMapper {
             code = remoteCharacters.code,
             status = remoteCharacters.status,
             characters = remoteCharacters.data.results.map { character ->
+
+                /**
+                 * Check if a character is persisted as favorite to local database
+                 * Set it isFavorite value accordingly
+                 */
 
                 /**
                  * Check if a character is persisted as favorite to local database

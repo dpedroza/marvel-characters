@@ -1,9 +1,9 @@
 package com.marvel.domain.characters.usecase
 
-import com.marvel.domain.characters.model.GetSeriesResult
+import com.marvel.domain.UseCase
+import com.marvel.domain.characters.model.result.GetSeriesResult
 import com.marvel.domain.characters.CharactersRepository
-import com.marvel.domain.characters.params.GetSeriesParams
-import com.marvel.domain.core.UseCase
+import com.marvel.domain.characters.model.params.GetSeriesParams
 import io.reactivex.Single
 import javax.inject.Inject
 

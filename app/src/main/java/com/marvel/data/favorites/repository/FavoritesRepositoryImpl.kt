@@ -2,15 +2,15 @@ package com.marvel.data.favorites.repository
 
 import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.data.favorites.mapper.DatabaseMapper
-import com.marvel.domain.core.CharacterEntity
-import com.marvel.domain.favorites.FavoriteRepository
+import com.marvel.domain.characters.model.entity.CharacterEntity
+import com.marvel.domain.favorites.FavoritesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class FavoriteRepositoryImpl @Inject constructor(
+class FavoritesRepositoryImpl @Inject constructor(
     private val dao: FavoriteDao
-) : FavoriteRepository {
+) : FavoritesRepository {
 
     private val mapper = DatabaseMapper()
 

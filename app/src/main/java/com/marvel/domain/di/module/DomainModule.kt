@@ -1,20 +1,20 @@
 package com.marvel.domain.di.module
 
 import com.marvel.domain.characters.CharactersRepository
-import com.marvel.domain.characters.model.GetCharactersResult
-import com.marvel.domain.characters.model.GetComicsResult
-import com.marvel.domain.characters.model.GetSeriesResult
-import com.marvel.domain.characters.params.GetCharactersParams
-import com.marvel.domain.characters.params.GetComicsParams
-import com.marvel.domain.characters.params.GetSeriesParams
+import com.marvel.domain.characters.model.result.GetCharactersResult
+import com.marvel.domain.characters.model.result.GetComicsResult
+import com.marvel.domain.characters.model.result.GetSeriesResult
+import com.marvel.domain.characters.model.params.GetCharactersParams
+import com.marvel.domain.characters.model.params.GetComicsParams
+import com.marvel.domain.characters.model.params.GetSeriesParams
 import com.marvel.domain.characters.usecase.GetCharacters
 import com.marvel.domain.characters.usecase.GetComics
 import com.marvel.domain.characters.usecase.GetSeries
-import com.marvel.domain.core.CharacterEntity
-import com.marvel.domain.core.UseCase
-import com.marvel.domain.favorites.FavoriteRepository
+import com.marvel.domain.characters.model.entity.CharacterEntity
+import com.marvel.domain.UseCase
+import com.marvel.domain.favorites.FavoritesRepository
 import com.marvel.domain.favorites.usecase.GetFavorites
-import com.marvel.domain.favorites.usecase.UpdateFavorite
+import com.marvel.domain.favorites.usecase.UpdateFavorites
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,19 +53,19 @@ class DomainModule {
 
     @Provides
     fun provideGetFavoritesUseCase(
-        favoriteRepository: FavoriteRepository
+        favoritesRepository: FavoritesRepository
     ): UseCase.FromSingle.WithoutInput<List<CharacterEntity>> {
         return GetFavorites(
-            favoriteRepository
+            favoritesRepository
         )
     }
 
     @Provides
     fun provideUpdateFavoriteUseCase(
-        favoriteRepository: FavoriteRepository
+        favoritesRepository: FavoritesRepository
     ): UseCase.FromCompletable.WithInput<CharacterEntity> {
-        return UpdateFavorite(
-            favoriteRepository
+        return UpdateFavorites(
+            favoritesRepository
         )
     }
 }

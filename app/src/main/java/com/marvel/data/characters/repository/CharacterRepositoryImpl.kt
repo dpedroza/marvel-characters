@@ -5,9 +5,9 @@ import com.marvel.data.characters.mapper.ResponseMapper
 import com.marvel.data.characters.service.MarvelApiService
 import com.marvel.data.characters.cryptography.Hash
 import com.marvel.data.favorites.database.FavoriteDao
-import com.marvel.domain.characters.model.GetCharactersResult
-import com.marvel.domain.characters.model.GetComicsResult
-import com.marvel.domain.characters.model.GetSeriesResult
+import com.marvel.domain.characters.model.result.GetCharactersResult
+import com.marvel.domain.characters.model.result.GetComicsResult
+import com.marvel.domain.characters.model.result.GetSeriesResult
 import com.marvel.domain.characters.CharactersRepository
 import io.reactivex.Single
 import javax.inject.Inject

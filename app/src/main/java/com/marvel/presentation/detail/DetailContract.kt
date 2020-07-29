@@ -1,7 +1,7 @@
 package com.marvel.presentation.detail
 
-import com.marvel.domain.characters.entity.ComicsEntity
-import com.marvel.domain.characters.entity.SeriesEntity
+import com.marvel.domain.characters.model.entity.ComicsEntity
+import com.marvel.domain.characters.model.entity.SeriesEntity
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.core.BaseView
 import com.marvel.presentation.core.CorePresenter

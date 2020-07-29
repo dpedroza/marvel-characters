@@ -1,4 +1,4 @@
-package com.marvel.domain.characters.params
+package com.marvel.domain.characters.model.params
 
 class GetSeriesParams(
     val offset: Int,

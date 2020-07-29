@@ -1,9 +1,9 @@
 package com.marvel.presentation.main.characters
 
-import com.marvel.domain.core.CharacterEntity
-import com.marvel.domain.characters.params.GetCharactersParams
-import com.marvel.domain.characters.model.GetCharactersResult
-import com.marvel.domain.core.UseCase
+import com.marvel.domain.characters.model.entity.CharacterEntity
+import com.marvel.domain.characters.model.params.GetCharactersParams
+import com.marvel.domain.characters.model.result.GetCharactersResult
+import com.marvel.domain.UseCase
 import com.marvel.presentation.schedulers.SchedulerProvider
 import org.junit.Assert.assertNull
 import org.junit.Before

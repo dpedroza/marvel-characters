@@ -1,4 +1,4 @@
-package com.marvel.domain.core
+package com.marvel.domain
 
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -1,13 +1,13 @@
 package com.marvel.domain.favorites.usecase
 
-import com.marvel.domain.core.CharacterEntity
-import com.marvel.domain.favorites.FavoriteRepository
-import com.marvel.domain.core.UseCase
+import com.marvel.domain.characters.model.entity.CharacterEntity
+import com.marvel.domain.favorites.FavoritesRepository
+import com.marvel.domain.UseCase
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class UpdateFavorite @Inject constructor(
-    private val repository: FavoriteRepository
+class UpdateFavorites @Inject constructor(
+    private val repository: FavoritesRepository
 ) : UseCase.FromCompletable.WithInput<CharacterEntity> {
 
     override fun execute(params: CharacterEntity): Completable {

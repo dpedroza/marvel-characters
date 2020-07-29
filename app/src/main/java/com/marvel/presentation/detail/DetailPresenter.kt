@@ -1,11 +1,11 @@
 package com.marvel.presentation.detail
 
 import com.marvel.R
-import com.marvel.domain.characters.params.GetComicsParams
-import com.marvel.domain.characters.params.GetSeriesParams
+import com.marvel.domain.characters.model.params.GetComicsParams
+import com.marvel.domain.characters.model.params.GetSeriesParams
 import com.marvel.domain.characters.usecase.GetComics
 import com.marvel.domain.characters.usecase.GetSeries
-import com.marvel.domain.favorites.usecase.UpdateFavorite
+import com.marvel.domain.favorites.usecase.UpdateFavorites
 import com.marvel.presentation.schedulers.SchedulerProvider
 import com.marvel.presentation.schedulers.ioComputationSchedulers
 import com.marvel.presentation.schedulers.ioUiSchedulers
@@ -15,7 +15,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class DetailPresenter @Inject constructor(
-    private val updateFavorite: UpdateFavorite,
+    private val updateFavorites: UpdateFavorites,
     private val getComics: GetComics,
     private val getSeries: GetSeries,
     private val schedulerProvider: SchedulerProvider
@@ -35,7 +35,7 @@ class DetailPresenter @Inject constructor(
             disfavorMessage
         }
 
-        updateFavorite.execute(entity)
+        updateFavorites.execute(entity)
             .ioComputationSchedulers(schedulerProvider)
             .subscribeBy { view?.showMessage(messageId) }
             .also { addDisposable(it) }
@@ -65,6 +65,7 @@ class DetailPresenter @Inject constructor(
     }
 
     override fun loadComics(characterViewObject: CharacterViewObject) {
+
         val params = GetComicsParams(
             offset = 0,
             characterId = characterViewObject.id

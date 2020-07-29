@@ -1,7 +1,7 @@
 package com.marvel.domain.usecase
 
-import com.marvel.domain.characters.params.GetCharactersParams
-import com.marvel.domain.characters.model.GetCharactersResult
+import com.marvel.domain.characters.model.params.GetCharactersParams
+import com.marvel.domain.characters.model.result.GetCharactersResult
 import com.marvel.domain.characters.CharactersRepository
 import com.marvel.domain.characters.usecase.GetCharacters
 import com.nhaarman.mockitokotlin2.anyOrNull
@@ -43,9 +43,7 @@ class GetCharactersTest {
             )
         )
 
-        val params = GetCharactersParams()
-        params.query = "query"
-        params.offset = 0
+        val params = GetCharactersParams(0, "query")
 
         val result = getCharacters.execute(params).blockingGet()
 
@@ -73,9 +71,7 @@ class GetCharactersTest {
             )
         )
 
-        val params = GetCharactersParams()
-        params.query = "query"
-        params.offset = 0
+        val params = GetCharactersParams(0, "query")
 
         getCharacters.execute(params).blockingGet()
     }

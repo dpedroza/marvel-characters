@@ -4,7 +4,7 @@ import com.marvel.domain.characters.usecase.GetCharacters
 import com.marvel.domain.characters.usecase.GetComics
 import com.marvel.domain.characters.usecase.GetSeries
 import com.marvel.domain.favorites.usecase.GetFavorites
-import com.marvel.domain.favorites.usecase.UpdateFavorite
+import com.marvel.domain.favorites.usecase.UpdateFavorites
 import com.marvel.presentation.detail.DetailContract
 import com.marvel.presentation.detail.DetailPresenter
 import com.marvel.presentation.main.characters.CharacterPresenter
@@ -24,12 +24,12 @@ class PresentationModule {
 
     @Provides
     fun providesCharacterPresenter(
-        updateFavorite: UpdateFavorite,
+        updateFavorites: UpdateFavorites,
         getCharacters: GetCharacters,
         schedulerProvider: SchedulerProvider
     ): CharactersContract.Presenter {
         return CharacterPresenter(
-            updateFavorite,
+            updateFavorites,
             getCharacters,
             schedulerProvider
         )
@@ -37,13 +37,13 @@ class PresentationModule {
 
     @Provides
     fun providesDetailPresenter(
-        updateFavorite: UpdateFavorite,
+        updateFavorites: UpdateFavorites,
         getComics: GetComics,
         getSeries: GetSeries,
         schedulerProvider: SchedulerProvider
     ): DetailContract.Presenter {
         return DetailPresenter(
-            updateFavorite,
+            updateFavorites,
             getComics,
             getSeries,
             schedulerProvider
