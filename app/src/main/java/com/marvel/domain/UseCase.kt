@@ -1,25 +1,22 @@
 package com.marvel.domain
 
-import io.reactivex.Completable
-import io.reactivex.Single
-
 abstract class UseCase {
 
-    object FromSingle {
+    object Single {
 
         interface WithInput<in Input, Output> {
-            fun execute(params: Input): Single<Output>
+            fun execute(params: Input): io.reactivex.Single<Output>
         }
 
         interface WithoutInput<Output> {
-            fun execute(): Single<Output>
+            fun execute(): io.reactivex.Single<Output>
         }
     }
 
-    object FromCompletable {
+    object Completable {
 
         interface WithInput<in Input> {
-            fun execute(params: Input): Completable
+            fun execute(params: Input): io.reactivex.Completable
         }
     }
 }

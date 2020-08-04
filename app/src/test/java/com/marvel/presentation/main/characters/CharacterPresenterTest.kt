@@ -14,11 +14,11 @@ import org.mockito.MockitoAnnotations
 class CharacterPresenterTest {
 
     @Mock
-    lateinit var mockGetCharacters: UseCase.FromSingle.WithInput
+    lateinit var mockGetCharacters: UseCase.Single.WithInput
     <GetCharactersParams, GetCharactersResult>
 
     @Mock
-    lateinit var mockUpdateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>
+    lateinit var mockUpdateFavorite: UseCase.Completable.WithInput<CharacterEntity>
 
     private lateinit var presenter: CharacterPresenter
 

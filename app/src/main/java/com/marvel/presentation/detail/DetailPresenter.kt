@@ -7,7 +7,6 @@ import com.marvel.domain.characters.usecase.GetComics
 import com.marvel.domain.characters.usecase.GetSeries
 import com.marvel.domain.favorites.usecase.UpdateFavorites
 import com.marvel.presentation.schedulers.SchedulerProvider
-import com.marvel.presentation.schedulers.ioComputationSchedulers
 import com.marvel.presentation.schedulers.ioUiSchedulers
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
@@ -20,7 +19,6 @@ class DetailPresenter @Inject constructor(
     private val getSeries: GetSeries,
     private val schedulerProvider: SchedulerProvider
 ) : DetailContract.Presenter() {
-
     private val mapper = ViewObjectMapper()
 
     override fun updateFavorite(characterViewObject: CharacterViewObject) {
@@ -36,7 +34,7 @@ class DetailPresenter @Inject constructor(
         }
 
         updateFavorites.execute(entity)
-            .ioComputationSchedulers(schedulerProvider)
+            .ioUiSchedulers(schedulerProvider)
             .subscribeBy { view?.showMessage(messageId) }
             .also { addDisposable(it) }
     }

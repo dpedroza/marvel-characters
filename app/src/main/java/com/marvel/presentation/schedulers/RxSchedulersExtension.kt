@@ -9,8 +9,8 @@ fun <T> Single<T>.ioUiSchedulers(schedulerProvider: SchedulerProvider): Single<T
         .observeOn(schedulerProvider.ui())
 }
 
-fun Completable.ioComputationSchedulers(schedulerProvider: SchedulerProvider): Completable {
+fun Completable.ioUiSchedulers(schedulerProvider: SchedulerProvider): Completable {
     return this
-        .subscribeOn(schedulerProvider.computation())
+        .subscribeOn(schedulerProvider.io())
         .observeOn(schedulerProvider.ui())
 }

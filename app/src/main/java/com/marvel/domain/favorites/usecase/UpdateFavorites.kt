@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class UpdateFavorites @Inject constructor(
     private val repository: FavoritesRepository
-) : UseCase.FromCompletable.WithInput<CharacterEntity> {
+) : UseCase.Completable.WithInput<CharacterEntity> {
 
     override fun execute(params: CharacterEntity): Completable {
         return if (params.isFavorite) {

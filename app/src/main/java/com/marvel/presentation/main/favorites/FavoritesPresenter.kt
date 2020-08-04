@@ -10,7 +10,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class FavoritesPresenter @Inject constructor(
-    private val getFavorites: UseCase.FromSingle.WithoutInput<List<CharacterEntity>>,
+    private val getFavorites: UseCase.Single.WithoutInput<List<CharacterEntity>>,
     private val schedulerProvider: SchedulerProvider
 ) : FavoritesContract.Presenter() {
 

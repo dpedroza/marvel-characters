@@ -27,7 +27,7 @@ class DomainModule {
     @Provides
     fun provideGetCharactersUseCase(
         characterRepository: CharactersRepository
-    ): UseCase.FromSingle.WithInput<GetCharactersParams, GetCharactersResult> {
+    ): UseCase.Single.WithInput<GetCharactersParams, GetCharactersResult> {
         return GetCharacters(
             characterRepository
         )
@@ -36,7 +36,7 @@ class DomainModule {
     @Provides
     fun provideGetComicsUseCase(
         characterRepository: CharactersRepository
-    ): UseCase.FromSingle.WithInput<GetComicsParams, GetComicsResult> {
+    ): UseCase.Single.WithInput<GetComicsParams, GetComicsResult> {
         return GetComics(
             characterRepository
         )
@@ -45,7 +45,7 @@ class DomainModule {
     @Provides
     fun provideGetSeriesUseCase(
         characterRepository: CharactersRepository
-    ): UseCase.FromSingle.WithInput<GetSeriesParams, GetSeriesResult> {
+    ): UseCase.Single.WithInput<GetSeriesParams, GetSeriesResult> {
         return GetSeries(
             characterRepository
         )
@@ -54,7 +54,7 @@ class DomainModule {
     @Provides
     fun provideGetFavoritesUseCase(
         favoritesRepository: FavoritesRepository
-    ): UseCase.FromSingle.WithoutInput<List<CharacterEntity>> {
+    ): UseCase.Single.WithoutInput<List<CharacterEntity>> {
         return GetFavorites(
             favoritesRepository
         )
@@ -63,7 +63,7 @@ class DomainModule {
     @Provides
     fun provideUpdateFavoriteUseCase(
         favoritesRepository: FavoritesRepository
-    ): UseCase.FromCompletable.WithInput<CharacterEntity> {
+    ): UseCase.Completable.WithInput<CharacterEntity> {
         return UpdateFavorites(
             favoritesRepository
         )

@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class GetSeries @Inject constructor(
     val repository: CharactersRepository
-) : UseCase.FromSingle.WithInput<GetSeriesParams, GetSeriesResult> {
+) : UseCase.Single.WithInput<GetSeriesParams, GetSeriesResult> {
 
     override fun execute(params: GetSeriesParams): Single<GetSeriesResult> {
         return repository.getSeries(

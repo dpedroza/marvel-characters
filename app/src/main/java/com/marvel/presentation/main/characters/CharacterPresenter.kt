@@ -10,31 +10,27 @@ import com.marvel.domain.UseCase
 import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.schedulers.SchedulerProvider
-import com.marvel.presentation.schedulers.ioComputationSchedulers
 import com.marvel.presentation.schedulers.ioUiSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class CharacterPresenter @Inject constructor(
-    private val updateFavorite: UseCase.FromCompletable.WithInput<CharacterEntity>,
-    private val getCharacters: UseCase.FromSingle.WithInput
-    <GetCharactersParams, GetCharactersResult>,
+    private val updateFavorite: UseCase.Completable.WithInput<CharacterEntity>,
+    private val getCharacters: UseCase.Single.WithInput<GetCharactersParams, GetCharactersResult>,
     private val schedulerProvider: SchedulerProvider
 ) : CharactersContract.Presenter() {
-
     private var loading = false
     private var paginationOffset = 0
     private val mapper = ViewObjectMapper()
 
     override fun isLoading() = loading
+
     override fun resetPagination() {
         paginationOffset = 0
     }
 
     override fun loadCharacters(query: String?) {
-
         view?.showLoading()
-
         getCharacters.execute(getParameters(query))
             .doOnSubscribe { loading = true }
             .doAfterTerminate { loading = false }
@@ -54,7 +50,6 @@ class CharacterPresenter @Inject constructor(
     }
 
     override fun onUpdateFavorite(characterViewObject: CharacterViewObject) {
-
         val isFavorite = characterViewObject.isFavorite.not()
         characterViewObject.isFavorite = isFavorite
         val entity = mapper.toEntity(characterViewObject)
@@ -68,7 +63,7 @@ class CharacterPresenter @Inject constructor(
         }
 
         updateFavorite.execute(entity)
-            .ioComputationSchedulers(schedulerProvider)
+            .ioUiSchedulers(schedulerProvider)
             .subscribe { view?.showToast(messageId, name) }
             .also { addDisposable(it) }
     }

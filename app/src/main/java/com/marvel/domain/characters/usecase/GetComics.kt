@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class GetComics @Inject constructor(
     val repository: CharactersRepository
-) : UseCase.FromSingle.WithInput<GetComicsParams, GetComicsResult> {
+) : UseCase.Single.WithInput<GetComicsParams, GetComicsResult> {
 
     override fun execute(params: GetComicsParams): Single<GetComicsResult> {
         return repository.getComics(
