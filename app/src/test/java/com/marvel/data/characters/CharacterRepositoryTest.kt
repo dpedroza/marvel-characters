@@ -1,29 +1,28 @@
 package com.marvel.data.characters
 
-import com.marvel.data.characters.repository.CharacterRepositoryImpl
-import com.marvel.data.characters.service.MarvelApiService
-import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.data.characters.model.characters.CharacterRemoteObject
 import com.marvel.data.characters.model.characters.GetCharactersApiResponse
 import com.marvel.data.characters.model.common.Comics
+import com.marvel.data.characters.model.common.Data
 import com.marvel.data.characters.model.common.Events
 import com.marvel.data.characters.model.common.Series
 import com.marvel.data.characters.model.common.Stories
 import com.marvel.data.characters.model.common.Thumbnail
-import com.marvel.data.characters.model.common.Data
+import com.marvel.data.characters.repository.CharacterRepositoryImpl
+import com.marvel.data.characters.service.MarvelApiService
+import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.domain.characters.CharactersRepository
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
@@ -48,17 +47,16 @@ class CharacterRepositoryTest {
     @Test
     fun assertGetCharactersSuccessBehavior() {
 
-        val getCharacters =
-            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
+        val getCharacters = service.getCharacters(anyOrNull(), anyInt())
         whenever(getCharacters).thenReturn(Single.just(stubApiResponse))
 
         val getFavoriteIds = dao.getFavoritesIds()
 
         whenever(getFavoriteIds).thenReturn(stubFavorites)
 
-        val result = repository.getCharacters(0, null).blockingGet()
+        val result = repository.getCharacters(null, 0).blockingGet()
 
-        verify(service).getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
+        verify(service).getCharacters(anyOrNull(), anyInt())
         verify(dao).getFavoritesIds()
 
         val expectedCode = 200
@@ -75,28 +73,27 @@ class CharacterRepositoryTest {
     @Test(expected = RuntimeException::class)
     fun assertGetCharactersErrorBehavior() {
 
-        val getCharacters =
-            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
+        val getCharacters = service.getCharacters(anyOrNull(), anyInt())
         whenever(getCharacters).thenReturn(Single.error(Throwable("algo terrível aconteceu")))
 
         val getFavoriteIds = dao.getFavoritesIds()
         whenever(getFavoriteIds).thenReturn(emptyList())
 
-        repository.getCharacters(0, null).blockingGet()
+        repository.getCharacters(null, 0).blockingGet()
     }
 
     @Test
     fun assertLocalFavoriteInfoAndRemoteCharactersFavoriteAttributionBehavior() {
 
         val getCharacters =
-            service.getCharacters(anyString(), anyString(), anyString(), anyInt(), anyOrNull())
+            service.getCharacters(anyOrNull(), anyInt())
         whenever(getCharacters).thenReturn(Single.just(stubApiResponse))
 
         val getFavoriteIds = dao.getFavoritesIds()
 
         whenever(getFavoriteIds).thenReturn(stubFavorites)
 
-        val result = repository.getCharacters(0, null).blockingGet()
+        val result = repository.getCharacters(null, 0).blockingGet()
 
         assertTrue(result.characters[0].isFavorite)
         assertFalse(result.characters[1].isFavorite)

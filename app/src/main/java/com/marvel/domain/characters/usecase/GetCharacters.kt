@@ -14,7 +14,7 @@ class GetCharacters @Inject constructor(
     override fun execute(params: GetCharactersParams): Single<GetCharactersResult> {
         return repository.getCharacters(
             offset = params.offset,
-            nameStartsWith = params.query
+            query = params.query
         )
     }
 }

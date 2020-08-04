@@ -6,8 +6,7 @@ import com.marvel.domain.characters.model.result.GetSeriesResult
 import io.reactivex.Single
 
 interface CharactersRepository {
-
-    fun getCharacters(offset: Int, nameStartsWith: String?): Single<GetCharactersResult>
-    fun getSeries(offset: Int, characterId: Int): Single<GetSeriesResult>
-    fun getComics(offset: Int, characterId: Int): Single<GetComicsResult>
+    fun getCharacters(query: String?, offset: Int): Single<GetCharactersResult>
+    fun getSeries(characterId: Int, offset: Int): Single<GetSeriesResult>
+    fun getComics(characterId: Int, offset: Int): Single<GetComicsResult>
 }

@@ -25,8 +25,7 @@ class GetCharactersTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        getCharacters =
-            GetCharacters(repository)
+        getCharacters = GetCharacters(repository)
     }
 
     @Test
@@ -34,8 +33,8 @@ class GetCharactersTest {
 
         whenever(
             repository.getCharacters(
-                anyOrNull(),
-                anyString()
+                anyString(),
+                anyOrNull()
             )
         ).thenReturn(
             Single.just(
@@ -62,8 +61,8 @@ class GetCharactersTest {
 
         whenever(
             repository.getCharacters(
-                anyOrNull(),
-                anyString()
+                anyString(),
+                anyOrNull()
             )
         ).thenReturn(
             Single.error(

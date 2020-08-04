@@ -1,5 +1,6 @@
 package com.marvel.data.characters.cryptography
 
+import com.marvel.BuildConfig
 import java.security.MessageDigest
 
 object Hash {
@@ -16,5 +17,11 @@ object Hash {
             hexString.append(h)
         }
         return hexString.toString()
+    }
+
+    fun createHash(timestamp: String): String {
+        val publicKey = BuildConfig.MARVEL_PUBLIC_KEY
+        val privateKey = BuildConfig.MARVEL_PRIVATE_KEY
+        return generateMD5(timestamp, publicKey, privateKey)
     }
 }
