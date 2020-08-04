@@ -4,10 +4,14 @@ import com.marvel.BuildConfig
 import com.marvel.data.characters.cryptography.Hash
 import okhttp3.Interceptor
 
-class InterceptorProvider {
-
+class InterceptorFactory {
     companion object {
-        fun provides() = Interceptor {
+
+        private const val API_KEY_QUERY_PARAMETER = "apikey"
+        private const val TIMESTAMP_QUERY_PARAMETER = "ts"
+        private const val HASH_QUERY_PARAMETER = "hash"
+
+        fun create() = Interceptor {
             val timestamp = System.currentTimeMillis().toString()
             val request = it.request()
             val url = request.url()
@@ -21,9 +25,5 @@ class InterceptorProvider {
                 .build()
             it.proceed(newRequest)
         }
-
-        private const val API_KEY_QUERY_PARAMETER = "apikey"
-        private const val TIMESTAMP_QUERY_PARAMETER = "ts"
-        private const val HASH_QUERY_PARAMETER = "hash"
     }
 }

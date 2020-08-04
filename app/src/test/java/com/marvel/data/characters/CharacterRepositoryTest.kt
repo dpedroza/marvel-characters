@@ -9,7 +9,7 @@ import com.marvel.data.characters.model.common.Series
 import com.marvel.data.characters.model.common.Stories
 import com.marvel.data.characters.model.common.Thumbnail
 import com.marvel.data.characters.repository.CharacterRepositoryImpl
-import com.marvel.data.characters.service.MarvelApiService
+import com.marvel.data.characters.service.ApiService
 import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.domain.characters.CharactersRepository
 import com.nhaarman.mockitokotlin2.anyOrNull
@@ -34,7 +34,7 @@ class CharacterRepositoryTest {
     lateinit var dao: FavoriteDao
 
     @Mock
-    lateinit var service: MarvelApiService
+    lateinit var service: ApiService
 
     private lateinit var repository: CharactersRepository
 

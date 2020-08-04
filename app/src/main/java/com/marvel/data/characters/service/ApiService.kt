@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface MarvelApiService {
+interface ApiService {
     @GET("v1/public/characters")
     fun getCharacters(
         @Query("nameStartsWith") nameStartsWith: String?,

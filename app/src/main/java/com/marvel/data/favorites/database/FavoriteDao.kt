@@ -12,10 +12,10 @@ import io.reactivex.Single
 @Dao
 interface FavoriteDao {
 
-    @Query("SELECT * FROM ${CharacterDto.TABLE} ORDER BY name ASC")
+    @Query("SELECT * FROM ${FavoriteDatabase.NAME} ORDER BY name ASC")
     fun getFavorites(): Single<List<CharacterDto>>
 
-    @Query("SELECT id FROM ${CharacterDto.TABLE}")
+    @Query("SELECT id FROM ${FavoriteDatabase.NAME}")
     fun getFavoritesIds(): List<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

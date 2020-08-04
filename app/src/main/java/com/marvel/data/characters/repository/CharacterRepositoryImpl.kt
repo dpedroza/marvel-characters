@@ -1,7 +1,7 @@
 package com.marvel.data.characters.repository
 
 import com.marvel.data.characters.mapper.ResponseMapper
-import com.marvel.data.characters.service.MarvelApiService
+import com.marvel.data.characters.service.ApiService
 import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.domain.characters.CharactersRepository
 import com.marvel.domain.characters.model.result.GetCharactersResult
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
     private val dao: FavoriteDao,
-    private val service: MarvelApiService
+    private val service: ApiService
 ) : CharactersRepository {
     private val mapper = ResponseMapper()
 

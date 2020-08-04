@@ -3,12 +3,11 @@ package com.marvel.data.di.module
 import android.content.Context
 import androidx.room.Room
 import com.marvel.BuildConfig
-import com.marvel.data.characters.interceptor.InterceptorProvider
+import com.marvel.data.characters.interceptor.InterceptorFactory
 import com.marvel.data.characters.repository.CharacterRepositoryImpl
-import com.marvel.data.characters.service.MarvelApiService
+import com.marvel.data.characters.service.ApiService
 import com.marvel.data.favorites.database.FavoriteDao
 import com.marvel.data.favorites.database.FavoriteDatabase
-import com.marvel.data.favorites.model.CharacterDto
 import com.marvel.data.favorites.repository.FavoritesRepositoryImpl
 import com.marvel.domain.characters.CharactersRepository
 import com.marvel.domain.favorites.FavoritesRepository
@@ -28,32 +27,39 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DataModule {
 
     @Provides
-    fun provideMarvelApiService(
+    fun provideApiService(
         client: OkHttpClient,
         converter: GsonConverterFactory,
         adapter: RxJava2CallAdapterFactory
-    ): MarvelApiService {
+    ): ApiService {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.MARVEL_BASE_URL)
             .addConverterFactory(converter)
             .addCallAdapterFactory(adapter)
             .client(client)
             .build()
-            .create(MarvelApiService::class.java)
+            .create(ApiService::class.java)
+    }
+
+    @Provides
+    fun providesDatabase(@ApplicationContext context: Context): FavoriteDatabase {
+        val databaseClass = FavoriteDatabase::class.java
+        val databaseName = FavoriteDatabase.NAME
+        return Room.databaseBuilder(context, databaseClass, databaseName)
+            .allowMainThreadQueries()
+            .build()
     }
 
     @Provides
     fun provideOkHttpClient(
         interceptor: Interceptor
     ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build()
+        return OkHttpClient.Builder().addInterceptor(interceptor).build()
     }
 
     @Provides
     fun providesInterceptor(): Interceptor {
-        return InterceptorProvider.provides()
+        return InterceptorFactory.create()
     }
 
     @Provides
@@ -67,40 +73,17 @@ class DataModule {
     }
 
     @Provides
-    fun provideCharactersRepository(
-        dao: FavoriteDao,
-        service: MarvelApiService
-    ): CharactersRepository {
-        return CharacterRepositoryImpl(
-            dao,
-            service
-        )
+    fun provideCharactersRepository(dao: FavoriteDao, service: ApiService): CharactersRepository {
+        return CharacterRepositoryImpl(dao, service)
     }
 
     @Provides
-    fun provideFavoriteDataAccessObject(
-        database: FavoriteDatabase
-    ): FavoriteDao {
+    fun provideFavoriteDataAccessObject(database: FavoriteDatabase): FavoriteDao {
         return database.favoriteDao()
     }
 
     @Provides
-    fun providesFavoriteDatabase(
-        @ApplicationContext context: Context
-    ): FavoriteDatabase {
-        return Room.databaseBuilder(
-            context,
-            FavoriteDatabase::class.java,
-            CharacterDto.TABLE
-        ).allowMainThreadQueries().build()
-    }
-
-    @Provides
-    fun providesFavoriteRepository(
-        dao: FavoriteDao
-    ): FavoritesRepository {
-        return FavoritesRepositoryImpl(
-            dao
-        )
+    fun providesFavoriteRepository(dao: FavoriteDao): FavoritesRepository {
+        return FavoritesRepositoryImpl(dao)
     }
 }

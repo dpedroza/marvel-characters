@@ -2,7 +2,7 @@ package com.marvel.presentation.main.characters
 
 import com.marvel.R
 import com.marvel.data.characters.error.NetworkError
-import com.marvel.data.characters.error.networkErrorTransformers
+import com.marvel.data.characters.error.NetworkErrorTransformer
 import com.marvel.domain.characters.model.entity.CharacterEntity
 import com.marvel.domain.characters.model.params.GetCharactersParams
 import com.marvel.domain.characters.model.result.GetCharactersResult
@@ -11,6 +11,7 @@ import com.marvel.presentation.mapper.ViewObjectMapper
 import com.marvel.presentation.model.CharacterViewObject
 import com.marvel.presentation.schedulers.SchedulerProvider
 import com.marvel.presentation.schedulers.ioUiSchedulers
+import io.reactivex.Single
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
@@ -87,6 +88,10 @@ class CharacterPresenter @Inject constructor(
 
     override fun onError(it: Throwable) {
         view?.showMessage(getErrorMessage(it))
+    }
+
+    private fun <T> Single<T>.networkErrorTransformers(): Single<T> {
+        return this.compose(NetworkErrorTransformer())
     }
 
     private fun getErrorMessage(error: Throwable) =

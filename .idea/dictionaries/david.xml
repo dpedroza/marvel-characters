@@ -2,6 +2,7 @@
   <dictionary name="david">
     <words>
       <w>apikey</w>
+      <w>gson</w>
     </words>
   </dictionary>
 </component>
