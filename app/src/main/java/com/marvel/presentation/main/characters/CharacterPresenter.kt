@@ -51,13 +51,12 @@ class CharacterPresenter @Inject constructor(
     }
 
     override fun onUpdateFavorite(characterViewObject: CharacterViewObject) {
-        val isFavorite = characterViewObject.isFavorite.not()
-        characterViewObject.isFavorite = isFavorite
+        characterViewObject.updateFavorite()
         val entity = mapper.toEntity(characterViewObject)
         val name = characterViewObject.name
         val favoriteMessage = R.string.favorite_added
         val disfavorMessage = R.string.favorite_removed
-        val messageId = if (isFavorite) {
+        val messageId = if (characterViewObject.isFavorite) {
             favoriteMessage
         } else {
             disfavorMessage
@@ -65,7 +64,7 @@ class CharacterPresenter @Inject constructor(
 
         updateFavorite.execute(entity)
             .ioUiSchedulers(schedulerProvider)
-            .subscribe { view?.showToast(messageId, name) }
+            .subscribeBy { view?.showToast(messageId, name) }
             .also { addDisposable(it) }
     }
 

@@ -66,7 +66,6 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupSearchView() {
-
         searchView.setOnQueryTextListener(object : DelayedOnQueryTextListener() {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -108,7 +107,7 @@ class CharacterFragment : Fragment(), CharactersContract.View {
     }
 
     private fun setupSwipeRefreshLayout() {
-        val color = requireContext().let { ContextCompat.getColor(it, R.color.colorPrimary) }
+        val color = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
         swipeRefreshLayout.setColorSchemeColors(color)
         swipeRefreshLayout.setOnRefreshListener {
             adapter.clear()
